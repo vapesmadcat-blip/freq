@@ -1,5 +1,38 @@
 package com.frequencias.formas;
 
+import android.app.Activity;               // ← ESSENCIAL
+import android.annotation.SuppressLint;
+import android.os.Bundle;
+import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+public class MainActivity extends Activity {
+
+    private WebView webView;
+
+    @SuppressLint("SetJavaScriptEnabled")
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        webView = new WebView(this);
+        webView.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        setContentView(webView);
+
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setDomStorageEnabled(true);
+        settings.setMediaPlaybackRequiresUserGesture(false); // áudio automático
+        settings.setAllowFileAccess(true);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+
+        webView.setWebViewClient(new WebViewClient());package com.frequencias.formas;
+
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
@@ -34,7 +67,11 @@ public class MainActivity extends AppCompatActivity { // ou extends Activity
 
         // Carrega o HTML – ajuste o caminho conforme sua estrutura
         webView.loadUrl("file:///android_asset/www/index.html");
-        // ou, se preferir: webView.loadUrl("file:///android_asset/index.html");
+
+        webView.setWebChromeClient(new WebChromeClient());
+
+        // ATENÇÃO: verifique se o arquivo existe em app/src/main/assets/www/index.html
+        webView.loadUrl("file:///android_asset/www/index.html");
     }
 
     @Override
