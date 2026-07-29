@@ -1,10 +1,15 @@
 package com.frequencias.formas;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import android.app.Activity;               // ← ESSENCIAL
 import android.annotation.SuppressLint;
 =======
 >>>>>>> 0f2b1aa (fix)
+=======
+import android.app.Activity;               // ← ESSENCIAL
+import android.annotation.SuppressLint;
+>>>>>>> 4e5ba2c (fix)
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
@@ -14,13 +19,18 @@ import android.webkit.WebViewClient;
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 import androidx.appcompat.app.AppCompatActivity;
 >>>>>>> 0f2b1aa (fix)
 
 public class MainActivity extends AppCompatActivity {
+=======
+public class MainActivity extends Activity {
+>>>>>>> 4e5ba2c (fix)
 
     private WebView webView;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +45,15 @@ public class MainActivity extends AppCompatActivity {
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
 <<<<<<< HEAD
+<<<<<<< HEAD
         settings.setMediaPlaybackRequiresUserGesture(false); // áudio automático
 =======
         settings.setMediaPlaybackRequiresUserGesture(false);
 >>>>>>> 0f2b1aa (fix)
+=======
+        settings.setMediaPlaybackRequiresUserGesture(false); // áudio automático
+>>>>>>> 4e5ba2c (fix)
         settings.setAllowFileAccess(true);
-        settings.setAllowContentAccess(true);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
 
         webView.setWebViewClient(new WebViewClient());package com.frequencias.formas;
@@ -83,10 +96,14 @@ public class MainActivity extends AppCompatActivity { // ou extends Activity
         webView.setWebChromeClient(new WebChromeClient());
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // ATENÇÃO: verifique se o arquivo existe em app/src/main/assets/www/index.html
 =======
         // Seu HTML está em app/src/main/assets/www/index.html
 >>>>>>> 0f2b1aa (fix)
+=======
+        // ATENÇÃO: verifique se o arquivo existe em app/src/main/assets/www/index.html
+>>>>>>> 4e5ba2c (fix)
         webView.loadUrl("file:///android_asset/www/index.html");
     }
 
