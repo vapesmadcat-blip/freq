@@ -1,0 +1,3297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎵 42 SHOTS FUNCIONAIS + EMOÇÕES + OPOSIÇÃO BIPOLAR</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, Arial, sans-serif;
+        }
+        body {
+            background: #0a0a1a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 25px;
+            padding: 20px;
+            max-width: 1440px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(4px);
+        }
+        h1 {
+            color: #fff;
+            text-align: center;
+            font-size: 22px;
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+        h1 span {
+            color: #6C63FF;
+        }
+        h1 .emoji {
+            font-size: 28px;
+        }
+        .sub {
+            color: #666;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.8fr;
+            gap: 18px;
+        }
+        @media (max-width: 920px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .panel {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .panel-title {
+            color: #888;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .preset-selector {
+            margin-bottom: 16px;
+        }
+        .preset-selector select {
+            width: 100%;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #eee;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            outline: none;
+            transition: 0.2s;
+        }
+        .preset-selector select:hover {
+            border-color: #6C63FF;
+        }
+        .preset-selector select:focus {
+            border-color: #6C63FF;
+            box-shadow: 0 0 15px rgba(108, 99, 255, 0.2);
+        }
+        .preset-selector select option {
+            background: #1a1a2e;
+            color: #ddd;
+        }
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+        .emoji-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: #aaa;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 6px 2px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 18px;
+            transition: all 0.25s;
+        }
+        .emoji-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.05);
+        }
+        .emoji-btn.active {
+            background: #6C63FF;
+            border-color: #6C63FF;
+            box-shadow: 0 0 20px rgba(108, 99, 255, 0.25);
+        }
+        .emoji-btn .label {
+            display: block;
+            font-size: 8px;
+            color: #888;
+            margin-top: 2px;
+        }
+        .emoji-btn.active .label {
+            color: #fff;
+        }
+        .freq-list {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+        }
+        .freq-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: #aaa;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 4px 2px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 9px;
+            transition: all 0.25s;
+            font-weight: 500;
+        }
+        .freq-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.02);
+        }
+        .freq-btn.selected {
+            background: #6C63FF;
+            color: #fff;
+            border-color: #6C63FF;
+            box-shadow: 0 0 20px rgba(108, 99, 255, 0.25);
+        }
+        .display-freq {
+            color: #6C63FF;
+            font-size: 34px;
+            font-weight: 700;
+            text-align: center;
+            margin: 6px 0 2px;
+            letter-spacing: 1px;
+        }
+        .display-desc {
+            color: #999;
+            text-align: center;
+            font-size: 11px;
+            white-space: pre-line;
+            line-height: 1.5;
+            min-height: 36px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 6px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .shape-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        .shape-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: #bbb;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 8px 2px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 10px;
+            transition: all 0.25s;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+        .shape-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+        .shape-btn.active {
+            background: #6C63FF;
+            color: #fff;
+            border-color: #6C63FF;
+            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
+        }
+        .shape-btn .icon {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        .control-group {
+            margin: 6px 0;
+        }
+        .control-group label {
+            color: #aaa;
+            font-size: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .control-group label .val {
+            color: #6C63FF;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        input[type="range"] {
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(255, 255, 255, 0.12);
+            -webkit-appearance: none;
+            margin-top: 4px;
+            transition: background 0.2s;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #6C63FF;
+            cursor: pointer;
+            box-shadow: 0 0 12px rgba(108, 99, 255, 0.3);
+            transition: 0.15s;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #6C63FF;
+            cursor: pointer;
+            border: none;
+        }
+        select {
+            width: 100%;
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            outline: none;
+            transition: border 0.2s;
+        }
+        select:focus {
+            border-color: #6C63FF;
+        }
+        select option {
+            background: #1a1a2e;
+            color: #ddd;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 4px 0;
+            color: #ccc;
+            font-size: 12px;
+            padding: 2px 0;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 15px;
+            height: 15px;
+            accent-color: #6C63FF;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .checkbox-group label {
+            cursor: pointer;
+            user-select: none;
+        }
+        .checkbox-group label .badge {
+            color: #666;
+            font-size: 10px;
+            margin-left: 4px;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+        button {
+            flex: 1;
+            padding: 11px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            letter-spacing: 0.5px;
+        }
+        .btn-play {
+            background: #6C63FF;
+            color: #fff;
+        }
+        .btn-play:hover:not(:disabled) {
+            background: #5a52d9;
+            transform: scale(1.02);
+        }
+        .btn-stop {
+            background: #e74c3c;
+            color: #fff;
+        }
+        .btn-stop:hover:not(:disabled) {
+            background: #c0392b;
+            transform: scale(1.02);
+        }
+        .btn-oposto {
+            background: #f472b6;
+            color: #fff;
+        }
+        .btn-oposto:hover:not(:disabled) {
+            background: #ec4899;
+            transform: scale(1.02);
+        }
+        button:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        .status {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 13px;
+            padding: 6px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.3s;
+            color: #666;
+        }
+        .status.playing {
+            color: #6C63FF;
+            background: rgba(108, 99, 255, 0.08);
+        }
+        .sep {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin: 10px 0;
+        }
+        .efeitos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3px;
+            margin: 4px 0;
+        }
+        .visual-panel {
+            background: #000;
+            border-radius: 16px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        canvas {
+            width: 100%;
+            aspect-ratio: 1/1;
+            border-radius: 12px;
+            background: #0a0a1a;
+            display: block;
+        }
+        .visual-info {
+            color: #666;
+            font-size: 10px;
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        .visual-info span {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .color-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            vertical-align: middle;
+            margin-right: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .melodia-ativa {
+            border: 1px solid #6C63FF;
+            background: rgba(108, 99, 255, 0.12);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 11px;
+            color: #6C63FF;
+            display: inline-block;
+        }
+        .row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .row .control-group {
+            flex: 1;
+        }
+        .info-ms {
+            color: #6C63FF;
+            font-weight: 700;
+        }
+        .shot-badge {
+            display: inline-block;
+            background: rgba(108, 99, 255, 0.15);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            color: #6C63FF;
+            margin-left: 4px;
+        }
+        .emotion-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            margin-left: 4px;
+        }
+        .emotion-badge.deprimido {
+            background: rgba(79, 70, 229, 0.2);
+            color: #818cf8;
+        }
+        .emotion-badge.ansioso {
+            background: rgba(236, 72, 153, 0.2);
+            color: #f472b6;
+        }
+        .emotion-badge.irritado {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+        .emotion-badge.cansado {
+            background: rgba(251, 146, 60, 0.2);
+            color: #fb923c;
+        }
+        .emotion-badge.confuso {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+        .emotion-badge.calmo {
+            background: rgba(52, 211, 153, 0.2);
+            color: #34d399;
+        }
+        .emotion-badge.feliz {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+        .oposto-btn {
+            background: rgba(244, 114, 182, 0.15);
+            color: #f472b6;
+            border: 1px solid rgba(244, 114, 182, 0.2);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 9px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .oposto-btn:hover {
+            background: rgba(244, 114, 182, 0.3);
+        }
+        @media (max-width: 500px) {
+            .freq-list {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .shape-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .buttons {
+                flex-direction: column;
+            }
+            .visual-info span {
+                font-size: 8px;
+                padding: 2px 8px;
+            }
+            h1 {
+                font-size: 18px;
+            }
+            .container {
+                padding: 12px;
+            }
+            .emoji-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="emoji">🧠</span> <span>42 SHOTS FUNCIONAIS</span> + EMOÇÕES + OPOSIÇÃO</h1>
+        <div class="sub">Selecione seu estado emocional ou escolha um shot diretamente</div>
+
+        <div class="main-grid">
+            <!-- PAINEL ESQUERDO -->
+            <div class="panel">
+                <!-- EMOÇÕES -->
+                <div class="panel-title">😊 SELECIONE SUA EMOÇÃO</div>
+                <div class="emoji-grid" id="emojiGrid">
+                    <div class="emoji-btn" data-emotion="deprimido">
+                        😢<span class="label">Deprimido</span>
+                    </div>
+                    <div class="emoji-btn" data-emotion="ansioso">
+                        😰<span class="label">Ansioso</span>
+                    </div>
+                    <div class="emoji-btn" data-emotion="irritado">
+                        😡<span class="label">Irritado</span>
+                    </div>
+                    <div class="emoji-btn" data-emotion="cansado">
+                        😴<span class="label">Cansado</span>
+                    </div>
+                    <div class="emoji-btn" data-emotion="confuso">
+                        😶‍🌫️<span class="label">Confuso</span>
+                    </div>
+                    <div class="emoji-btn" data-emotion="calmo">
+                        😌<span class="label">Calmo</span>
+                    </div>
+                    <div class="emoji-btn" data-emotion="feliz">
+                        😊<span class="label">Feliz</span>
+                    </div>
+                </div>
+
+                <!-- PRESETS -->
+                <!-- BOTÃO PARA ABRIR O MAPA EMOCIONAL -->
+<div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; justify-content: center;">
+    <a href="shots_emocionais.html" target="_blank" style="
+        background: #6C63FF;
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 0 30px rgba(108, 99, 255, 0.2);
+    ">
+        🧠 MAPA EMOCIONAL
+    </a>
+    <a href="shots_emocionais.html" target="_blank" style="
+        background: rgba(255,255,255,0.06);
+        color: #aaa;
+        padding: 12px 18px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 13px;
+        transition: 0.3s;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid rgba(255,255,255,0.08);
+    ">
+        🔗 Nova aba
+    </a>
+</div>
+                <div class="panel-title">⚡ PRESETS (SHOTS)</div>
+                <div class="preset-selector">
+                    <select id="presetSelect">
+                        <option value="meditacao">🌿 Meditação Profunda</option>
+                        <option value="pineal" selected>🔮 Ativação Pineal</option>
+                        <option value="avemaria">🎵 Ave Maria</option>
+                        <option value="energia">⚡ Energia & Foco</option>
+                        <option value="relaxamento">🌊 Relaxamento</option>
+                        <option value="libido">❤️ Libido Vital</option>
+                        <option value="foco">🧠 Foco Absoluto</option>
+                        <option value="flor">🌸 Flor de Volta</option>
+                        <option value="emagrecimento">🍃 Emagrecimento</option>
+                        <option value="pretreino">🔥 Pré-Treino</option>
+                        <option value="sono">🌙 SOS Noite Doce</option>
+                        <option value="vitalidade">💪 Vitalidade Masculina</option>
+                        <option value="flordalua">🌸 Flor da Lua</option>
+                        <option value="rituais">🧘 Spray Rituais</option>
+                        <option value="personalizado">✨ Personalizado (atual)</option>
+                    </select>
+                </div>
+
+                <!-- Formas -->
+                <div class="panel-title">🎨 ESCOLHA A FORMA</div>
+                <div class="shape-grid" id="shapeGrid">
+                    <div class="shape-btn active" data-shape="circle"><span class="icon">●</span>Círculo</div>
+                    <div class="shape-btn" data-shape="square"><span class="icon">■</span>Quadrado</div>
+                    <div class="shape-btn" data-shape="triangle"><span class="icon">▲</span>Triângulo</div>
+                    <div class="shape-btn" data-shape="hexagon"><span class="icon">⬡</span>Hexágono</div>
+                    <div class="shape-btn" data-shape="star"><span class="icon">★</span>Estrela</div>
+                    <div class="shape-btn" data-shape="cross"><span class="icon">✚</span>Cruz</div>
+                    <div class="shape-btn" data-shape="spiral"><span class="icon">🌀</span>Espiral</div>
+                    <div class="shape-btn" data-shape="flower"><span class="icon">✿</span>Flor</div>
+                    <div class="shape-btn" data-shape="heart"><span class="icon">♥</span>Coração</div>
+                    <div class="shape-btn" data-shape="moon"><span class="icon">☾</span>Lua</div>
+                    <div class="shape-btn" data-shape="diamond"><span class="icon">◆</span>Losango</div>
+                    <div class="shape-btn" data-shape="ring"><span class="icon">◎</span>Anel</div>
+                </div>
+
+                <!-- Controles manuais de animação -->
+                <div class="panel-title">🎛️ ANIMAÇÃO DA FORMA</div>
+                <div class="control-group">
+                    <label>Giro <span class="val" id="rotationVal">0.8</span></label>
+                    <input type="range" id="rotationSpeed" min="0" max="3" step="0.1" value="0.8" />
+                </div>
+                <div class="control-group">
+                    <label>Pulsação <span class="val" id="pulseAmountVal">0.6</span></label>
+                    <input type="range" id="pulseAmount" min="0" max="1.5" step="0.05" value="0.6" />
+                </div>
+                <div class="control-group">
+                    <label>Tamanho <span class="val" id="sizeVal">1.0</span></label>
+                    <input type="range" id="sizeScale" min="0.3" max="1.5" step="0.05" value="1.0" />
+                </div>
+                <div class="control-group">
+                    <label>Brilho <span class="val" id="glowVal">0.5</span></label>
+                    <input type="range" id="glowIntensity" min="0" max="1" step="0.05" value="0.5" />
+                </div>
+
+                <div class="sep"></div>
+
+                <!-- Frequências -->
+                <div class="panel-title">🎵 FREQUÊNCIAS CURATIVAS</div>
+                <div class="freq-list" id="freqList"></div>
+                <div class="display-freq" id="currentFreq">432 Hz</div>
+                <div class="display-desc" id="freqDesc">Relaxamento profundo<br />Harmonia com a natureza</div>
+
+                <div class="sep"></div>
+
+                <div class="panel-title">🎼 MODO MELODIA</div>
+                <div class="control-group">
+                    <select id="melodyMode">
+                        <option value="drone">🔵 Drone (Tom Contínuo)</option>
+                        <option value="arpeggio">🔶 Arpejo (Escala)</option>
+                        <option value="avemaria" selected>🎵 Ave Maria (Melodia)</option>
+                    </select>
+                </div>
+                <div style="margin: 4px 0 8px; font-size: 12px; color: #888;" id="melodyInfo">
+                    <span class="melodia-ativa">🎵 Tocando sequência da Ave Maria</span>
+                </div>
+
+                <div class="sep"></div>
+
+                <div class="panel-title">🔊 OSCILAÇÃO DE VOLUME (RESPIRAÇÃO)</div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enableVolumeOsc" checked />
+                    <label for="enableVolumeOsc"><strong>Ativar oscilação</strong></label>
+                </div>
+                <div class="control-group" id="volOscGroup">
+                    <label>Profundidade <span class="val" id="volOscValue">80%</span></label>
+                    <input type="range" id="volOscProf" min="0" max="100" value="80" step="1" />
+                </div>
+                <div class="control-group">
+                    <label>
+                        <span>Período (ms)</span>
+                        <span class="val" id="periodoValue">1000 ms</span>
+                    </label>
+                    <input type="range" id="periodoSlider" min="100" max="10000" value="1000" step="50" />
+                </div>
+                <div style="font-size: 10px; color: #555; margin: -2px 0 6px; display: flex; gap: 12px; flex-wrap: wrap;">
+                    <span>⏱️ 100ms (rápido)</span>
+                    <span>⏱️ 10000ms (respiração profunda)</span>
+                </div>
+
+                <div class="sep"></div>
+
+                <div class="panel-title">🎛️ CONTROLES DE ÁUDIO</div>
+
+                <div class="control-group">
+                    <label>Volume Base <span class="val" id="volValue">50%</span></label>
+                    <input type="range" id="volume" min="0" max="100" value="50" />
+                </div>
+
+                <div class="row">
+                    <div class="control-group" style="flex:1;">
+                        <label>Forma de onda <span class="val" id="waveformLabel">sine</span></label>
+                        <select id="waveformSelect">
+                            <option value="sine">🔵 Senoidal</option>
+                            <option value="square">🟨 Quadrada</option>
+                            <option value="sawtooth">🟧 Dente de serra</option>
+                            <option value="triangle">🟩 Triangular</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enablePulse" />
+                    <label for="enablePulse">🔊 Pulsar (Tremolo) <span class="badge">extra</span></label>
+                </div>
+                <div class="control-group" id="pulseGroup" style="opacity:0.4;">
+                    <label>Velocidade <span class="val" id="pulseSpeedValue">2.0 Hz</span></label>
+                    <input type="range" id="pulseSpeed" min="0.5" max="5" step="0.1" value="2.0" />
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enableOscilacao" checked />
+                    <label for="enableOscilacao">🎵 Vibrato (Coral)</label>
+                </div>
+                <div class="control-group" id="oscilacaoGroup">
+                    <label>Profundidade <span class="val" id="oscilacaoValue">3 Hz</span></label>
+                    <input type="range" id="oscilacaoProf" min="0.5" max="8" value="3" step="0.5" />
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enableDual" />
+                    <label for="enableDual">🎵 Segunda Voz (Harmonia)</label>
+                </div>
+                <div class="control-group" id="dualGroup" style="opacity:0.4;">
+                    <label>Intervalo <span class="val" id="dualFreqValue">3ª maior</span></label>
+                    <input type="range" id="dualFreq" min="0" max="12" value="4" step="1" />
+                </div>
+
+                <div class="sep"></div>
+
+                <div class="panel-title">✨ EFEITOS VISUAIS</div>
+                <div class="efeitos-grid" id="efeitosGrid">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="efOnda" checked />
+                        <label for="efOnda">🌊 Onda</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="efMandala" checked />
+                        <label for="efMandala">🌀 Mandala</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="ef3D" checked />
+                        <label for="ef3D">🎲 3D</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="efVolume" checked />
+                        <label for="efVolume">📊 Reage ao Volume</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="efBinaural" checked />
+                        <label for="efBinaural">🔮 Binaural</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="efParticulas" checked />
+                        <label for="efParticulas">💫 Partículas</label>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-play" id="btnPlay">▶ TOCAR</button>
+                    <button class="btn-stop" id="btnStop" disabled>⬛ PARAR</button>
+                    <button class="btn-oposto" id="btnOposto">🔄 OPOSTO</button>
+                </div>
+                <div class="status stopped" id="status">⏹️ Parado</div>
+            </div>
+
+            <!-- PAINEL DIREITO: VISUALIZAÇÃO -->
+            <div class="visual-panel">
+                <canvas id="canvas" width="800" height="800"></canvas>
+                <div class="visual-info">
+                    <span id="shapeName">🔷 Círculo</span>
+                    <span id="colorInfo"><span class="color-dot" style="background:#6C63FF;"></span> #6C63FF</span>
+                    <span id="freqInfo">432 Hz</span>
+                    <span id="volInfo">🔊 50%</span>
+                    <span id="oscilaInfo">⏱️ Período: 1000ms</span>
+                    <span id="notaInfo">🎵 C4</span>
+                    <span id="shotInfo">🌿 Meditação</span>
+                    <span id="emotionInfo" class="emotion-badge calmo">😌 Calmo</span>
+                    <span id="opostoInfo" style="font-size:9px;color:#666;">Oposto: <span id="opostoName">⚡ Energia</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  LISTA COMPLETA DE FREQUÊNCIAS (29)
+        // ============================================================
+        const FREQUENCIAS = {
+            174: "Alívio da dor física\nSegurança\nRelaxamento muscular",
+            285: "Regeneração de tecidos\nCura\nRenovação celular",
+            396: "Libertação de medo\nDissolução de bloqueios",
+            417: "Desfaz padrões negativos\nMudanças\nCriatividade",
+            528: "Transformação\nPaz\nReparo do DNA (Frequência do Amor)",
+            639: "Relacionamentos\nCompaixão\nEquilíbrio emocional",
+            741: "Clareza\nExpressão criativa\nSolução de problemas",
+            852: "Intuição\nConsciência espiritual\nOrdem interior",
+            963: "Conexão espiritual\nConsciência pura\nAtivação da pineal",
+            432: "Relaxamento profundo\nRedução de ansiedade\nHarmonia com a natureza",
+            440: "Foco\nConcentração\nEquilíbrio (padrão ocidental)",
+            444: "Cura avançada\nFundação espiritual\nPresença divina",
+            111: "Manifestação\nConexão espiritual\nDespertar da intuição",
+            222: "Equilíbrio\nHarmonia\nPaz interior",
+            333: "Proteção espiritual\nElevação da consciência",
+            384: "Libertação de padrões\nRenovação mental",
+            480: "Consciência elevada\nConexão cósmica",
+            555: "Mudanças positivas\nReinvenção\nLibertação",
+            594: "Harmonia emocional\nRelaxamento profundo",
+            666: "Equilíbrio material e espiritual\nFoco no presente",
+            720: "Expansão da consciência\nConexão universal",
+            777: "Intuição elevada\nSorte espiritual\nSabedoria interior",
+            798: "Ativação da pineal\nPaz profunda\nSono reparador",
+            888: "Abundância\nFluxo de prosperidade\nRealização",
+            936: "Compaixão universal\nElevação espiritual",
+            999: "Expansão da consciência\nDespertar espiritual\nCompaixão",
+            1000: "Conexão divina\nIluminação\nTranscendência",
+            137.1: "Relaxamento muscular profundo\nAlívio de tensões (Freq. de Otto)",
+            256: "Equilíbrio energético\nEnraizamento (Ressonância Schumann)",
+            330: "Expansão da criatividade\nDesbloqueio de traumas",
+            420: "Conexão com a natureza\nRelaxamento mental"
+        };
+
+        const NOTAS = [1, 9 / 8, 5 / 4, 4 / 3, 3 / 2, 5 / 3, 15 / 8, 2];
+        const NOMES_NOTAS = ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C'];
+        const NOMES_INTERVALOS = [
+            'Tônica', '2ª menor', '2ª maior', '3ª menor', '3ª maior',
+            '4ª justa', '5ª justa', '6ª menor', '6ª maior', '7ª menor',
+            '7ª maior', '8ª justa'
+        ];
+        const MELODIA_AVE_MARIA = [0, 2, 4, 7, 4, 2, 1, 4, 7, 5, 4, 2, 0];
+
+        // ============================================================
+        //  SHOTS COMPLETOS (42) + EMOÇÕES + OPOSTOS
+        // ============================================================
+        const SHOTS = {
+            // ========== SOS / EMERGENCIAL ==========
+            'sos-ansiedade': {
+                label: '🌿 SOS Ansiedade',
+                shot: 'SOS Ansiedade',
+                freq: 174,
+                shape: 'moon',
+                color1: '#4f46e5',
+                color2: '#818cf8',
+                bgColor: '#0a0a1a',
+                volume: 40,
+                periodo: 4000,
+                volOscProf: 70,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Kava-Kava + Lobélia + Valeriana + 5-HTP',
+                oposto: 'acorde-viva',
+                emocoes: ['deprimido', 'ansioso']
+            },
+            'sos-antiestresse': {
+                label: '🌿 SOS Antiestresse Agudo',
+                shot: 'SOS Antiestresse Agudo',
+                freq: 396,
+                shape: 'circle',
+                color1: '#7c3aed',
+                color2: '#a78bfa',
+                bgColor: '#0a0a1a',
+                volume: 45,
+                periodo: 3500,
+                volOscProf: 75,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Ashwagandha + Rhodiola + L-teanina + Lavanda',
+                oposto: 'clarity-boost',
+                emocoes: ['ansioso', 'estressado']
+            },
+            'anticortisol': {
+                label: '🌿 Shot Anticortisol Emergencial',
+                shot: 'Anticortisol Emergencial',
+                freq: 417,
+                shape: 'circle',
+                color1: '#8b5cf6',
+                color2: '#c4b5fd',
+                bgColor: '#0a0a1a',
+                volume: 50,
+                periodo: 3000,
+                volOscProf: 70,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Ashwagandha + Rhodiola + Ginseng + L-teanina',
+                oposto: 'estimulo-cognitivo',
+                emocoes: ['estressado', 'irritado']
+            },
+            'crise-emocional': {
+                label: '🌿 Spray de Crise Emocional',
+                shot: 'Spray de Crise Emocional',
+                freq: 432,
+                shape: 'circle',
+                color1: '#6C63FF',
+                color2: '#a5b4fc',
+                bgColor: '#0a0a1a',
+                volume: 45,
+                periodo: 4000,
+                volOscProf: 80,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Lobélia + Passiflora + Lavanda + L-teanina',
+                oposto: 'acorde-viva',
+                emocoes: ['ansioso', 'deprimido']
+            },
+            'pos-corte-estresse': {
+                label: '❤️ Pós-Corte de Estresse',
+                shot: 'Pós-Corte de Estresse',
+                freq: 528,
+                shape: 'heart',
+                color1: '#ec4899',
+                color2: '#f9a8d4',
+                bgColor: '#1a0a1a',
+                volume: 40,
+                periodo: 4500,
+                volOscProf: 75,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: false,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Ashwagandha + Curcumina + CoQ10 + Magnésio + GABA',
+                oposto: 'vitalidade-masculina',
+                emocoes: ['estressado', 'deprimido', 'cansado']
+            },
+
+            // ========== ESTIMULANTE / ENERGIA ==========
+            'acorde-viva': {
+                label: '⚡ Shot Acorde e Viva',
+                shot: 'Shot Acorde e Viva',
+                freq: 440,
+                shape: 'hexagon',
+                color1: '#f59e0b',
+                color2: '#fbbf24',
+                bgColor: '#0a0a1a',
+                volume: 60,
+                periodo: 800,
+                volOscProf: 40,
+                melodyMode: 'arpeggio',
+                waveform: 'sawtooth',
+                enablePulse: true,
+                pulseSpeed: 3.0,
+                enableOscilacao: true,
+                oscilacaoProf: 1,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: false,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: false,
+                terapia: 'Guarana + Catuaba + Marapuama + Ginseng',
+                oposto: 'sono-reparador',
+                emocoes: ['cansado', 'deprimido']
+            },
+            'clarity-boost': {
+                label: '⚡ Shot Clarity Boost',
+                shot: 'Clarity Boost',
+                freq: 741,
+                shape: 'star',
+                color1: '#06b6d4',
+                color2: '#67e8f9',
+                bgColor: '#0a0a1a',
+                volume: 55,
+                periodo: 1000,
+                volOscProf: 35,
+                melodyMode: 'arpeggio',
+                waveform: 'triangle',
+                enablePulse: true,
+                pulseSpeed: 2.5,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: false,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: false,
+                terapia: 'Rhodiola + Guaraná + L-teanina + Bacopa',
+                oposto: 'tpm-balance',
+                emocoes: ['confuso', 'deprimido']
+            },
+            'substitutivo-cafeina': {
+                label: '⚡ Shot Substitutivo da Cafeína',
+                shot: 'Substitutivo da Cafeína',
+                freq: 285,
+                shape: 'diamond',
+                color1: '#f97316',
+                color2: '#fb923c',
+                bgColor: '#0a0a1a',
+                volume: 55,
+                periodo: 700,
+                volOscProf: 30,
+                melodyMode: 'arpeggio',
+                waveform: 'sawtooth',
+                enablePulse: true,
+                pulseSpeed: 3.5,
+                enableOscilacao: true,
+                oscilacaoProf: 1,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: false,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: false,
+                terapia: 'Guaraná + L-teanina + Rhodiola + Ginseng siberiano',
+                oposto: 'relaxamento-noturno',
+                emocoes: ['cansado', 'confuso']
+            },
+            'estimulo-cognitivo': {
+                label: '⚡ Shot Estímulo Cognitivo',
+                shot: 'Estímulo Cognitivo',
+                freq: 852,
+                shape: 'star',
+                color1: '#3b82f6',
+                color2: '#93c5fd',
+                bgColor: '#0a0a1a',
+                volume: 55,
+                periodo: 900,
+                volOscProf: 30,
+                melodyMode: 'arpeggio',
+                waveform: 'triangle',
+                enablePulse: true,
+                pulseSpeed: 2.8,
+                enableOscilacao: true,
+                oscilacaoProf: 1.5,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: false,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: false,
+                terapia: 'Cafeína + L-teanina + Ginkgo + Bacopa',
+                oposto: 'sos-noite-doce',
+                emocoes: ['confuso', 'cansado']
+            },
+            'testobalance': {
+                label: '💪 Shot TestoBalance',
+                shot: 'TestoBalance',
+                freq: 256,
+                shape: 'cross',
+                color1: '#ef4444',
+                color2: '#fca5a5',
+                bgColor: '#0a0a1a',
+                volume: 50,
+                periodo: 1200,
+                volOscProf: 40,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Maca + Tribulus + Ginseng + Zinco + B6',
+                oposto: 'flor-da-lua',
+                emocoes: ['irritado', 'deprimido']
+            },
+
+            // ========== COGNITIVOS ==========
+            'foco-absoluto': {
+                label: '🧠 Shot Foco Absoluto',
+                shot: 'Foco Absoluto',
+                freq: 852,
+                shape: 'hexagon',
+                color1: '#3b82f6',
+                color2: '#60a5fa',
+                bgColor: '#0a0a1a',
+                volume: 55,
+                periodo: 1000,
+                volOscProf: 30,
+                melodyMode: 'arpeggio',
+                waveform: 'triangle',
+                enablePulse: true,
+                pulseSpeed: 2.5,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: false,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: false,
+                terapia: 'L-teanina + Cafeína + Bacopa + Rhodiola',
+                oposto: 'goma-sensorial-noturna',
+                emocoes: ['confuso', 'ansioso']
+            },
+            'foco-memoria': {
+                label: '🧠 Shot Foco & Memória',
+                shot: 'Foco & Memória',
+                freq: 741,
+                shape: 'star',
+                color1: '#06b6d4',
+                color2: '#22d3ee',
+                bgColor: '#0a0a1a',
+                volume: 50,
+                periodo: 1100,
+                volOscProf: 30,
+                melodyMode: 'arpeggio',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: false,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Bacopa + Ginkgo + Rhodiola + Cafeína',
+                oposto: 'spray-rituais',
+                emocoes: ['confuso', 'cansado']
+            },
+            'neurodivergente': {
+                label: '🧠 Shot Neurodivergente AM',
+                shot: 'Neurodivergente AM',
+                freq: 963,
+                shape: 'spiral',
+                color1: '#8b5cf6',
+                color2: '#a78bfa',
+                bgColor: '#0a0a1a',
+                volume: 50,
+                periodo: 3000,
+                volOscProf: 80,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: true,
+                pulseSpeed: 1.5,
+                enableOscilacao: true,
+                oscilacaoProf: 5,
+                enableDual: true,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: true,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: true,
+                efParticulas: true,
+                terapia: 'L-teanina + Rhodiola + Ginseng + Bacopa',
+                oposto: 'goma-sensorial-noturna',
+                emocoes: ['confuso', 'ansioso']
+            },
+
+            // ========== CALMANTES / NOTURNOS ==========
+            'relaxamento-noturno': {
+                label: '🌙 Shot Relaxamento Noturno',
+                shot: 'Relaxamento Noturno',
+                freq: 528,
+                shape: 'heart',
+                color1: '#ec4899',
+                color2: '#f9a8d4',
+                bgColor: '#1a0a1a',
+                volume: 35,
+                periodo: 5000,
+                volOscProf: 85,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 1,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Melatonina + L-triptofano + Magnésio + Passiflora',
+                oposto: 'pre-treino',
+                emocoes: ['ansioso', 'cansado']
+            },
+            'sono-reparador': {
+                label: '🌙 Shot Sono Reparador',
+                shot: 'Sono Reparador',
+                freq: 798,
+                shape: 'moon',
+                color1: '#6366f1',
+                color2: '#a5b4fc',
+                bgColor: '#0a0a1a',
+                volume: 35,
+                periodo: 6000,
+                volOscProf: 90,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 1,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Melatonina + Magnésio + Valeriana + 5-HTP',
+                oposto: 'acorde-viva',
+                emocoes: ['cansado', 'ansioso']
+            },
+            'floral-sensorial': {
+                label: '🌙 Shot Floral Sensorial Noturno',
+                shot: 'Floral Sensorial Noturno',
+                freq: 639,
+                shape: 'flower',
+                color1: '#f472b6',
+                color2: '#f9a8d4',
+                bgColor: '#1a0a1a',
+                volume: 40,
+                periodo: 4000,
+                volOscProf: 70,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Flor Azul + Melissa + Ginseng + Passiflora',
+                oposto: 'clarity-boost',
+                emocoes: ['calmo', 'deprimido']
+            },
+
+            // ========== SENSORIAL ==========
+            'sensorial-vapor': {
+                label: '🍃 Sensorial Vaporizável (Kanna)',
+                shot: 'Sensorial Vaporizável',
+                freq: 420,
+                shape: 'spiral',
+                color1: '#8b5cf6',
+                color2: '#a78bfa',
+                bgColor: '#0a0a1a',
+                volume: 45,
+                periodo: 2500,
+                volOscProf: 60,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Kanna + Gengibre + Citral',
+                oposto: 'goma-tpm',
+                emocoes: ['calmo', 'feliz']
+            },
+            'sensorial-azul': {
+                label: '🍃 Shot Sensorial Azul',
+                shot: 'Shot Sensorial Azul',
+                freq: 432,
+                shape: 'flower',
+                color1: '#3b82f6',
+                color2: '#93c5fd',
+                bgColor: '#0a0a1a',
+                volume: 50,
+                periodo: 2000,
+                volOscProf: 50,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Flor Azul + L-arginina + Melissa + Suco cítrico',
+                oposto: 'pos-corte-estresse',
+                emocoes: ['feliz', 'calmo']
+            },
+            'encanto-azul': {
+                label: '💜 Shot Encanto Azul',
+                shot: 'Encanto Azul',
+                freq: 432,
+                shape: 'flower',
+                color1: '#3b82f6',
+                color2: '#60a5fa',
+                bgColor: '#0a0a1a',
+                volume: 45,
+                periodo: 2500,
+                volOscProf: 50,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Clitoria + Shatavari',
+                oposto: 'goma-sensorial-noturna',
+                emocoes: ['feliz', 'calmo']
+            },
+
+            // ========== LIBIDO / AFRODISÍACO ==========
+            'libido-vital': {
+                label: '❤️ Shot Libido Vital',
+                shot: 'Libido Vital',
+                freq: 639,
+                shape: 'heart',
+                color1: '#f472b6',
+                color2: '#f9a8d4',
+                bgColor: '#1a0a1a',
+                volume: 50,
+                periodo: 2500,
+                volOscProf: 50,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: true,
+                pulseSpeed: 1.8,
+                enableOscilacao: true,
+                oscilacaoProf: 3,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Damiana + Shatavari + Ginseng + L-teanina',
+                oposto: 'tpm-balance',
+                emocoes: ['deprimido', 'calmo']
+            },
+            'tpm-balance': {
+                label: '🌸 Shot TPM Balance',
+                shot: 'TPM Balance',
+                freq: 594,
+                shape: 'flower',
+                color1: '#f59e0b',
+                color2: '#fbbf24',
+                bgColor: '#0a0a1a',
+                volume: 40,
+                periodo: 3500,
+                volOscProf: 70,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Vitex + Passiflora + Magnésio',
+                oposto: 'libido-vital',
+                emocoes: ['irritado', 'ansioso']
+            },
+            'flor-da-lua': {
+                label: '🌸 Flor da Lua',
+                shot: 'Flor da Lua',
+                freq: 639,
+                shape: 'moon',
+                color1: '#f472b6',
+                color2: '#a78bfa',
+                bgColor: '#1a0a1a',
+                volume: 40,
+                periodo: 4000,
+                volOscProf: 70,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Flor Azul + Melissa + Ginseng + Passiflora + L-arginina',
+                oposto: 'encanto-azul',
+                emocoes: ['deprimido', 'calmo']
+            },
+
+            // ========== VITALIDADE MASCULINA ==========
+            'vitalidade-masculina': {
+                label: '💪 Vitalidade Masculina',
+                shot: 'Vitalidade Masculina',
+                freq: 440,
+                shape: 'hexagon',
+                color1: '#f59e0b',
+                color2: '#d97706',
+                bgColor: '#0a0a1a',
+                volume: 55,
+                periodo: 1500,
+                volOscProf: 35,
+                melodyMode: 'arpeggio',
+                waveform: 'triangle',
+                enablePulse: true,
+                pulseSpeed: 2.2,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: false,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: false,
+                terapia: 'Catuaba + Marapuama + Ginseng + Camomila + Guaraná + L-arginina + B6 + Zinco',
+                oposto: 'sono-reparador',
+                emocoes: ['cansado', 'deprimido']
+            },
+            'pre-treino': {
+                label: '🔥 Pré-Treino com Arginina',
+                shot: 'Pré-Treino Arginina',
+                freq: 285,
+                shape: 'diamond',
+                color1: '#f97316',
+                color2: '#fb923c',
+                bgColor: '#0a0a1a',
+                volume: 60,
+                periodo: 600,
+                volOscProf: 30,
+                melodyMode: 'arpeggio',
+                waveform: 'square',
+                enablePulse: true,
+                pulseSpeed: 4.0,
+                enableOscilacao: true,
+                oscilacaoProf: 1,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: false,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: false,
+                terapia: 'L-arginina + Cafeína + Ginseng + Rhodiola + Citrulina',
+                oposto: 'relaxamento-noturno',
+                emocoes: ['cansado', 'confuso']
+            },
+
+            // ========== REDUÇÃO DE DANOS / ANTIVÍCIO ==========
+            'pare-de-fumar': {
+                label: '🚭 Pare de Fumar, Fumando',
+                shot: 'Pare de Fumar',
+                freq: 333,
+                shape: 'cross',
+                color1: '#ef4444',
+                color2: '#fca5a5',
+                bgColor: '#0a0a1a',
+                volume: 45,
+                periodo: 2000,
+                volOscProf: 50,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Lobélia',
+                oposto: 'sos-noite-doce',
+                emocoes: ['ansioso', 'irritado']
+            },
+            'anti-abstinencia': {
+                label: '🚭 Spray Anti-abstinência',
+                shot: 'Spray Anti-abstinência',
+                freq: 396,
+                shape: 'circle',
+                color1: '#7c3aed',
+                color2: '#a78bfa',
+                bgColor: '#0a0a1a',
+                volume: 45,
+                periodo: 3000,
+                volOscProf: 60,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Ashwagandha + Lobélia + Passiflora',
+                oposto: 'goma-sensorial-noturna',
+                emocoes: ['ansioso', 'irritado']
+            },
+            'chiclete-antivicio': {
+                label: '🚭 Chiclete Antivício',
+                shot: 'Chiclete Antivício',
+                freq: 333,
+                shape: 'cross',
+                color1: '#ef4444',
+                color2: '#fca5a5',
+                bgColor: '#0a0a1a',
+                volume: 40,
+                periodo: 2500,
+                volOscProf: 50,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Lobélia + Kava-Kava + L-teanina',
+                oposto: 'floral-sensorial',
+                emocoes: ['ansioso', 'irritado']
+            },
+
+            // ========== CHICLETES E GOMAS ==========
+            'chiclete-adaptogeno': {
+                label: '🌿 Chiclete Adaptógeno',
+                shot: 'Chiclete Adaptógeno',
+                freq: 432,
+                shape: 'circle',
+                color1: '#6C63FF',
+                color2: '#a5b4fc',
+                bgColor: '#0a0a1a',
+                volume: 45,
+                periodo: 3000,
+                volOscProf: 50,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Ashwagandha + Rhodiola + L-teanina',
+                oposto: 'chiclete-libido',
+                emocoes: ['calmo', 'ansioso']
+            },
+            'chiclete-libido': {
+                label: '❤️ Chiclete Libido Vital',
+                shot: 'Chiclete Libido Vital',
+                freq: 639,
+                shape: 'heart',
+                color1: '#f472b6',
+                color2: '#f9a8d4',
+                bgColor: '#1a0a1a',
+                volume: 50,
+                periodo: 2000,
+                volOscProf: 50,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: true,
+                pulseSpeed: 1.8,
+                enableOscilacao: true,
+                oscilacaoProf: 3,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Damiana + Ginseng + Vitex',
+                oposto: 'chiclete-adaptogeno',
+                emocoes: ['deprimido', 'calmo']
+            },
+            'goma-sensorial-noturna': {
+                label: '🌙 Goma Sensorial Azul Noturna',
+                shot: 'Goma Sensorial Noturna',
+                freq: 639,
+                shape: 'moon',
+                color1: '#f472b6',
+                color2: '#a78bfa',
+                bgColor: '#1a0a1a',
+                volume: 40,
+                periodo: 4000,
+                volOscProf: 70,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Flor Azul + Passiflora + L-teanina',
+                oposto: 'clarity-boost',
+                emocoes: ['calmo', 'ansioso']
+            },
+            'goma-tpm': {
+                label: '🌸 Goma TPM Sensorial',
+                shot: 'Goma TPM Sensorial',
+                freq: 594,
+                shape: 'flower',
+                color1: '#f59e0b',
+                color2: '#fbbf24',
+                bgColor: '#0a0a1a',
+                volume: 40,
+                periodo: 3500,
+                volOscProf: 60,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Vitex + Passiflora + Gengibre',
+                oposto: 'estimulo-cognitivo',
+                emocoes: ['irritado', 'ansioso']
+            },
+
+            // ========== RECUPERAÇÃO ==========
+            'recuperacao-total': {
+                label: '💪 Shot Recuperação Total',
+                shot: 'Recuperação Total',
+                freq: 285,
+                shape: 'diamond',
+                color1: '#f97316',
+                color2: '#fb923c',
+                bgColor: '#0a0a1a',
+                volume: 45,
+                periodo: 3000,
+                volOscProf: 60,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Curcumina + Ashwagandha + Magnésio',
+                oposto: 'acorde-viva',
+                emocoes: ['cansado', 'deprimido']
+            },
+            'pos-corte-fisico': {
+                label: '💪 Shot Pós-Corte Estresse Físico',
+                shot: 'Pós-Corte Físico',
+                freq: 222,
+                shape: 'cross',
+                color1: '#ef4444',
+                color2: '#fca5a5',
+                bgColor: '#0a0a1a',
+                volume: 40,
+                periodo: 4500,
+                volOscProf: 80,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 1.5,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Ashwagandha + GABA + CoQ10 + Curcumina',
+                oposto: 'pre-treino',
+                emocoes: ['cansado', 'estressado']
+            },
+            'anti-inflamatorio': {
+                label: '🦴 Shot Anti-inflamatório Articular',
+                shot: 'Anti-inflamatório Articular',
+                freq: 137.1,
+                shape: 'moon',
+                color1: '#4f46e5',
+                color2: '#818cf8',
+                bgColor: '#0a0a1a',
+                volume: 35,
+                periodo: 5000,
+                volOscProf: 80,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 1,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Curcumina + Boswellia + Magnésio + Pimenta-preta',
+                oposto: 'testobalance',
+                emocoes: ['cansado', 'estressado']
+            },
+
+            // ========== RITUAIS ==========
+            'spray-rituais': {
+                label: '🧘 Spray de Rituais Sensorial',
+                shot: 'Spray Rituais Sensorial',
+                freq: 420,
+                shape: 'spiral',
+                color1: '#8b5cf6',
+                color2: '#a78bfa',
+                bgColor: '#0a0a1a',
+                volume: 40,
+                periodo: 3000,
+                volOscProf: 60,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Kanna + Citral + Lavanda + Gengibre',
+                oposto: 'foco-absoluto',
+                emocoes: ['calmo', 'feliz']
+            },
+            'neuro-rendimento': {
+                label: '🧠 Neurodivergente (Rendimento)',
+                shot: 'Neurodivergente (Rendimento)',
+                freq: 963,
+                shape: 'spiral',
+                color1: '#8b5cf6',
+                color2: '#a78bfa',
+                bgColor: '#0a0a1a',
+                volume: 50,
+                periodo: 3000,
+                volOscProf: 80,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: true,
+                pulseSpeed: 1.5,
+                enableOscilacao: true,
+                oscilacaoProf: 5,
+                enableDual: true,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: true,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: true,
+                efParticulas: true,
+                terapia: 'L-teanina + Rhodiola + GABA + Bacopa + Ginseng siberiano',
+                oposto: 'goma-sensorial-noturna',
+                emocoes: ['confuso', 'cansado']
+            },
+            'goma-sensorial-final': {
+                label: '🌙 Goma Sensorial Azul Noturna (Final)',
+                shot: 'Goma Sensorial Azul Noturna',
+                freq: 639,
+                shape: 'moon',
+                color1: '#f472b6',
+                color2: '#a78bfa',
+                bgColor: '#1a0a1a',
+                volume: 40,
+                periodo: 4000,
+                volOscProf: 70,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Flor Azul + Passiflora + L-teanina',
+                oposto: 'neurodivergente',
+                emocoes: ['calmo', 'ansioso']
+            },
+
+            // ========== EMAGRECIMENTO ==========
+            'emagrecimento': {
+                label: '🍃 Shot Emagrecimento Termogênico',
+                shot: 'Emagrecimento Termogênico',
+                freq: 384,
+                shape: 'hexagon',
+                color1: '#f59e0b',
+                color2: '#fbbf24',
+                bgColor: '#0a0a1a',
+                volume: 45,
+                periodo: 1200,
+                volOscProf: 40,
+                melodyMode: 'arpeggio',
+                waveform: 'sawtooth',
+                enablePulse: true,
+                pulseSpeed: 2.8,
+                enableOscilacao: true,
+                oscilacaoProf: 1.5,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: false,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Garcinia + Guaraná + Marapuama + Catuaba + Ashwagandha + 5-HTP + Lobélia',
+                oposto: 'sos-noite-doce',
+                emocoes: ['cansado', 'confuso']
+            },
+
+            // ========== SOS ESPECIAIS ==========
+            'sos-doce': {
+                label: '🍬 SOS-DOCE',
+                shot: 'SOS-DOCE',
+                freq: 333,
+                shape: 'cross',
+                color1: '#ef4444',
+                color2: '#fca5a5',
+                bgColor: '#0a0a1a',
+                volume: 45,
+                periodo: 2000,
+                volOscProf: 50,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Lobélia + Kava-Kava + 5-HTP + L-teanina',
+                oposto: 'goma-tpm',
+                emocoes: ['ansioso', 'irritado']
+            },
+            'sos-noite-doce': {
+                label: '🌙 SOS Noite Doce',
+                shot: 'SOS Noite Doce',
+                freq: 528,
+                shape: 'heart',
+                color1: '#ec4899',
+                color2: '#f9a8d4',
+                bgColor: '#1a0a1a',
+                volume: 35,
+                periodo: 5000,
+                volOscProf: 85,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 1,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Kava-Kava + 5-HTP + Lavanda + L-teanina + Melatonina',
+                oposto: 'acorde-viva',
+                emocoes: ['ansioso', 'cansado']
+            },
+            'pre-reuniao': {
+                label: '🎤 Pré-Reunião (Afirma)',
+                shot: 'Pré-Reunião (Afirma)',
+                freq: 741,
+                shape: 'star',
+                color1: '#06b6d4',
+                color2: '#67e8f9',
+                bgColor: '#0a0a1a',
+                volume: 50,
+                periodo: 1000,
+                volOscProf: 30,
+                melodyMode: 'arpeggio',
+                waveform: 'triangle',
+                enablePulse: true,
+                pulseSpeed: 2.5,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: false,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: false,
+                terapia: 'Rhodiola + L-teanina + Gengibre + Flor Azul + Guaraná',
+                oposto: 'spray-rituais',
+                emocoes: ['confuso', 'ansioso']
+            },
+            'pos-briga-ex': {
+                label: '🌸 Pós-Briga com Ex (Flor de Volta)',
+                shot: 'Pós-Briga com Ex',
+                freq: 639,
+                shape: 'heart',
+                color1: '#f472b6',
+                color2: '#f9a8d4',
+                bgColor: '#1a0a1a',
+                volume: 40,
+                periodo: 4000,
+                volOscProf: 70,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                terapia: 'Kava-Kava + Lobélia + 5-HTP + Melissa + Flor Azul + Lavanda',
+                oposto: 'clarity-boost',
+                emocoes: ['deprimido', 'ansioso']
+            }
+        };
+
+        // ============================================================
+        //  MAPEAMENTO DE EMOÇÕES PARA SHOTS
+        // ============================================================
+        const EMOCAO_PARA_SHOT = {
+            'deprimido': ['sos-ansiedade', 'acorde-viva', 'flor-da-lua', 'pos-briga-ex', 'libido-vital'],
+            'ansioso': ['sos-ansiedade', 'sos-antiestresse', 'crise-emocional', 'goma-sensorial-noturna', 'sos-noite-doce'],
+            'irritado': ['anticortisol', 'tpm-balance', 'testobalance', 'goma-tpm'],
+            'cansado': ['acorde-viva', 'substitutivo-cafeina', 'sono-reparador', 'vitalidade-masculina', 'pre-treino'],
+            'confuso': ['clarity-boost', 'foco-absoluto', 'neurodivergente', 'estimulo-cognitivo'],
+            'calmo': ['floral-sensorial', 'sensorial-vapor', 'chiclete-adaptogeno', 'goma-sensorial-noturna'],
+            'feliz': ['sensorial-azul', 'encanto-azul', 'sensorial-vapor']
+        };
+
+        // ============================================================
+        //  DOM REFS
+        // ============================================================
+        const $ = id => document.getElementById(id);
+        const canvas = $('canvas');
+        const ctx = canvas.getContext('2d');
+        const freqList = $('freqList');
+        const currentFreqEl = $('currentFreq');
+        const freqDescEl = $('freqDesc');
+        const statusEl = $('status');
+        const btnPlay = $('btnPlay');
+        const btnStop = $('btnStop');
+        const btnOposto = $('btnOposto');
+        const melodyInfo = $('melodyInfo');
+        const shapeBtns = document.querySelectorAll('.shape-btn');
+        const presetSelect = $('presetSelect');
+        const emojiBtns = document.querySelectorAll('.emoji-btn');
+
+        // ============================================================
+        //  ESTADO GLOBAL
+        // ============================================================
+        const state = {
+            ctx: null,
+            osc1: null,
+            osc2: null,
+            gainMain: null,
+            gainPulse: null,
+            isPlaying: false,
+            currentFreq: 432,
+            volumeBase: 0.5,
+            volumeInstant: 0.5,
+            periodoMs: 1000,
+            melodyIndex: 0,
+            lastNoteChange: 0,
+            shape: 'circle',
+            animId: null,
+            particles: [],
+            rotationSpeed: 0.8,
+            pulseAmount: 0.6,
+            sizeScale: 1.0,
+            glowIntensity: 0.5,
+            color1: '#6C63FF',
+            color2: '#a78bfa',
+            bgColor: '#0a0a1a',
+            currentShot: 'meditacao',
+            currentEmotion: 'calmo',
+            shotHistory: [],
+        };
+
+        // ============================================================
+        //  APLICAR PRESET
+        // ============================================================
+        function aplicarPreset(nome) {
+            if (nome === 'personalizado') return;
+            const preset = SHOTS[nome];
+            if (!preset) return;
+
+            state.currentShot = nome;
+            state.currentFreq = preset.freq;
+            state.color1 = preset.color1;
+            state.color2 = preset.color2;
+            state.bgColor = preset.bgColor;
+
+            document.querySelectorAll('.freq-btn').forEach(b => {
+                b.classList.toggle('selected', Number(b.dataset.freq) === preset.freq);
+            });
+            currentFreqEl.textContent = preset.freq + ' Hz';
+            freqDescEl.textContent = FREQUENCIAS[preset.freq] || '';
+
+            $('volume').value = preset.volume;
+            state.volumeBase = preset.volume / 100;
+            $('volValue').textContent = preset.volume + '%';
+
+            $('periodoSlider').value = preset.periodo;
+            state.periodoMs = preset.periodo;
+            $('periodoValue').textContent = preset.periodo + ' ms';
+
+            $('volOscProf').value = preset.volOscProf;
+            $('volOscValue').textContent = preset.volOscProf + '%';
+
+            $('melodyMode').value = preset.melodyMode;
+            state.melodyIndex = 0;
+            state.lastNoteChange = performance.now() / 1000;
+            const mode = preset.melodyMode;
+            if (mode === 'avemaria') {
+                melodyInfo.innerHTML = `<span class="melodia-ativa">🎵 Tocando sequência da Ave Maria</span>`;
+            } else if (mode === 'arpeggio') {
+                melodyInfo.textContent = '🔶 Tocando escala em arpejo';
+            } else {
+                melodyInfo.textContent = '🔵 Tom contínuo (sem melodia)';
+            }
+
+            $('waveformSelect').value = preset.waveform;
+            $('waveformLabel').textContent = preset.waveform;
+
+            $('enablePulse').checked = preset.enablePulse;
+            $('pulseGroup').style.opacity = preset.enablePulse ? '1' : '0.4';
+            $('pulseSpeed').value = preset.pulseSpeed;
+            $('pulseSpeedValue').textContent = preset.pulseSpeed + ' Hz';
+
+            $('enableOscilacao').checked = preset.enableOscilacao;
+            $('oscilacaoGroup').style.opacity = preset.enableOscilacao ? '1' : '0.4';
+            $('oscilacaoProf').value = preset.oscilacaoProf;
+            $('oscilacaoValue').textContent = preset.oscilacaoProf + ' Hz';
+
+            $('enableDual').checked = preset.enableDual;
+            $('dualGroup').style.opacity = preset.enableDual ? '1' : '0.4';
+            $('dualFreq').value = preset.dualFreq;
+            const idx = preset.dualFreq;
+            $('dualFreqValue').textContent = NOMES_INTERVALOS[idx] || '3ª maior';
+
+            $('efOnda').checked = preset.efOnda;
+            $('efMandala').checked = preset.efMandala;
+            $('ef3D').checked = preset.ef3D;
+            $('efVolume').checked = preset.efVolume;
+            $('efBinaural').checked = preset.efBinaural;
+            $('efParticulas').checked = preset.efParticulas;
+
+            document.querySelectorAll('.efeitos-grid input[type="checkbox"]').forEach(cb => {
+                const lbl = cb.closest('.checkbox-group')?.querySelector('label');
+                if (lbl) lbl.style.color = cb.checked ? '#6C63FF' : '#888';
+            });
+
+            state.shape = preset.shape;
+            shapeBtns.forEach(b => {
+                b.classList.toggle('active', b.dataset.shape === preset.shape);
+            });
+
+            // Atualiza info do shot
+            $('shotInfo').textContent = preset.shot || preset.label;
+
+            // Atualiza emoção
+            if (preset.emocoes && preset.emocoes.length > 0) {
+                const emo = preset.emocoes[0];
+                state.currentEmotion = emo;
+                atualizarEmocaoUI(emo);
+            }
+
+            // Atualiza oposto
+            const opostoId = preset.oposto;
+            if (opostoId && SHOTS[opostoId]) {
+                $('opostoName').textContent = SHOTS[opostoId].shot || SHOTS[opostoId].label;
+            }
+
+            if (state.isPlaying) {
+                pararAudio();
+                setTimeout(tocarAudio, 150);
+            }
+
+            presetSelect.value = nome;
+            atualizarLabels();
+            aplicarEstadoUI();
+            salvarConfig();
+        }
+
+        // ============================================================
+        //  ATUALIZAR EMOÇÃO NA UI
+        // ============================================================
+        function atualizarEmocaoUI(emotion) {
+            const labels = {
+                'deprimido': '😢 Deprimido',
+                'ansioso': '😰 Ansioso',
+                'irritado': '😡 Irritado',
+                'cansado': '😴 Cansado',
+                'confuso': '😶‍🌫️ Confuso',
+                'calmo': '😌 Calmo',
+                'feliz': '😊 Feliz'
+            };
+            const classes = {
+                'deprimido': 'deprimido',
+                'ansioso': 'ansioso',
+                'irritado': 'irritado',
+                'cansado': 'cansado',
+                'confuso': 'confuso',
+                'calmo': 'calmo',
+                'feliz': 'feliz'
+            };
+            const el = $('emotionInfo');
+            el.textContent = labels[emotion] || emotion;
+            el.className = 'emotion-badge ' + (classes[emotion] || '');
+            // Atualiza botões de emoji
+            emojiBtns.forEach(b => {
+                b.classList.toggle('active', b.dataset.emotion === emotion);
+            });
+        }
+
+        // ============================================================
+        //  INICIALIZA BOTÕES DE FREQUÊNCIA
+        // ============================================================
+        (function initFreqButtons() {
+            Object.keys(FREQUENCIAS)
+                .map(Number)
+                .sort((a, b) => a - b)
+                .forEach(f => {
+                    const btn = document.createElement('div');
+                    btn.className = 'freq-btn' + (f === 432 ? ' selected' : '');
+                    btn.textContent = f + ' Hz';
+                    btn.dataset.freq = f;
+                    btn.onclick = () => {
+                        state.currentFreq = f;
+                        document.querySelectorAll('.freq-btn').forEach(b =>
+                            b.classList.toggle('selected', b === btn)
+                        );
+                        currentFreqEl.textContent = f + ' Hz';
+                        freqDescEl.textContent = FREQUENCIAS[f] || '';
+                        state.melodyIndex = 0;
+                        state.lastNoteChange = performance.now() / 1000;
+                        if (state.isPlaying && state.osc1) {
+                            state.osc1.frequency.setValueAtTime(f, state.ctx.currentTime);
+                        }
+                        presetSelect.value = 'personalizado';
+                    };
+                    freqList.appendChild(btn);
+                });
+        })();
+
+        // ============================================================
+        //  EMOÇÕES
+        // ============================================================
+        emojiBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const emotion = this.dataset.emotion;
+                emojiBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Encontra um shot para esta emoção
+                const shotIds = EMOCAO_PARA_SHOT[emotion] || [];
+                if (shotIds.length > 0) {
+                    // Pega o primeiro shot da lista
+                    const shotId = shotIds[0];
+                    if (SHOTS[shotId]) {
+                        state.currentEmotion = emotion;
+                        aplicarPreset(shotId);
+                        atualizarEmocaoUI(emotion);
+                        presetSelect.value = shotId;
+                        salvarConfig();
+                    }
+                }
+            });
+        });
+
+        // ============================================================
+        //  FORMAS
+        // ============================================================
+        shapeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                shapeBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                state.shape = this.dataset.shape;
+                spawnParticles(canvas.width / 2, canvas.height / 2, 30, state.color1);
+                spawnParticles(canvas.width / 2, canvas.height / 2, 20, state.color2);
+                presetSelect.value = 'personalizado';
+                salvarConfig();
+            });
+        });
+
+        // ============================================================
+        //  PERSISTÊNCIA
+        // ============================================================
+        function salvarConfig() {
+            const cfg = {
+                freq: state.currentFreq,
+                shape: state.shape,
+                volume: $('volume').value,
+                periodo: $('periodoSlider').value,
+                volOscProf: $('volOscProf').value,
+                melodyMode: $('melodyMode').value,
+                waveform: $('waveformSelect').value,
+                enablePulse: $('enablePulse').checked,
+                pulseSpeed: $('pulseSpeed').value,
+                enableOscilacao: $('enableOscilacao').checked,
+                oscilacaoProf: $('oscilacaoProf').value,
+                enableDual: $('enableDual').checked,
+                dualFreq: $('dualFreq').value,
+                enableVolumeOsc: $('enableVolumeOsc').checked,
+                efOnda: $('efOnda').checked,
+                efMandala: $('efMandala').checked,
+                ef3D: $('ef3D').checked,
+                efVolume: $('efVolume').checked,
+                efBinaural: $('efBinaural').checked,
+                efParticulas: $('efParticulas').checked,
+                rotationSpeed: $('rotationSpeed').value,
+                pulseAmount: $('pulseAmount').value,
+                sizeScale: $('sizeScale').value,
+                glowIntensity: $('glowIntensity').value,
+                color1: state.color1,
+                color2: state.color2,
+                bgColor: state.bgColor,
+                preset: presetSelect.value,
+                emotion: state.currentEmotion,
+            };
+            try { localStorage.setItem('volOscConfig', JSON.stringify(cfg)); } catch (_) {}
+        }
+
+        function carregarConfig() {
+            try {
+                const raw = localStorage.getItem('volOscConfig');
+                if (!raw) return;
+                const cfg = JSON.parse(raw);
+                if (cfg.preset && cfg.preset !== 'personalizado' && SHOTS[cfg.preset]) {
+                    presetSelect.value = cfg.preset;
+                    aplicarPreset(cfg.preset);
+                    if (cfg.emotion) {
+                        state.currentEmotion = cfg.emotion;
+                        atualizarEmocaoUI(cfg.emotion);
+                    }
+                } else {
+                    if (cfg.freq) {
+                        state.currentFreq = cfg.freq;
+                        currentFreqEl.textContent = cfg.freq + ' Hz';
+                        freqDescEl.textContent = FREQUENCIAS[cfg.freq] || '';
+                        document.querySelectorAll('.freq-btn').forEach(b => {
+                            b.classList.toggle('selected', Number(b.dataset.freq) === cfg.freq);
+                        });
+                    }
+                    if (cfg.shape) {
+                        state.shape = cfg.shape;
+                        shapeBtns.forEach(b => {
+                            b.classList.toggle('active', b.dataset.shape === cfg.shape);
+                        });
+                    }
+                    if (cfg.volume) { $('volume').value = cfg.volume;
+                        state.volumeBase = cfg.volume / 100;
+                        $('volValue').textContent = cfg.volume + '%'; }
+                    if (cfg.periodo) { $('periodoSlider').value = cfg.periodo;
+                        state.periodoMs = cfg.periodo;
+                        $('periodoValue').textContent = cfg.periodo + ' ms'; }
+                    if (cfg.volOscProf) { $('volOscProf').value = cfg.volOscProf;
+                        $('volOscValue').textContent = cfg.volOscProf + '%'; }
+                    if (cfg.melodyMode) { $('melodyMode').value = cfg.melodyMode; }
+                    if (cfg.waveform) { $('waveformSelect').value = cfg.waveform;
+                        $('waveformLabel').textContent = cfg.waveform; }
+                    if (cfg.enablePulse !== undefined) { $('enablePulse').checked = cfg.enablePulse; }
+                    if (cfg.pulseSpeed) { $('pulseSpeed').value = cfg.pulseSpeed;
+                        $('pulseSpeedValue').textContent = cfg.pulseSpeed + ' Hz'; }
+                    if (cfg.enableOscilacao !== undefined) { $('enableOscilacao').checked = cfg.enableOscilacao; }
+                    if (cfg.oscilacaoProf) { $('oscilacaoProf').value = cfg.oscilacaoProf;
+                        $('oscilacaoValue').textContent = cfg.oscilacaoProf + ' Hz'; }
+                    if (cfg.enableDual !== undefined) { $('enableDual').checked = cfg.enableDual; }
+                    if (cfg.dualFreq) { $('dualFreq').value = cfg.dualFreq;
+                        const idx = cfg.dualFreq;
+                        $('dualFreqValue').textContent = NOMES_INTERVALOS[idx] || '3ª maior'; }
+                    if (cfg.enableVolumeOsc !== undefined) { $('enableVolumeOsc').checked = cfg.enableVolumeOsc; }
+                    if (cfg.efOnda !== undefined) { $('efOnda').checked = cfg.efOnda; }
+                    if (cfg.efMandala !== undefined) { $('efMandala').checked = cfg.efMandala; }
+                    if (cfg.ef3D !== undefined) { $('ef3D').checked = cfg.ef3D; }
+                    if (cfg.efVolume !== undefined) { $('efVolume').checked = cfg.efVolume; }
+                    if (cfg.efBinaural !== undefined) { $('efBinaural').checked = cfg.efBinaural; }
+                    if (cfg.efParticulas !== undefined) { $('efParticulas').checked = cfg.efParticulas; }
+                    if (cfg.rotationSpeed) { $('rotationSpeed').value = cfg.rotationSpeed;
+                        state.rotationSpeed = parseFloat(cfg.rotationSpeed);
+                        $('rotationVal').textContent = cfg.rotationSpeed; }
+                    if (cfg.pulseAmount) { $('pulseAmount').value = cfg.pulseAmount;
+                        state.pulseAmount = parseFloat(cfg.pulseAmount);
+                        $('pulseAmountVal').textContent = cfg.pulseAmount; }
+                    if (cfg.sizeScale) { $('sizeScale').value = cfg.sizeScale;
+                        state.sizeScale = parseFloat(cfg.sizeScale);
+                        $('sizeVal').textContent = cfg.sizeScale; }
+                    if (cfg.glowIntensity) { $('glowIntensity').value = cfg.glowIntensity;
+                        state.glowIntensity = parseFloat(cfg.glowIntensity);
+                        $('glowVal').textContent = cfg.glowIntensity; }
+                    if (cfg.color1) { state.color1 = cfg.color1; }
+                    if (cfg.color2) { state.color2 = cfg.color2; }
+                    if (cfg.bgColor) { state.bgColor = cfg.bgColor; }
+                    if (cfg.emotion) {
+                        state.currentEmotion = cfg.emotion;
+                        atualizarEmocaoUI(cfg.emotion);
+                    }
+                    presetSelect.value = cfg.preset || 'personalizado';
+                }
+                atualizarLabels();
+                aplicarEstadoUI();
+            } catch (_) {}
+        }
+
+        function atualizarLabels() {
+            $('volValue').textContent = $('volume').value + '%';
+            $('periodoValue').textContent = $('periodoSlider').value + ' ms';
+            $('volOscValue').textContent = $('volOscProf').value + '%';
+            $('pulseSpeedValue').textContent = $('pulseSpeed').value + ' Hz';
+            $('oscilacaoValue').textContent = $('oscilacaoProf').value + ' Hz';
+            const idx = parseInt($('dualFreq').value) || 0;
+            $('dualFreqValue').textContent = NOMES_INTERVALOS[idx] || '3ª maior';
+            $('waveformLabel').textContent = $('waveformSelect').value;
+            state.volumeBase = parseFloat($('volume').value) / 100;
+            state.periodoMs = parseInt($('periodoSlider').value) || 1000;
+            $('rotationVal').textContent = $('rotationSpeed').value;
+            $('pulseAmountVal').textContent = $('pulseAmount').value;
+            $('sizeVal').textContent = $('sizeScale').value;
+            $('glowVal').textContent = $('glowIntensity').value;
+            state.rotationSpeed = parseFloat($('rotationSpeed').value);
+            state.pulseAmount = parseFloat($('pulseAmount').value);
+            state.sizeScale = parseFloat($('sizeScale').value);
+            state.glowIntensity = parseFloat($('glowIntensity').value);
+        }
+
+        function aplicarEstadoUI() {
+            const pulseOn = $('enablePulse').checked;
+            $('pulseGroup').style.opacity = pulseOn ? '1' : '0.4';
+            const vibOn = $('enableOscilacao').checked;
+            $('oscilacaoGroup').style.opacity = vibOn ? '1' : '0.4';
+            const dualOn = $('enableDual').checked;
+            $('dualGroup').style.opacity = dualOn ? '1' : '0.4';
+            const volOscOn = $('enableVolumeOsc').checked;
+            $('volOscGroup').style.opacity = volOscOn ? '1' : '0.4';
+            document.querySelectorAll('.efeitos-grid input[type="checkbox"]').forEach(cb => {
+                const lbl = cb.closest('.checkbox-group')?.querySelector('label');
+                if (lbl) lbl.style.color = cb.checked ? '#6C63FF' : '#888';
+            });
+            const mode = $('melodyMode').value;
+            if (mode === 'avemaria') {
+                melodyInfo.innerHTML = `<span class="melodia-ativa">🎵 Tocando sequência da Ave Maria</span>`;
+            } else if (mode === 'arpeggio') {
+                melodyInfo.textContent = '🔶 Tocando escala em arpejo';
+            } else {
+                melodyInfo.textContent = '🔵 Tom contínuo (sem melodia)';
+            }
+        }
+
+        // ============================================================
+        //  PARTÍCULAS
+        // ============================================================
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.size = 2 + Math.random() * 4;
+                this.life = 1;
+                this.decay = 0.008 + Math.random() * 0.015;
+                this.color = color;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= this.decay;
+                this.size *= 0.998;
+            }
+            draw(ctx) {
+                ctx.globalAlpha = this.life * 0.8;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        function spawnParticles(cx, cy, count, color) {
+            for (let i = 0; i < count; i++) {
+                const p = new Particle(cx, cy, color);
+                p.vx = (Math.random() - 0.5) * 4;
+                p.vy = (Math.random() - 0.5) * 4;
+                p.size = 2 + Math.random() * 6;
+                state.particles.push(p);
+            }
+        }
+
+        function updateParticles() {
+            for (let i = state.particles.length - 1; i >= 0; i--) {
+                state.particles[i].update();
+                if (state.particles[i].life <= 0 || state.particles[i].size < 0.2) {
+                    state.particles.splice(i, 1);
+                }
+            }
+            if (state.particles.length > 500) state.particles.splice(0, state.particles.length - 500);
+        }
+
+        // ============================================================
+        //  ÁUDIO
+        // ============================================================
+        function initAudio() {
+            if (state.ctx) {
+                if (state.ctx.state === 'suspended') state.ctx.resume();
+                return state.ctx;
+            }
+            const ctx = new(window.AudioContext || window.webkitAudioContext)();
+            state.ctx = ctx;
+            return ctx;
+        }
+
+        function criarOsciladores(ctx, freq) {
+            const osc = ctx.createOscillator();
+            osc.type = $('waveformSelect').value;
+            osc.frequency.value = freq;
+
+            const dualOn = $('enableDual').checked;
+            let osc2 = null;
+            if (dualOn) {
+                osc2 = ctx.createOscillator();
+                osc2.type = $('waveformSelect').value;
+                const idx = parseInt($('dualFreq').value) || 4;
+                const ratio = NOTAS[idx] || 1.25;
+                osc2.frequency.value = freq * ratio;
+            }
+            return { osc, osc2 };
+        }
+
+        function tocarAudio() {
+            try {
+                const ctx = initAudio();
+                if (!ctx) return;
+                if (state.isPlaying) pararAudio();
+
+                const freq = state.currentFreq;
+                const { osc, osc2 } = criarOsciladores(ctx, freq);
+
+                const gain = ctx.createGain();
+                state.volumeBase = parseFloat($('volume').value) / 100;
+                gain.gain.value = state.volumeBase;
+
+                let gainPulse = null;
+                if ($('enablePulse').checked) {
+                    gainPulse = ctx.createGain();
+                    gainPulse.gain.value = 1;
+                    osc.connect(gainPulse);
+                    if (osc2) osc2.connect(gainPulse);
+                    gainPulse.connect(gain);
+                } else {
+                    osc.connect(gain);
+                    if (osc2) osc2.connect(gain);
+                }
+                gain.connect(ctx.destination);
+
+                osc.start();
+                if (osc2) osc2.start();
+
+                state.osc1 = osc;
+                state.osc2 = osc2;
+                state.gainMain = gain;
+                state.gainPulse = gainPulse;
+                state.isPlaying = true;
+                state.ctx = ctx;
+
+                btnPlay.disabled = true;
+                btnStop.disabled = false;
+                statusEl.textContent = '▶ Tocando';
+                statusEl.className = 'status playing';
+
+                state.melodyIndex = 0;
+                state.lastNoteChange = performance.now() / 1000;
+
+                if (!state.animId) iniciarAnimacao();
+                salvarConfig();
+
+            } catch (e) {
+                console.error(e);
+                alert('Erro ao tocar: ' + e.message);
+            }
+        }
+
+        function pararAudio() {
+            if (state.osc1) { state.osc1.stop();
+                state.osc1.disconnect();
+                state.osc1 = null; }
+            if (state.osc2) { state.osc2.stop();
+                state.osc2.disconnect();
+                state.osc2 = null; }
+            if (state.gainMain) { state.gainMain.disconnect();
+                state.gainMain = null; }
+            if (state.gainPulse) { state.gainPulse.disconnect();
+                state.gainPulse = null; }
+            if (state.ctx) { state.ctx.suspend().catch(() => {}); }
+            state.isPlaying = false;
+            btnPlay.disabled = false;
+            btnStop.disabled = true;
+            statusEl.textContent = '⏹️ Parado';
+            statusEl.className = 'status stopped';
+        }
+
+        // ============================================================
+        //  BOTÃO OPOSTO
+        // ============================================================
+        btnOposto.addEventListener('click', function() {
+            const current = state.currentShot;
+            const preset = SHOTS[current];
+            if (preset && preset.oposto && SHOTS[preset.oposto]) {
+                const opostoId = preset.oposto;
+                // Verifica se o oposto já está ativo (alterna de volta)
+                if (state.currentShot === opostoId) {
+                    // Volta para o anterior
+                    const historico = state.shotHistory.length > 0 ? state.shotHistory.pop() : current;
+                    aplicarPreset(historico);
+                } else {
+                    state.shotHistory.push(current);
+                    aplicarPreset(opostoId);
+                }
+                presetSelect.value = state.currentShot;
+                salvarConfig();
+            } else {
+                alert('Este shot não tem um oposto definido!');
+            }
+        });
+
+        // ============================================================
+        //  UPDATE ÁUDIO
+        // ============================================================
+        function updateAudioParameters(tempoSegundos) {
+            if (!state.isPlaying || !state.osc1) return;
+            const ctx = state.ctx;
+            if (!ctx) return;
+            const now = ctx.currentTime;
+
+            const mode = $('melodyMode').value;
+            const speedMelodia = parseFloat($('pulseSpeed').value) || 2;
+            const profFreq = parseFloat($('oscilacaoProf').value) || 3;
+            const vibOn = $('enableOscilacao').checked;
+            const dualOn = $('enableDual').checked;
+            const volOscOn = $('enableVolumeOsc').checked;
+            const volOscProf = parseFloat($('volOscProf').value) / 100;
+            const periodo = parseInt($('periodoSlider').value) || 1000;
+
+            let noteMultiplier = 1;
+            let idxNota = 0;
+            if (mode === 'drone') {
+                noteMultiplier = 1;
+            } else if (mode === 'arpeggio') {
+                const step = Math.floor(tempoSegundos * speedMelodia * 2) % (NOTAS.length * 2 - 2);
+                const idx = step < NOTAS.length ? step : NOTAS.length * 2 - 2 - step;
+                noteMultiplier = NOTAS[idx] || 1;
+                idxNota = idx;
+            } else if (mode === 'avemaria') {
+                const duracao = 0.5 / speedMelodia;
+                if (tempoSegundos - state.lastNoteChange > duracao) {
+                    state.melodyIndex = (state.melodyIndex + 1) % MELODIA_AVE_MARIA.length;
+                    state.lastNoteChange = tempoSegundos;
+                }
+                const idx = MELODIA_AVE_MARIA[state.melodyIndex] || 0;
+                noteMultiplier = NOTAS[idx] || 1;
+                idxNota = idx;
+            }
+
+            let freqBase = state.currentFreq * noteMultiplier;
+            let freqFinal = freqBase;
+            if (vibOn) {
+                const oscVal = Math.sin(tempoSegundos * speedMelodia * Math.PI * 2);
+                freqFinal = freqBase + oscVal * profFreq;
+            }
+            state.osc1.frequency.linearRampToValueAtTime(Math.max(20, freqFinal), now + 0.05);
+
+            if (volOscOn && state.gainMain) {
+                const freqOsc = 1 / (periodo / 1000);
+                const oscVol = Math.sin(tempoSegundos * freqOsc * 2 * Math.PI);
+                const envelope = 0.5 + 0.5 * oscVol;
+                const volFinal = state.volumeBase * (1 - volOscProf * envelope);
+                const clamp = Math.max(0, Math.min(1, volFinal));
+                state.gainMain.gain.linearRampToValueAtTime(clamp, now + 0.02);
+                state.volumeInstant = clamp;
+            } else if (state.gainMain) {
+                state.gainMain.gain.linearRampToValueAtTime(state.volumeBase, now + 0.02);
+                state.volumeInstant = state.volumeBase;
+            }
+
+            if (dualOn && state.osc2) {
+                const idx = parseInt($('dualFreq').value) || 4;
+                const ratio = NOTAS[idx] || 1.25;
+                const freq2Base = state.currentFreq * noteMultiplier * ratio;
+                let freq2Final = freq2Base;
+                if (vibOn) {
+                    const oscVal2 = Math.sin(tempoSegundos * speedMelodia * Math.PI * 2 + 1.5);
+                    freq2Final = freq2Base + oscVal2 * profFreq * 0.8;
+                }
+                state.osc2.frequency.linearRampToValueAtTime(Math.max(20, freq2Final), now + 0.05);
+            }
+
+            if ($('enablePulse').checked && state.gainPulse) {
+                const speed = parseFloat($('pulseSpeed').value) || 2;
+                const raw = Math.sin(tempoSegundos * speed * Math.PI * 2);
+                const env = 0.3 + 0.7 * (raw * 0.5 + 0.5);
+                state.gainPulse.gain.linearRampToValueAtTime(env, now + 0.02);
+            }
+
+            const displayFreq = Math.round(freqFinal);
+            $('freqInfo').textContent = displayFreq + ' Hz';
+            $('volInfo').textContent = '🔊 ' + Math.round(state.volumeInstant * 100) + '%';
+            $('oscilaInfo').textContent = '⏱️ Período: ' + periodo + 'ms';
+
+            const oitava = 4 + Math.floor(idxNota / 7);
+            const nomeNota = NOMES_NOTAS[idxNota % 7] || 'C';
+            $('notaInfo').textContent = '🎵 ' + nomeNota + oitava;
+
+            if (mode === 'avemaria') {
+                melodyInfo.innerHTML =
+                    `<span class="melodia-ativa">🎵 Nota ${state.melodyIndex+1}/${MELODIA_AVE_MARIA.length}: ${nomeNota}${oitava}</span>`;
+            } else if (mode === 'arpeggio') {
+                melodyInfo.textContent = '🔶 Tocando escala: ' + nomeNota + oitava;
+            } else {
+                melodyInfo.textContent = '🔵 Tom contínuo';
+            }
+        }
+
+        // ============================================================
+        //  DESENHO DAS FORMAS (2D - SEM THREE.JS)
+        // ============================================================
+        function drawShape(ctx, cx, cy, size, shape, rot, pulse, color1, color2, glow) {
+            const s = size * state.sizeScale * (1 + pulse * state.pulseAmount * 0.3);
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(rot);
+
+            if (glow > 0.05) {
+                ctx.shadowColor = color1;
+                ctx.shadowBlur = 30 * glow * (1 + pulse * 0.5);
+            }
+
+            const grad = ctx.createRadialGradient(-s * 0.2, -s * 0.2, 2, 0, 0, s);
+            grad.addColorStop(0, color2);
+            grad.addColorStop(0.7, color1);
+            grad.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = grad;
+
+            const ladosMap = {
+                circle: 64,
+                square: 4,
+                triangle: 3,
+                hexagon: 6,
+                star: 10,
+                cross: 12,
+                spiral: 100,
+                flower: 24,
+                heart: 0,
+                moon: 0,
+                diamond: 4,
+                ring: 64,
+            };
+            const pts = ladosMap[shape] || 6;
+            ctx.beginPath();
+
+            if (shape === 'heart') {
+                const scale = s * 0.7;
+                for (let t = 0; t < Math.PI * 2; t += 0.05) {
+                    const x = 16 * Math.pow(Math.sin(t), 3);
+                    const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+                    ctx.lineTo(x * scale * 0.12, -y * scale * 0.12);
+                }
+                ctx.closePath();
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.restore();
+                return;
+            }
+            if (shape === 'moon') {
+                ctx.arc(0, 0, s * 0.8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.fillStyle = state.bgColor;
+                ctx.beginPath();
+                ctx.arc(s * 0.35, -s * 0.2, s * 0.65, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+                return;
+            }
+            if (shape === 'spiral') {
+                const turns = 4,
+                    points = 200,
+                    maxR = s * 0.8;
+                for (let i = 0; i <= points; i++) {
+                    const t = i / points,
+                        angle = t * turns * 2 * Math.PI + rot,
+                        r = t * maxR;
+                    ctx.lineTo(Math.cos(angle) * r, Math.sin(angle) * r);
+                }
+                ctx.strokeStyle = color1;
+                ctx.lineWidth = 4 + pulse * 6;
+                ctx.shadowBlur = 0;
+                ctx.stroke();
+                ctx.beginPath();
+                for (let i = 0; i <= points; i++) {
+                    const t = i / points,
+                        angle = -t * turns * 2 * Math.PI + rot + 1.2,
+                        r = t * maxR * 0.9;
+                    ctx.lineTo(Math.cos(angle) * r, Math.sin(angle) * r);
+                }
+                ctx.strokeStyle = color2;
+                ctx.lineWidth = 2 + pulse * 4;
+                ctx.stroke();
+                ctx.shadowBlur = 0;
+                ctx.restore();
+                return;
+            }
+            if (shape === 'flower') {
+                const petals = 8,
+                    outer = s * 0.8,
+                    inner = s * 0.3;
+                for (let i = 0; i < petals; i++) {
+                    const ang = (i / petals) * Math.PI * 2 + rot;
+                    const x1 = Math.cos(ang) * outer,
+                        y1 = Math.sin(ang) * outer;
+                    const x2 = Math.cos(ang + 0.4) * inner,
+                        y2 = Math.sin(ang + 0.4) * inner;
+                    const x3 = Math.cos(ang - 0.4) * inner,
+                        y3 = Math.sin(ang - 0.4) * inner;
+                    ctx.moveTo(x1, y1);
+                    ctx.quadraticCurveTo(x2, y2, 0, 0);
+                    ctx.quadraticCurveTo(x3, y3, x1, y1);
+                }
+                ctx.closePath();
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.beginPath();
+                ctx.arc(0, 0, s * 0.15, 0, Math.PI * 2);
+                ctx.fillStyle = color2;
+                ctx.fill();
+                ctx.restore();
+                return;
+            }
+            if (shape === 'star') {
+                const spikes = 5,
+                    outerR = s,
+                    innerR = s * 0.4;
+                for (let i = 0; i < spikes * 2; i++) {
+                    const r = i % 2 === 0 ? outerR : innerR;
+                    const ang = (i / (spikes * 2)) * Math.PI * 2 + rot;
+                    const x = Math.cos(ang) * r,
+                        y = Math.sin(ang) * r;
+                    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.restore();
+                return;
+            }
+            if (shape === 'cross') {
+                const w = s * 0.25,
+                    h = s * 0.8;
+                ctx.rect(-w / 2, -h / 2, w, h);
+                ctx.rect(-h / 2, -w / 2, h, w);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.restore();
+                return;
+            }
+            if (shape === 'diamond') {
+                ctx.moveTo(0, -s);
+                ctx.lineTo(s * 0.7, 0);
+                ctx.lineTo(0, s);
+                ctx.lineTo(-s * 0.7, 0);
+                ctx.closePath();
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.restore();
+                return;
+            }
+            if (shape === 'ring') {
+                ctx.arc(0, 0, s * 0.8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.fillStyle = state.bgColor;
+                ctx.beginPath();
+                ctx.arc(0, 0, s * 0.55, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+                return;
+            }
+
+            for (let i = 0; i < pts; i++) {
+                const ang = (i / pts) * Math.PI * 2 + rot;
+                const r = (shape === 'circle') ? s * (0.8 + 0.2 * Math.sin(performance.now() / 1000 * 2 + i)) : s;
+                const x = Math.cos(ang) * r,
+                    y = Math.sin(ang) * r;
+                i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            ctx.restore();
+        }
+
+        // ============================================================
+        //  RENDER
+        // ============================================================
+        function iniciarAnimacao() {
+            if (state.animId) cancelAnimationFrame(state.animId);
+            state.animId = requestAnimationFrame(renderFrame);
+        }
+
+        function renderFrame(timestamp) {
+            const tempo = timestamp / 1000;
+            const w = canvas.width,
+                h = canvas.height;
+            const cx = w / 2,
+                cy = h / 2;
+
+            updateAudioParameters(tempo);
+            updateParticles();
+
+            let freqReal = state.currentFreq;
+            if (state.osc1) {
+                try { freqReal = state.osc1.frequency.value; } catch (_) {}
+            }
+            const hue = ((freqReal - 100) / 1200) * 300;
+            const cor = `hsl(${hue % 360}, 80%, 55%)`;
+            const corEscura = `hsl(${hue % 360}, 60%, 30%)`;
+            const corClara = `hsl(${hue % 360}, 90%, 70%)`;
+            const corComp = `hsl(${(hue + 180) % 360}, 70%, 50%)`;
+
+            let pulso = 1;
+            if (state.isPlaying && $('enablePulse').checked) {
+                const speed = parseFloat($('pulseSpeed').value) || 2;
+                const raw = Math.sin(tempo * speed * Math.PI * 2);
+                pulso = 0.3 + 0.7 * (raw * 0.5 + 0.5);
+            }
+            const vol = state.volumeInstant || 0.5;
+            const reageVolume = $('efVolume').checked;
+
+            ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = state.bgColor;
+            ctx.fillRect(0, 0, w, h);
+
+            const shape = state.shape;
+            const size = Math.min(w, h) * 0.35;
+            const rot = tempo * 0.3 * state.rotationSpeed;
+            const pulse = Math.sin(tempo * 0.8) * 0.5 + 0.5;
+            const glow = state.glowIntensity * (0.5 + vol * 0.5);
+
+            drawShape(ctx, cx, cy, size, shape, rot, pulse, state.color1, state.color2, glow);
+
+            if ($('efParticulas').checked && state.isPlaying && vol > 0.3) {
+                const count = Math.floor(vol * 8) + 2;
+                spawnParticles(
+                    cx + (Math.random() - 0.5) * size * 0.6,
+                    cy + (Math.random() - 0.5) * size * 0.6,
+                    count,
+                    state.color2
+                );
+            }
+            for (const p of state.particles) p.draw(ctx);
+
+            // Mandala
+            if ($('efMandala').checked) {
+                const raioBase = Math.min(w, h) * 0.38;
+                const camadas = 8;
+                const rotBase = tempo * 0.15;
+                const lados = (shape === 'circle') ? 20 : (shape === 'star' ? 5 : 6);
+
+                for (let i = 0; i < camadas; i++) {
+                    const fator = 0.2 + (i / camadas) * 0.8;
+                    let raio = raioBase * fator * (0.7 + pulso * 0.3);
+                    if (reageVolume) raio += vol * 30;
+                    const rotacao = rotBase * (i + 1) * 0.7;
+                    const opacidade = 0.08 + (1 - i / camadas) * 0.5;
+                    const ladosCamada = lados + (i % 3);
+
+                    ctx.beginPath();
+                    for (let j = 0; j < ladosCamada; j++) {
+                        const ang = (j / ladosCamada) * 2 * Math.PI + rotacao;
+                        const x = cx + Math.cos(ang) * raio;
+                        const y = cy + Math.sin(ang) * raio;
+                        j === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+
+                    const grad = ctx.createRadialGradient(cx, cy, 5, cx, cy, raio);
+                    const corCamada = i % 2 === 0 ? state.color1 : corComp;
+                    grad.addColorStop(0, corCamada);
+                    grad.addColorStop(1, corEscura);
+                    ctx.fillStyle = grad;
+                    ctx.globalAlpha = opacidade * (0.5 + vol * 0.5);
+                    ctx.fill();
+                    ctx.globalAlpha = 1;
+                }
+            }
+
+            // Onda
+            if ($('efOnda').checked) {
+                const raioOnda = Math.min(w, h) * 0.42;
+                const pontos = 60;
+                const lados = (shape === 'circle') ? 20 : (shape === 'star' ? 5 : 6);
+
+                ctx.beginPath();
+                for (let i = 0; i <= pontos; i++) {
+                    const ang = (i / pontos) * 2 * Math.PI;
+                    const onda = Math.sin(ang * lados + tempo * 1.2) * 15 * pulso;
+                    const dist = raioOnda + onda + (reageVolume ? vol * 25 : 0);
+                    const x = cx + Math.cos(ang + tempo * 0.1) * dist;
+                    const y = cy + Math.sin(ang + tempo * 0.1) * dist;
+                    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = corClara;
+                ctx.lineWidth = 2 + vol * 3;
+                ctx.globalAlpha = 0.5 + pulso * 0.3;
+                ctx.stroke();
+                ctx.globalAlpha = 1;
+
+                ctx.beginPath();
+                for (let i = 0; i <= pontos; i++) {
+                    const ang = (i / pontos) * 2 * Math.PI;
+                    const onda = Math.sin(ang * lados + tempo * 1.8) * 20 * pulso;
+                    const dist = raioOnda * 0.7 + onda + (reageVolume ? vol * 15 : 0);
+                    const x = cx + Math.cos(ang - tempo * 0.15) * dist;
+                    const y = cy + Math.sin(ang - tempo * 0.15) * dist;
+                    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = corComp;
+                ctx.lineWidth = 1.5;
+                ctx.globalAlpha = 0.4;
+                ctx.stroke();
+                ctx.globalAlpha = 1;
+            }
+
+            // 3D (falso, com sombra)
+            if ($('ef3D').checked) {
+                const raio3D = Math.min(w, h) * 0.3;
+                const deslocX = Math.sin(tempo * 0.3) * 15 * pulso;
+                const deslocY = Math.cos(tempo * 0.5) * 10 * pulso;
+
+                ctx.shadowColor = state.color1;
+                ctx.shadowBlur = 30 + pulso * 30;
+
+                const grad3D = ctx.createRadialGradient(
+                    cx + deslocX - 20, cy + deslocY - 20, 5,
+                    cx + deslocX, cy + deslocY, raio3D * (0.7 + pulso * 0.3)
+                );
+                grad3D.addColorStop(0, corClara);
+                grad3D.addColorStop(0.7, state.color1);
+                grad3D.addColorStop(1, 'rgba(0,0,0,0)');
+
+                ctx.beginPath();
+                ctx.arc(cx + deslocX, cy + deslocY, raio3D * (0.7 + pulso * 0.3), 0, 2 * Math.PI);
+                ctx.fillStyle = grad3D;
+                ctx.globalAlpha = 0.3 + vol * 0.3;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+                ctx.shadowBlur = 0;
+            }
+
+            // Binaural
+            if ($('efBinaural').checked && $('enableDual').checked && state.osc2) {
+                const interval = parseInt($('dualFreq').value) || 4;
+                const hue2 = ((state.currentFreq * NOTAS[interval] - 100) / 1200) * 300;
+                const cor2 = `hsl(${hue2 % 360}, 80%, 55%)`;
+
+                const raioBinaural = Math.min(w, h) * 0.2;
+                const offsetX = Math.sin(tempo * 0.5) * raioBinaural * 1.5;
+                const offsetY = Math.cos(tempo * 0.7) * raioBinaural * 1.2;
+                const lados = (shape === 'circle') ? 20 : (shape === 'star' ? 5 : 6);
+
+                const x1 = cx + offsetX,
+                    y1 = cy + offsetY;
+                const rot1 = tempo * 0.8;
+                ctx.beginPath();
+                for (let j = 0; j < lados; j++) {
+                    const ang = (j / lados) * 2 * Math.PI + rot1;
+                    const r = raioBinaural * (0.6 + pulso * 0.4);
+                    const x = x1 + Math.cos(ang) * r,
+                        y = y1 + Math.sin(ang) * r;
+                    j === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.fillStyle = state.color1;
+                ctx.globalAlpha = 0.3 + vol * 0.2;
+                ctx.fill();
+                ctx.strokeStyle = state.color1;
+                ctx.lineWidth = 2;
+                ctx.globalAlpha = 0.6;
+                ctx.stroke();
+
+                const x2 = cx - offsetX,
+                    y2 = cy - offsetY;
+                const rot2 = -tempo * 0.8;
+                ctx.beginPath();
+                for (let j = 0; j < lados; j++) {
+                    const ang = (j / lados) * 2 * Math.PI + rot2;
+                    const r = raioBinaural * (0.6 + pulso * 0.4);
+                    const x = x2 + Math.cos(ang) * r,
+                        y = y2 + Math.sin(ang) * r;
+                    j === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.fillStyle = cor2;
+                ctx.globalAlpha = 0.3 + vol * 0.2;
+                ctx.fill();
+                ctx.strokeStyle = cor2;
+                ctx.lineWidth = 2;
+                ctx.globalAlpha = 0.6;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.strokeStyle = corClara;
+                ctx.lineWidth = 1 + pulso * 2;
+                ctx.globalAlpha = 0.3 + pulso * 0.2;
+                ctx.setLineDash([5, 10]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.globalAlpha = 1;
+            }
+
+            const shapeNames = {
+                circle: 'Círculo',
+                square: 'Quadrado',
+                triangle: 'Triângulo',
+                hexagon: 'Hexágono',
+                star: 'Estrela',
+                cross: 'Cruz',
+                spiral: 'Espiral',
+                flower: 'Flor',
+                heart: 'Coração',
+                moon: 'Lua',
+                diamond: 'Losango',
+                ring: 'Anel'
+            };
+            $('shapeName').textContent = '🔷 ' + (shapeNames[shape] || shape);
+            $('colorInfo').innerHTML = `<span class="color-dot" style="background:${state.color1};"></span> ${state.color1}`;
+
+            state.animId = requestAnimationFrame(renderFrame);
+        }
+
+        // ============================================================
+        //  EVENTOS DA UI
+        // ============================================================
+        presetSelect.addEventListener('change', function() {
+            const val = this.value;
+            if (val === 'personalizado') return;
+            aplicarPreset(val);
+            salvarConfig();
+        });
+
+        const controlsToWatch = [
+            'volume', 'periodoSlider', 'volOscProf', 'melodyMode', 'waveformSelect',
+            'enablePulse', 'pulseSpeed', 'enableOscilacao', 'oscilacaoProf',
+            'enableDual', 'dualFreq', 'enableVolumeOsc',
+            'efOnda', 'efMandala', 'ef3D', 'efVolume', 'efBinaural', 'efParticulas',
+            'rotationSpeed', 'pulseAmount', 'sizeScale', 'glowIntensity'
+        ];
+        controlsToWatch.forEach(id => {
+            const el = $(id);
+            if (!el) return;
+            el.addEventListener('input', function() {
+                presetSelect.value = 'personalizado';
+                salvarConfig();
+            });
+            el.addEventListener('change', function() {
+                presetSelect.value = 'personalizado';
+                salvarConfig();
+            });
+        });
+
+        $('rotationSpeed').addEventListener('input', function() {
+            state.rotationSpeed = parseFloat(this.value);
+            $('rotationVal').textContent = this.value;
+        });
+        $('pulseAmount').addEventListener('input', function() {
+            state.pulseAmount = parseFloat(this.value);
+            $('pulseAmountVal').textContent = this.value;
+        });
+        $('sizeScale').addEventListener('input', function() {
+            state.sizeScale = parseFloat(this.value);
+            $('sizeVal').textContent = this.value;
+        });
+        $('glowIntensity').addEventListener('input', function() {
+            state.glowIntensity = parseFloat(this.value);
+            $('glowVal').textContent = this.value;
+        });
+
+        btnPlay.onclick = tocarAudio;
+        btnStop.onclick = pararAudio;
+
+        // ============================================================
+        //  INICIALIZAÇÃO
+        // ============================================================
+        carregarConfig();
+        atualizarLabels();
+        aplicarEstadoUI();
+        iniciarAnimacao();
+        setInterval(salvarConfig, 5000);
+
+        // Forçar aplicação do preset padrão se não houver configuração salva
+        if (presetSelect.value === 'personalizado' || !presetSelect.value) {
+            presetSelect.value = 'pineal';
+            aplicarPreset('pineal');
+        }
+
+        console.log('🎵 42 SHOTS FUNCIONAIS + EMOÇÕES + OPOSIÇÃO BIPOLAR — Pronto!');
+        console.log('📌 Selecione uma emoção ou escolha um shot diretamente.');
+    </script>
+</body>
+</html>

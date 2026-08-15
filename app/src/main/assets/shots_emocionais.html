@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 MAPA EMOCIONAL · 42 SHOTS + FREQUÊNCIAS + OPOSTOS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, Arial, sans-serif;
+        }
+        body {
+            background: #0a0a1a;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 25px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(4px);
+        }
+        h1 {
+            color: #fff;
+            text-align: center;
+            font-size: 28px;
+            letter-spacing: 2px;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+        h1 span {
+            color: #ff66ff;
+        }
+        .sub {
+            color: #888;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+        .btn-voltar {
+            display: inline-block;
+            background: #6C63FF;
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s;
+            margin-bottom: 20px;
+        }
+        .btn-voltar:hover {
+            background: #5a52d9;
+            transform: scale(1.04);
+        }
+        .emoji-legend {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.03);
+            padding: 12px 20px;
+            border-radius: 16px;
+        }
+        .emoji-legend span {
+            color: #aaa;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .emoji-legend .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+        }
+        .tag-deprimido { background: rgba(79,70,229,0.2); color: #818cf8; }
+        .tag-ansioso { background: rgba(236,72,153,0.2); color: #f472b6; }
+        .tag-irritado { background: rgba(239,68,68,0.2); color: #f87171; }
+        .tag-cansado { background: rgba(251,146,60,0.2); color: #fb923c; }
+        .tag-confuso { background: rgba(59,130,246,0.2); color: #60a5fa; }
+        .tag-calmo { background: rgba(52,211,153,0.2); color: #34d399; }
+        .tag-feliz { background: rgba(251,191,36,0.2); color: #fbbf24; }
+
+        .tabela {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 700px;
+        }
+        thead th {
+            background: rgba(108, 99, 255, 0.15);
+            color: #6C63FF;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 11px;
+            text-transform: uppercase;
+            border-bottom: 2px solid rgba(108, 99, 255, 0.2);
+            position: sticky;
+            top: 0;
+            background: #0a0a1a;
+            z-index: 10;
+        }
+        tbody td {
+            padding: 10px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            color: #ccc;
+            vertical-align: middle;
+        }
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .color-dot {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            vertical-align: middle;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-right: 6px;
+        }
+        .freq-badge {
+            display: inline-block;
+            background: rgba(108, 99, 255, 0.15);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #6C63FF;
+            font-weight: 600;
+        }
+        .oposto-badge {
+            display: inline-block;
+            background: rgba(244, 114, 182, 0.15);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: #f472b6;
+        }
+        .shot-name {
+            font-weight: 600;
+            color: #fff;
+        }
+        .shot-name .emoji {
+            margin-right: 4px;
+        }
+        .emotion-tags {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .emotion-tag {
+            padding: 1px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            background: rgba(255,255,255,0.05);
+            color: #888;
+        }
+        .emotion-tag.deprimido { background: rgba(79,70,229,0.2); color: #818cf8; }
+        .emotion-tag.ansioso { background: rgba(236,72,153,0.2); color: #f472b6; }
+        .emotion-tag.irritado { background: rgba(239,68,68,0.2); color: #f87171; }
+        .emotion-tag.cansado { background: rgba(251,146,60,0.2); color: #fb923c; }
+        .emotion-tag.confuso { background: rgba(59,130,246,0.2); color: #60a5fa; }
+        .emotion-tag.calmo { background: rgba(52,211,153,0.2); color: #34d399; }
+        .emotion-tag.feliz { background: rgba(251,191,36,0.2); color: #fbbf24; }
+
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            color: #555;
+            font-size: 12px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 20px;
+        }
+        .footer a {
+            color: #6C63FF;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 15px; }
+            h1 { font-size: 20px; }
+            table { font-size: 11px; min-width: 500px; }
+            thead th, tbody td { padding: 6px 6px; }
+            .emoji-legend { flex-direction: column; align-items: center; gap: 4px; }
+            .btn-voltar { display: block; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="freq_completo.html" class="btn-voltar">⬅ VOLTAR PARA O WIREFRAME</a>
+
+        <h1>🧠 <span>MAPA EMOCIONAL</span> · 42 SHOTS FUNCIONAIS</h1>
+        <div class="sub">Relação completa: Emoção ↔ Shot ↔ Frequência ↔ Forma ↔ Cor ↔ Oposto</div>
+
+        <div class="emoji-legend">
+            <span>😢 <span class="tag tag-deprimido">Deprimido</span></span>
+            <span>😰 <span class="tag tag-ansioso">Ansioso</span></span>
+            <span>😡 <span class="tag tag-irritado">Irritado</span></span>
+            <span>😴 <span class="tag tag-cansado">Cansado</span></span>
+            <span>😶‍🌫️ <span class="tag tag-confuso">Confuso</span></span>
+            <span>😌 <span class="tag tag-calmo">Calmo</span></span>
+            <span>😊 <span class="tag tag-feliz">Feliz</span></span>
+        </div>
+
+        <div class="tabela">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Estado Emocional</th>
+                        <th>Shot Recomendado</th>
+                        <th>Frequência</th>
+                        <th>Forma</th>
+                        <th>Cor</th>
+                        <th>Oposto (Equilíbrio)</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaBody">
+                    <!-- Preenchido via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>🧠 Use este mapa para navegar entre os 42 shots funcionais e equilibrar suas emoções.</p>
+            <p>💡 Clique no shot desejado no <a href="freq_completo.html">Wireframe</a> para ativar a frequência e a forma correspondente.</p>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        //  DADOS COMPLETOS DOS SHOTS COM EMOÇÕES
+        // ============================================================
+        const SHOTS_DATA = [
+            // ========== SOS / EMERGENCIAL ==========
+            { id: 'sos-ansiedade', emoji: '🌿', shot: 'SOS Ansiedade', freq: '174 Hz', forma: '🌙 Lua', cor: '#4f46e5',
+                emocao: 'Deprimido / Triste', oposto: '⚡ Shot Acorde e Viva (440 Hz)', tag: 'deprimido' },
+            { id: 'sos-antiestresse', emoji: '🌿', shot: 'SOS Antiestresse Agudo', freq: '396 Hz', forma: '⭕ Círculo',
+                cor: '#7c3aed', emocao: 'Deprimido / Desânimo', oposto: '⚡ Clarity Boost (741 Hz)', tag: 'deprimido' },
+            { id: 'sono-reparador', emoji: '🌙', shot: 'Sono Reparador', freq: '798 Hz', forma: '🌙 Lua', cor: '#6366f1',
+                emocao: 'Deprimido / Cansaço', oposto: '⚡ Pré-Treino Arginina (285 Hz)', tag: 'deprimido' },
+            { id: 'sos-ansiedade', emoji: '🌿', shot: 'SOS Ansiedade', freq: '174 Hz', forma: '🌙 Lua', cor: '#4f46e5',
+                emocao: 'Ansioso / Agitado', oposto: '⚡ Estímulo Cognitivo (852 Hz)', tag: 'ansioso' },
+            { id: 'sos-antiestresse', emoji: '🌿', shot: 'SOS Antiestresse Agudo', freq: '396 Hz', forma: '⭕ Círculo',
+                cor: '#7c3aed', emocao: 'Ansioso / Preocupado', oposto: '🧠 Foco Absoluto (852 Hz)', tag: 'ansioso' },
+            { id: 'crise-emocional', emoji: '🌿', shot: 'Crise Emocional', freq: '432 Hz', forma: '⭕ Círculo',
+                cor: '#6C63FF', emocao: 'Ansioso / Pânico', oposto: '⚡ Shot Acorde e Viva (440 Hz)', tag: 'ansioso' },
+            { id: 'anticortisol', emoji: '🌿', shot: 'Anticortisol Emergencial', freq: '417 Hz', forma: '⭕ Círculo',
+                cor: '#8b5cf6', emocao: 'Irritado / Nervoso', oposto: '🧠 Neurodivergente (963 Hz)', tag: 'irritado' },
+            { id: 'tpm-balance', emoji: '🌸', shot: 'TPM Balance', freq: '594 Hz', forma: '✿ Flor', cor: '#f59e0b',
+                emocao: 'Irritado / Raiva', oposto: '💪 Vitalidade Masculina (440 Hz)', tag: 'irritado' },
+            { id: 'acorde-viva', emoji: '⚡', shot: 'Shot Acorde e Viva', freq: '440 Hz', forma: '⬡ Hexágono',
+                cor: '#f59e0b', emocao: 'Cansado / Exausto', oposto: '🌙 Relaxamento Noturno (528 Hz)', tag: 'cansado' },
+            { id: 'substitutivo-cafeina', emoji: '⚡', shot: 'Substitutivo da Cafeína', freq: '285 Hz', forma: '◆ Losango',
+                cor: '#f97316', emocao: 'Cansado / Sem Energia', oposto: '🌙 Sono Reparador (798 Hz)', tag: 'cansado' },
+            { id: 'sos-antiestresse', emoji: '🌿', shot: 'SOS Antiestresse Agudo', freq: '396 Hz', forma: '⭕ Círculo',
+                cor: '#7c3aed', emocao: 'Estressado / Tensão', oposto: '🧘 Spray Rituais (420 Hz)', tag: 'ansioso' },
+            { id: 'anticortisol', emoji: '🌿', shot: 'Anticortisol Emergencial', freq: '417 Hz', forma: '⭕ Círculo',
+                cor: '#8b5cf6', emocao: 'Estressado / Pressão', oposto: '🧠 Foco & Memória (741 Hz)', tag: 'irritado' },
+            { id: 'foco-absoluto', emoji: '🧠', shot: 'Foco Absoluto', freq: '852 Hz', forma: '✈️ Avião', cor: '#3b82f6',
+                emocao: 'Confuso / Distraído', oposto: '🌙 Floral Sensorial (639 Hz)', tag: 'confuso' },
+            { id: 'neurodivergente', emoji: '🧠', shot: 'Neurodivergente AM', freq: '963 Hz', forma: '🌀 Espiral',
+                cor: '#8b5cf6', emocao: 'Confuso / Mental', oposto: '🌙 Goma Sensorial (639 Hz)', tag: 'confuso' },
+            { id: 'flor-da-lua', emoji: '🌸', shot: 'Flor da Lua', freq: '639 Hz', forma: '🌙 Lua', cor: '#f472b6',
+                emocao: 'Bravo / Agressivo', oposto: '💪 TestoBalance (256 Hz)', tag: 'irritado' },
+            { id: 'pos-briga-ex', emoji: '🌸', shot: 'Pós-Briga com Ex', freq: '639 Hz', forma: '❤️ Coração',
+                cor: '#f472b6', emocao: 'Bravo / Frustrado', oposto: '⚡ Clarity Boost (741 Hz)', tag: 'irritado' },
+            { id: 'libido-vital', emoji: '❤️', shot: 'Libido Vital', freq: '639 Hz', forma: '❤️ Coração', cor: '#f472b6',
+                emocao: 'Solitário / Carente', oposto: '🌸 TPM Balance (594 Hz)', tag: 'deprimido' },
+            { id: 'flor-da-lua', emoji: '🌸', shot: 'Flor da Lua', freq: '639 Hz', forma: '🌙 Lua', cor: '#f472b6',
+                emocao: 'Solitário / Isolado', oposto: '💪 Vitalidade Masculina (440 Hz)', tag: 'deprimido' },
+            { id: 'pos-briga-ex', emoji: '🌸', shot: 'Pós-Briga com Ex', freq: '639 Hz', forma: '❤️ Coração',
+                cor: '#f472b6', emocao: 'Triste / Sensível', oposto: '🧠 Neurodivergente (963 Hz)', tag: 'deprimido' },
+            { id: 'sos-ansiedade', emoji: '🌿', shot: 'SOS Ansiedade', freq: '174 Hz', forma: '🌙 Lua', cor: '#4f46e5',
+                emocao: 'Triste / Melancólico', oposto: '⚡ Shot Acorde e Viva (440 Hz)', tag: 'deprimido' },
+            { id: 'relaxamento-noturno', emoji: '🌙', shot: 'Relaxamento Noturno', freq: '528 Hz', forma: '❤️ Coração',
+                cor: '#ec4899', emocao: 'Calmo / Relaxado', oposto: '⚡ Substitutivo Cafeína (285 Hz)', tag: 'calmo' },
+            { id: 'sono-reparador', emoji: '🌙', shot: 'Sono Reparador', freq: '798 Hz', forma: '🌙 Lua', cor: '#6366f1',
+                emocao: 'Calmo / Sereno', oposto: '⚡ Pré-Treino Arginina (285 Hz)', tag: 'calmo' },
+            { id: 'acorde-viva', emoji: '⚡', shot: 'Shot Acorde e Viva', freq: '440 Hz', forma: '⬡ Hexágono',
+                cor: '#f59e0b', emocao: 'Feliz / Alegre', oposto: '🌙 Relaxamento Noturno (528 Hz)', tag: 'feliz' },
+            { id: 'clarity-boost', emoji: '⚡', shot: 'Clarity Boost', freq: '741 Hz', forma: '★ Estrela', cor: '#06b6d4',
+                emocao: 'Feliz / Eufórico', oposto: '🌿 SOS Antiestresse (396 Hz)', tag: 'feliz' },
+            { id: 'foco-absoluto', emoji: '🧠', shot: 'Foco Absoluto', freq: '852 Hz', forma: '✈️ Avião', cor: '#3b82f6',
+                emocao: 'Focado / Produtivo', oposto: '🌙 Floral Sensorial (639 Hz)', tag: 'confuso' },
+            { id: 'neurodivergente', emoji: '🧠', shot: 'Neurodivergente AM', freq: '963 Hz', forma: '🌀 Espiral',
+                cor: '#8b5cf6', emocao: 'Focado / Criativo', oposto: '🌙 Goma Sensorial (639 Hz)', tag: 'confuso' },
+            { id: 'acorde-viva', emoji: '⚡', shot: 'Shot Acorde e Viva', freq: '440 Hz', forma: '⬡ Hexágono',
+                cor: '#f59e0b', emocao: 'Energético / Disposto', oposto: '🌙 Sono Reparador (798 Hz)', tag: 'feliz' },
+            { id: 'vitalidade-masculina', emoji: '💪', shot: 'Vitalidade Masculina', freq: '440 Hz', forma: '⬡ Hexágono',
+                cor: '#f59e0b', emocao: 'Energético / Forte', oposto: '🌙 Relaxamento Noturno (528 Hz)', tag: 'feliz' },
+            { id: 'libido-vital', emoji: '❤️', shot: 'Libido Vital', freq: '639 Hz', forma: '❤️ Coração', cor: '#f472b6',
+                emocao: 'Apaixonado / Desejo', oposto: '🌸 TPM Balance (594 Hz)', tag: 'feliz' },
+            { id: 'encanto-azul', emoji: '🌸', shot: 'Encanto Azul', freq: '432 Hz', forma: '✿ Flor', cor: '#3b82f6',
+                emocao: 'Apaixonado / Conexão', oposto: '🌙 Goma Sensorial (639 Hz)', tag: 'feliz' },
+            { id: 'spray-rituais', emoji: '🧘', shot: 'Spray Rituais Sensorial', freq: '420 Hz', forma: '🌀 Espiral',
+                cor: '#8b5cf6', emocao: 'Zen / Presente', oposto: '⚡ Estímulo Cognitivo (852 Hz)', tag: 'calmo' },
+            { id: 'meditacao', emoji: '🌿', shot: 'Meditação Profunda', freq: '432 Hz', forma: '🌙 Lua', cor: '#6C63FF',
+                emocao: 'Zen / Meditativo', oposto: '⚡ Energia & Foco (440 Hz)', tag: 'calmo' }
+        ];
+
+        // ============================================================
+        //  RENDERIZAR TABELA
+        // ============================================================
+        const tbody = document.getElementById('tabelaBody');
+
+        SHOTS_DATA.forEach((item, index) => {
+            const tr = document.createElement('tr');
+
+            // Número
+            const tdNum = document.createElement('td');
+            tdNum.textContent = index + 1;
+            tdNum.style.color = '#666';
+            tdNum.style.fontSize = '11px';
+
+            // Emoção
+            const tdEmocao = document.createElement('td');
+            tdEmocao.innerHTML =
+                `<span class="emotion-tag ${item.tag}">${item.emocao}</span>`;
+
+            // Shot
+            const tdShot = document.createElement('td');
+            tdShot.innerHTML = `<span class="shot-name"><span class="emoji">${item.emoji}</span>${item.shot}</span>`;
+
+            // Frequência
+            const tdFreq = document.createElement('td');
+            tdFreq.innerHTML = `<span class="freq-badge">${item.freq}</span>`;
+
+            // Forma
+            const tdForma = document.createElement('td');
+            tdForma.textContent = item.forma;
+
+            // Cor
+            const tdCor = document.createElement('td');
+            tdCor.innerHTML = `<span class="color-dot" style="background:${item.cor};"></span> ${item.cor}`;
+
+            // Oposto
+            const tdOposto = document.createElement('td');
+            tdOposto.innerHTML = `<span class="oposto-badge">${item.oposto}</span>`;
+
+            tr.appendChild(tdNum);
+            tr.appendChild(tdEmocao);
+            tr.appendChild(tdShot);
+            tr.appendChild(tdFreq);
+            tr.appendChild(tdForma);
+            tr.appendChild(tdCor);
+            tr.appendChild(tdOposto);
+
+            tbody.appendChild(tr);
+        });
+
+        console.log('🧠 MAPA EMOCIONAL CARREGADO — ' + SHOTS_DATA.length + ' entradas');
+    </script>
+</body>
+</html>
