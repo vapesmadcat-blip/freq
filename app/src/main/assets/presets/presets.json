@@ -1,47 +1,12 @@
 [
   {
-    "id": "pineal",
-    "displayName": "🔮 Ativação Pineal",
-    "description": "Ativação da pineal — som e visual combinados",
-    "applyOrder": ["audio", "visual", "meta"],
-    "settings": {
-      "freq": 963,
-      "shape": "spiral",
-      "color1": "#7c3aed",
-      "color2": "#f472b6",
-      "bgColor": "#0a0a1a",
-      "volume": 50,
-      "periodo": 3000,
-      "volOscProf": 80,
-      "melodyMode": "drone",
-      "waveform": "sine",
-      "enablePulse": true,
-      "pulseSpeed": 1.5,
-      "enableOscilacao": true,
-      "oscilacaoProf": 5,
-      "enableDual": true,
-      "dualFreq": 4,
-      "efOnda": true,
-      "efMandala": true,
-      "ef3D": true,
-      "efVolume": true,
-      "efBinaural": true,
-      "efParticulas": true,
-      "oposto": "acorde-viva",
-      "emocoes": ["calmo", "ansioso"]
-    }
-  },
-  {
     "id": "meditacao",
     "displayName": "🌿 Meditação Profunda",
-    "description": "Meditação profunda com leve oscilação de volume",
+    "description": "Meditação profunda — configuração extraída do freq_mara.html",
     "applyOrder": ["audio", "visual"],
     "settings": {
       "freq": 432,
-      "shape": "ring",
-      "color1": "#6C63FF",
-      "color2": "#a78bfa",
-      "bgColor": "#0a0a1a",
+      "shape": "circle",
       "volume": 40,
       "periodo": 4000,
       "volOscProf": 70,
@@ -59,21 +24,49 @@
       "efVolume": true,
       "efBinaural": false,
       "efParticulas": true,
-      "oposto": "energia",
-      "emocoes": ["calmo"]
+      "color1": "#6C63FF",
+      "color2": "#a78bfa",
+      "bgColor": "#0a0a1a"
+    }
+  },
+  {
+    "id": "pineal",
+    "displayName": "🔮 Ativação Pineal",
+    "description": "Ativação da pineal — configuração extraída do freq_mara.html",
+    "applyOrder": ["audio", "visual"],
+    "settings": {
+      "freq": 963,
+      "shape": "spiral",
+      "volume": 50,
+      "periodo": 3000,
+      "volOscProf": 80,
+      "melodyMode": "drone",
+      "waveform": "sine",
+      "enablePulse": true,
+      "pulseSpeed": 1.5,
+      "enableOscilacao": true,
+      "oscilacaoProf": 5,
+      "enableDual": true,
+      "dualFreq": 4,
+      "efOnda": true,
+      "efMandala": true,
+      "ef3D": true,
+      "efVolume": true,
+      "efBinaural": true,
+      "efParticulas": true,
+      "color1": "#7c3aed",
+      "color2": "#f472b6",
+      "bgColor": "#0a0a1a"
     }
   },
   {
     "id": "avemaria",
     "displayName": "🎵 Ave Maria",
-    "description": "Melodia Ave Maria com visual emotivo",
+    "description": "Ave Maria — configuração extraída do freq_mara.html",
     "applyOrder": ["audio", "visual"],
     "settings": {
       "freq": 528,
       "shape": "heart",
-      "color1": "#f59e0b",
-      "color2": "#ef4444",
-      "bgColor": "#1a0a0a",
       "volume": 45,
       "periodo": 2000,
       "volOscProf": 60,
@@ -90,20 +83,20 @@
       "ef3D": false,
       "efVolume": true,
       "efBinaural": false,
-      "efParticulas": true
+      "efParticulas": true,
+      "color1": "#f59e0b",
+      "color2": "#ef4444",
+      "bgColor": "#1a0a0a"
     }
   },
   {
     "id": "energia",
     "displayName": "⚡ Energia & Foco",
-    "description": "Preset para energia e concentração",
+    "description": "Energia e foco — configuração extraída do freq_mara.html",
     "applyOrder": ["audio", "visual"],
     "settings": {
       "freq": 440,
       "shape": "hexagon",
-      "color1": "#3b82f6",
-      "color2": "#06b6d4",
-      "bgColor": "#0a0a1a",
       "volume": 60,
       "periodo": 800,
       "volOscProf": 40,
@@ -120,20 +113,20 @@
       "ef3D": true,
       "efVolume": true,
       "efBinaural": false,
-      "efParticulas": false
+      "efParticulas": false,
+      "color1": "#3b82f6",
+      "color2": "#06b6d4",
+      "bgColor": "#0a0a1a"
     }
   },
   {
     "id": "relaxamento",
     "displayName": "🌊 Relaxamento",
-    "description": "Relaxamento profundo com oscilação suave",
+    "description": "Relaxamento profundo — configuração extraída do freq_mara.html",
     "applyOrder": ["audio", "visual"],
     "settings": {
       "freq": 174,
       "shape": "moon",
-      "color1": "#0ea5e9",
-      "color2": "#38bdf8",
-      "bgColor": "#0a0a1a",
       "volume": 35,
       "periodo": 6000,
       "volOscProf": 90,
@@ -150,7 +143,10 @@
       "ef3D": false,
       "efVolume": true,
       "efBinaural": false,
-      "efParticulas": true
+      "efParticulas": true,
+      "color1": "#0ea5e9",
+      "color2": "#38bdf8",
+      "bgColor": "#0a0a1a"
     }
   }
 ]
