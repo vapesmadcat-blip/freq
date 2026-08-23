@@ -56,5 +56,35 @@
       "oposto": "energia",
       "emocoes": ["calmo"]
     }
+  },
+  {
+    "id": "teste_de_preset",
+    "displayName": "TESTE DE PRESET",
+    "description": "Preset de teste adicionado diretamente em presets.json.",
+    "applyOrder": ["audio","visual"],
+    "settings": {
+      "freq": 432,
+      "shape": "ring",
+      "color1": "#ffffff",
+      "color2": "#000000",
+      "bgColor": "#000000",
+      "volume": 50,
+      "periodo": 1000,
+      "volOscProf": 0,
+      "melodyMode": "none",
+      "waveform": "sine",
+      "enablePulse": false,
+      "pulseSpeed": 1,
+      "enableOscilacao": false,
+      "oscilacaoProf": 3,
+      "enableDual": false,
+      "dualFreq": 4,
+      "efOnda": true,
+      "efMandala": false,
+      "ef3D": false,
+      "efVolume": true,
+      "efBinaural": false,
+      "efParticulas": false
+    }
   }
 ]
