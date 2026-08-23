@@ -1,0 +1,60 @@
+[
+  {
+    "id": "pineal",
+    "displayName": "🔮 Ativação Pineal",
+    "description": "Ativação da pineal — som e visual combinados",
+    "applyOrder": ["audio","visual","meta"],
+    "settings": {
+      "freq": 963,
+      "shape": "circle",
+      "color1": "#6C63FF",
+      "color2": "#a5b4fc",
+      "bgColor": "#0a0a1a",
+      "volume": 45,
+      "periodo": 3500,
+      "volOscProf": 80,
+      "melodyMode": "drone",
+      "waveform": "sine",
+      "enablePulse": false,
+      "enableOscilacao": true,
+      "oscilacaoProf": 2,
+      "efOnda": true,
+      "efMandala": true,
+      "ef3D": true,
+      "efVolume": true,
+      "efBinaural": false,
+      "efParticulas": true,
+      "oposto": "acorde-viva",
+      "emocoes": ["calmo","ansioso"]
+    }
+  },
+  {
+    "id": "meditacao",
+    "displayName": "🌿 Meditação Profunda",
+    "description": "Meditação profunda com leve oscilação de volume",
+    "applyOrder": ["audio","visual"],
+    "settings": {
+      "freq": 432,
+      "shape": "ring",
+      "color1": "#34d399",
+      "color2": "#86efac",
+      "bgColor": "#050509",
+      "volume": 30,
+      "periodo": 4000,
+      "volOscProf": 60,
+      "melodyMode": "drone",
+      "waveform": "sine",
+      "enablePulse": false,
+      "enableOscilacao": true,
+      "oscilacaoProf": 1.8,
+      "efOnda": true,
+      "efMandala": false,
+      "ef3D": false,
+      "efVolume": true,
+      "efBinaural": false,
+      "efParticulas": false,
+      "oposto": "energia",
+      "emocoes": ["calmo"]
+    }
+  }
+]
