@@ -1,8 +1,6 @@
 // app/src/main/assets/audio_manager.js
 // Audio manager and UI integration for freq_completo.html
-// Attach this script after the DOM is ready. It will register UI handlers
-// and provide a safe WebAudio singleton that avoids duplicated nodes.
-
+// Enhanced: populates preset select from presets.json and keeps control labels in sync
 (function () {
   function log() { /*console.log.apply(console, arguments)*/ }
 
@@ -207,6 +205,25 @@
         await window.audioManager.prepare(p);
         // update visuals if function present
         if (typeof applyVisualPreset === 'function') applyVisualPreset(p);
+
+        // update UI controls to reflect preset values (where elements exist)
+        try {
+          if (document.getElementById('volume')) document.getElementById('volume').value = p.settings.volume || 50;
+          if (document.getElementById('volValue')) document.getElementById('volValue').textContent = (p.settings.volume || 50) + '%';
+          if (document.getElementById('periodoSlider')) document.getElementById('periodoSlider').value = p.settings.periodo || 1000;
+          if (document.getElementById('periodoValue')) document.getElementById('periodoValue').textContent = (p.settings.periodo || 1000) + ' ms';
+          if (document.getElementById('volOscProf')) document.getElementById('volOscProf').value = p.settings.volOscProf || 50;
+          if (document.getElementById('volOscValue')) document.getElementById('volOscValue').textContent = (p.settings.volOscProf || 50) + '%';
+          if (document.getElementById('oscilacaoProf')) document.getElementById('oscilacaoProf').value = p.settings.oscilacaoProf || 3;
+          if (document.getElementById('oscilacaoValue')) document.getElementById('oscilacaoValue').textContent = (p.settings.oscilacaoProf || 3) + ' Hz';
+          if (document.getElementById('pulseSpeed')) document.getElementById('pulseSpeed').value = p.settings.pulseSpeed || 2.0;
+          if (document.getElementById('pulseSpeedValue')) document.getElementById('pulseSpeedValue').textContent = (p.settings.pulseSpeed || 2.0) + ' Hz';
+          if (document.getElementById('waveformSelect')) document.getElementById('waveformSelect').value = p.settings.waveform || 'sine';
+          if (document.getElementById('waveformLabel')) document.getElementById('waveformLabel').textContent = p.settings.waveform || 'sine';
+          if (document.getElementById('color1')) document.getElementById('color1').value = p.settings.color1 || '#6C63FF';
+          if (document.getElementById('color2')) document.getElementById('color2').value = p.settings.color2 || '#a78bfa';
+          if (document.getElementById('bgColor')) document.getElementById('bgColor').value = p.settings.bgColor || '#0a0a1a';
+        } catch (e) { /* ignore missing elements */ }
       });
     }
 
@@ -230,6 +247,40 @@
       if (btnStop) btnStop.disabled = true;
       if (btnPlay) btnPlay.disabled = false;
     });
+
+    // KEEP CONTROL LABELS IN SYNC (ms, Hz, %)
+    function wireLabel(rangeId, labelId, unit) {
+      const r = document.getElementById(rangeId);
+      const l = document.getElementById(labelId);
+      if (!r || !l) return;
+      const update = () => { l.textContent = r.value + (unit || ''); };
+      r.addEventListener('input', update);
+      update();
+    }
+
+    wireLabel('volume', 'volValue', '%');
+    wireLabel('periodoSlider', 'periodoValue', ' ms');
+    wireLabel('volOscProf', 'volOscValue', '%');
+    wireLabel('oscilacaoProf', 'oscilacaoValue', ' Hz');
+    wireLabel('pulseSpeed', 'pulseSpeedValue', ' Hz');
+    // waveform label
+    const wf = document.getElementById('waveformSelect');
+    const wfLabel = document.getElementById('waveformLabel');
+    if (wf && wfLabel) { wf.addEventListener('change', () => wfLabel.textContent = wf.value); wfLabel.textContent = wf.value; }
+
+    // color pickers live update
+    const color1 = document.getElementById('color1');
+    const color2 = document.getElementById('color2');
+    const bgColor = document.getElementById('bgColor');
+    if (color1) color1.addEventListener('input', (e)=>{ document.querySelectorAll('.color-dot').forEach(d=>d.style.background=e.target.value); });
+    if (color2) color2.addEventListener('input', (e)=>{ /* could update secondary visuals */ });
+    if (bgColor) bgColor.addEventListener('input', (e)=>{ document.body.style.background = e.target.value; });
+
+    // populate select if presets are available via fetch
+    if (!window.presets) {
+      // try to fetch presets.json relative to assets folder
+      fetch('presets/presets.json').then(r=>r.json()).then(data=>{ window.presets = data; populateSelectFromPresets(); }).catch(()=>{});
+    }
 
     // expose for debugging
     window._audioManager = AM;
