@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -47,7 +48,7 @@
         }
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 1.8fr;
+            grid-template-columns: 1fr 2.2fr;
             gap: 18px;
         }
         @media (max-width: 920px) {
@@ -100,6 +101,43 @@
         .preset-selector select option {
             background: #1a1a2e;
             color: #ddd;
+        }
+
+        /* Emotion / emoji grid (ADDED) */
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+        .emoji-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: #aaa;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 6px 2px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 18px;
+            transition: all 0.25s;
+        }
+        .emoji-btn:hover { 
+            background: rgba(255,255,255,0.12); 
+            transform: scale(1.05); 
+        }
+        .emoji-btn.active { 
+            background: #6C63FF; 
+            border-color: #6C63FF; 
+            box-shadow: 0 0 20px rgba(108,99,255,0.25); 
+        }
+        .emoji-btn .label { 
+            display:block; 
+            font-size:8px; 
+            color:#888; 
+            margin-top:2px; 
+        }
+        .emoji-btn.active .label { 
+            color:#fff; 
         }
 
         /* Frequências */
@@ -231,728 +269,1300 @@
             border-radius: 50%;
             background: #6C63FF;
             cursor: pointer;
+            box-shadow: 0 0 12px rgba(108, 99, 255, 0.3);
             border: none;
+            transition: 0.15s;
         }
-        select {
-            width: 100%;
-            padding: 8px 10px;
-            background: rgba(255, 255, 255, 0.06);
-            color: #ddd;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            font-size: 12px;
-            cursor: pointer;
-            outline: none;
-            transition: border 0.2s;
+        input[type="range"]::-moz-range-thumb:hover {
+            transform: scale(1.15);
         }
-        select:focus {
-            border-color: #6C63FF;
-        }
-        select option {
-            background: #1a1a2e;
-            color: #ddd;
-        }
+
+        /* Checkbox */
         .checkbox-group {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin: 4px 0;
-            color: #ccc;
-            font-size: 12px;
-            padding: 2px 0;
+            margin: 6px 0;
         }
         .checkbox-group input[type="checkbox"] {
-            width: 15px;
-            height: 15px;
-            accent-color: #6C63FF;
+            width: 16px;
+            height: 16px;
             cursor: pointer;
-            flex-shrink: 0;
+            accent-color: #6C63FF;
         }
         .checkbox-group label {
+            color: #888;
+            font-size: 12px;
             cursor: pointer;
-            user-select: none;
-        }
-        .checkbox-group label .badge {
-            color: #666;
-            font-size: 10px;
-            margin-left: 4px;
-        }
-        .buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 14px;
-        }
-        button {
             flex: 1;
-            padding: 11px;
-            border: none;
-            border-radius: 10px;
-            font-size: 14px;
+        }
+
+        /* Cores */
+        .color-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        .color-group label {
+            color: #888;
+            font-size: 12px;
+            min-width: 80px;
+        }
+        .color-group input[type="color"] {
+            width: 40px;
+            height: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Canvas */
+        canvas {
+            background: #000;
+            border-radius: 12px;
+            max-width: 100%;
+            height: auto;
+            min-height: 600px;
+            width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Botões play/stop/shots */
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .button-group button {
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.25s;
-            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .btn-play {
+        .button-group button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #6C63FF;
+            color: #6C63FF;
+        }
+        .button-group button.active {
+            background: #6C63FF;
+            border-color: #6C63FF;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(108, 99, 255, 0.3);
+        }
+
+        /* Badges & info */
+        .info-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 12px;
+            font-size: 11px;
+        }
+        .info-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 8px;
+            color: #999;
+            text-align: center;
+        }
+        .info-badge span {
+            color: #6C63FF;
+            font-weight: 600;
+            display: block;
+        }
+        .emotion-badge {
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .emotion-badge.calmo { background: rgba(100, 200, 255, 0.15); color: #64c8ff; }
+        .emotion-badge.energico { background: rgba(255, 100, 100, 0.15); color: #ff6464; }
+        .emotion-badge.triste { background: rgba(100, 100, 255, 0.15); color: #6464ff; }
+        .emotion-badge.alegre { background: rgba(255, 200, 100, 0.15); color: #ffc864; }
+        .emotion-badge.apaixonado { background: rgba(255, 100, 200, 0.15); color: #ff64c8; }
+        .emotion-badge.meditativo { background: rgba(100, 255, 150, 0.15); color: #64ff96; }
+        .emotion-badge.misterioso { background: rgba(150, 100, 255, 0.15); color: #9664ff; }
+
+        /* Animation controls (ADDED) */
+        .animation-controls {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .animation-controls .control-group {
+            margin: 8px 0;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+        }
+        .modal.show {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: #0a0a1a;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            position: relative;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 15px;
+        }
+        .modal-header h2 {
+            color: #fff;
+            font-size: 22px;
+            margin: 0;
+        }
+        .modal-close {
+            background: #6C63FF;
+            color: #fff;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .modal-close:hover {
+            background: #5a52d9;
+            transform: scale(1.1);
+        }
+        .shots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+        }
+        .shot-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .shot-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #6C63FF;
+            transform: translateY(-2px);
+        }
+        .shot-emoji {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+        .shot-title {
+            font-weight: 600;
+            color: #fff;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+        .shot-freq {
+            font-size: 11px;
+            color: #6C63FF;
+            margin-bottom: 4px;
+        }
+        .shot-emotion {
+            font-size: 10px;
+            color: #999;
+            line-height: 1.3;
+        }
+
+        /* Modal Salvar Preset */
+        .modal-input-group {
+            margin: 20px 0;
+        }
+        .modal-input-group label {
+            display: block;
+            color: #aaa;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+        .modal-input-group input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .modal-input-group input:focus {
+            outline: none;
+            border-color: #6C63FF;
+            box-shadow: 0 0 15px rgba(108, 99, 255, 0.2);
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .modal-buttons button {
+            padding: 10px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 12px;
+        }
+        .modal-buttons .btn-primary {
             background: #6C63FF;
             color: #fff;
         }
-        .btn-play:hover:not(:disabled) {
+        .modal-buttons .btn-primary:hover {
             background: #5a52d9;
-            transform: scale(1.02);
         }
-        .btn-stop {
-            background: #e74c3c;
-            color: #fff;
+        .modal-buttons .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #aaa;
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
-        .btn-stop:hover:not(:disabled) {
-            background: #c0392b;
-            transform: scale(1.02);
-        }
-        button:disabled {
-            opacity: 0.35;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-        .status {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 13px;
-            padding: 6px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.03);
-            transition: all 0.3s;
-            color: #666;
-        }
-        .status.playing {
-            color: #6C63FF;
-            background: rgba(108, 99, 255, 0.08);
-        }
-        .sep {
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin: 10px 0;
-        }
-
-        /* Efeitos visuais */
-        .efeitos-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3px;
-            margin: 4px 0;
-        }
-
-        /* Painel visual */
-        .visual-panel {
-            background: #000;
-            border-radius: 16px;
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        canvas {
-            width: 100%;
-            aspect-ratio: 1/1;
-            border-radius: 12px;
-            background: #0a0a1a;
-            display: block;
-        }
-        .visual-info {
-            color: #666;
-            font-size: 11px;
-            margin-top: 8px;
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            flex-wrap: wrap;
-            gap: 4px;
-        }
-        .visual-info span {
-            background: rgba(255, 255, 255, 0.04);
-            padding: 3px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .color-dot {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            vertical-align: middle;
-            margin-right: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .melodia-ativa {
-            border: 1px solid #6C63FF;
-            background: rgba(108, 99, 255, 0.12);
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 11px;
-            color: #6C63FF;
-            display: inline-block;
-        }
-        .row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        .row .control-group {
-            flex: 1;
-        }
-        .info-ms {
-            color: #6C63FF;
-            font-weight: 700;
-        }
-
-        /* Estilo dos seletores de cor */
-        .color-pickers {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-        .color-pickers input[type="color"] {
-            width: 40px;
-            height: 40px;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            background: none;
-            padding: 0;
-            outline: 2px solid rgba(255, 255, 255, 0.1);
-            transition: outline 0.2s;
-        }
-        .color-pickers input[type="color"]:hover {
-            outline-color: #6C63FF;
-        }
-        .color-pickers span {
-            color: #888;
-            font-size: 11px;
-            display: flex;
-            align-items: center;
-            margin-left: 4px;
-        }
-
-        @media (max-width: 500px) {
-            .freq-list {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            .shape-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .buttons {
-                flex-direction: column;
-            }
-            .visual-info span {
-                font-size: 9px;
-                padding: 2px 8px;
-            }
-            h1 {
-                font-size: 18px;
-            }
-            .container {
-                padding: 12px;
-            }
-            .color-pickers input[type="color"] {
-                width: 32px;
-                height: 32px;
-            }
+        .modal-buttons .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎵 <span>VOLUME OSCILANTE</span> + GALERIA DE FORMAS</h1>
-        <div class="sub">Escolha um preset ou personalize cada parâmetro</div>
+        <h1>🎵 VOLUME <span>OSCILANTE</span> + FORMAS</h1>
+        <p class="sub">Gerador de Frequências Bioenergéticas</p>
 
         <div class="main-grid">
             <!-- PAINEL ESQUERDO -->
             <div class="panel">
                 <!-- PRESETS -->
-                <div class="panel-title">⚡ PRESETS</div>
                 <div class="preset-selector">
                     <select id="presetSelect">
-                        <option value="meditacao">🌿 Meditação Profunda</option>
-                        <option value="pineal" selected>🔮 Ativação Pineal</option>
-                        <option value="avemaria">🎵 Ave Maria</option>
-                        <option value="energia">⚡ Energia & Foco</option>
-                        <option value="relaxamento">🌊 Relaxamento</option>
-                        <option value="personalizado">✨ Personalizado (atual)</option>
+                        <option value="personalizado">🔧 Personalizado</option>
+                        <optgroup label="─ PADRÕES ─">
+                            <option value="meditacao">🧘 Meditação Profunda</option>
+                            <option value="energia">⚡ Energia Máxima</option>
+                            <option value="criatividade">🎨 Criatividade</option>
+                            <option value="foco">🎯 Foco Total</option>
+                            <option value="relaxamento">😌 Relaxamento</option>
+                            <option value="sono">😴 Sono Profundo</option>
+                            <option value="amor">💖 Amor Universal</option>
+                            <option value="pineal">🔮 Ativação Pineal</option>
+                        </optgroup>
+                        <optgroup label="─ MEUS PRESETS ─" id="meusPresetsGroup">
+                        </optgroup>
                     </select>
                 </div>
 
-                <!-- Formas -->
-                <div class="panel-title">🎨 ESCOLHA A FORMA</div>
-                <div class="shape-grid" id="shapeGrid">
-                    <div class="shape-btn active" data-shape="circle"><span class="icon">●</span>Círculo</div>
-                    <div class="shape-btn" data-shape="square"><span class="icon">■</span>Quadrado</div>
-                    <div class="shape-btn" data-shape="triangle"><span class="icon">▲</span>Triângulo</div>
-                    <div class="shape-btn" data-shape="hexagon"><span class="icon">⬡</span>Hexágono</div>
-                    <div class="shape-btn" data-shape="star"><span class="icon">★</span>Estrela</div>
-                    <div class="shape-btn" data-shape="cross"><span class="icon">✚</span>Cruz</div>
-                    <div class="shape-btn" data-shape="spiral"><span class="icon">🌀</span>Espiral</div>
-                    <div class="shape-btn" data-shape="flower"><span class="icon">✿</span>Flor</div>
-                    <div class="shape-btn" data-shape="heart"><span class="icon">♥</span>Coração</div>
-                    <div class="shape-btn" data-shape="moon"><span class="icon">☾</span>Lua</div>
-                    <div class="shape-btn" data-shape="diamond"><span class="icon">◆</span>Losango</div>
-                    <div class="shape-btn" data-shape="ring"><span class="icon">◎</span>Anel</div>
+                <button id="btnSalvarPreset" style="width: 100%; padding: 10px 12px; background: #6C63FF; color: #fff; border: none; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 16px; transition: 0.3s;" onmouseover="this.style.background='#5a52d9'" onmouseout="this.style.background='#6C63FF'">💾 Salvar Preset</button>
+
+                <!-- EMOÇÕES (ADDED) -->
+                <div class="panel-title">😊 Emoção</div>
+                <div class="emoji-grid" id="emojiGrid">
+                    <button class="emoji-btn" data-emotion="calmo"><span>😌</span><span class="label">Calmo</span></button>
+                    <button class="emoji-btn" data-emotion="energico"><span>⚡</span><span class="label">Energético</span></button>
+                    <button class="emoji-btn" data-emotion="triste"><span>😢</span><span class="label">Triste</span></button>
+                    <button class="emoji-btn" data-emotion="alegre"><span>😄</span><span class="label">Alegre</span></button>
+                    <button class="emoji-btn" data-emotion="apaixonado"><span>💕</span><span class="label">Apaixonado</span></button>
+                    <button class="emoji-btn" data-emotion="meditativo"><span>🧘</span><span class="label">Meditativo</span></button>
+                    <button class="emoji-btn" data-emotion="misterioso"><span>🌑</span><span class="label">Misterioso</span></button>
                 </div>
 
-                <!-- Frequências -->
-                <div class="panel-title">🎵 FREQUÊNCIAS CURATIVAS</div>
-                <div class="freq-list" id="freqList"></div>
+                <!-- FREQUÊNCIAS -->
+                <div class="panel-title">🔊 Frequência</div>
                 <div class="display-freq" id="currentFreq">432 Hz</div>
-                <div class="display-desc" id="freqDesc">Relaxamento profundo<br />Harmonia com a natureza</div>
+                <div class="display-desc" id="freqDesc">Cura e Harmonia</div>
+                <div class="freq-list" id="freqList"></div>
 
-                <div class="sep"></div>
+                <!-- FORMAS -->
+                <div class="panel-title" style="margin-top: 16px;">🔷 Forma Visual</div>
+                <div class="shape-grid" id="shapeGrid"></div>
 
-                <div class="panel-title">🎼 MODO MELODIA</div>
-                <div class="control-group">
-                    <select id="melodyMode">
-                        <option value="drone">🔵 Drone (Tom Contínuo)</option>
-                        <option value="arpeggio">🔶 Arpejo (Escala)</option>
-                        <option value="avemaria" selected>🎵 Ave Maria (Melodia)</option>
-                    </select>
+                <!-- CORES -->
+                <div class="panel-title" style="margin-top: 16px;">🎨 Cores</div>
+                <div class="color-group">
+                    <label>Primária</label>
+                    <input type="color" id="color1Input" value="#6C63FF">
                 </div>
-                <div style="margin: 4px 0 8px; font-size: 12px; color: #888;" id="melodyInfo">
-                    <span class="melodia-ativa">🎵 Tocando sequência da Ave Maria</span>
+                <div class="color-group">
+                    <label>Secundária</label>
+                    <input type="color" id="color2Input" value="#ff64c8">
                 </div>
-
-                <div class="sep"></div>
-
-                <div class="panel-title">🔊 OSCILAÇÃO DE VOLUME (RESPIRAÇÃO)</div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="enableVolumeOsc" checked />
-                    <label for="enableVolumeOsc"><strong>Ativar oscilação</strong></label>
-                </div>
-                <div class="control-group" id="volOscGroup">
-                    <label>Profundidade <span class="val" id="volOscValue">80%</span></label>
-                    <input type="range" id="volOscProf" min="0" max="100" value="80" step="1" />
-                </div>
-                <div class="control-group">
-                    <label>
-                        <span>Período (ms)</span>
-                        <span class="val" id="periodoValue">1000 ms</span>
-                    </label>
-                    <input type="range" id="periodoSlider" min="100" max="10000" value="1000" step="50" />
-                </div>
-                <div style="font-size: 10px; color: #555; margin: -2px 0 6px; display: flex; gap: 12px; flex-wrap: wrap;">
-                    <span>⏱️ 100ms (rápido)</span>
-                    <span>⏱️ 10000ms (respiração profunda)</span>
+                <div class="color-group">
+                    <label>Fundo</label>
+                    <input type="color" id="bgInput" value="#0a0a1a">
                 </div>
 
-                <div class="sep"></div>
-
-                <div class="panel-title">🎛️ CONTROLES DE ÁUDIO</div>
-
-                <div class="control-group">
-                    <label>Volume Base <span class="val" id="volValue">50%</span></label>
-                    <input type="range" id="volume" min="0" max="100" value="50" />
-                </div>
-
-                <div class="row">
-                    <div class="control-group" style="flex:1;">
-                        <label>Forma de onda <span class="val" id="waveformLabel">sine</span></label>
-                        <select id="waveformSelect">
-                            <option value="sine">🔵 Senoidal</option>
-                            <option value="square">🟨 Quadrada</option>
-                            <option value="sawtooth">🟧 Dente de serra</option>
-                            <option value="triangle">🟩 Triangular</option>
-                        </select>
+                <!-- ANIMATION CONTROLS (ADDED) -->
+                <div class="animation-controls">
+                    <div class="panel-title">✨ Animação</div>
+                    <div class="control-group">
+                        <label>Rotação <span class="val" id="rotationVal">1.0</span></label>
+                        <input type="range" id="rotationSpeed" min="0" max="5" step="0.1" value="1">
+                    </div>
+                    <div class="control-group">
+                        <label>Pulsação <span class="val" id="pulseAmountVal">1.00</span></label>
+                        <input type="range" id="pulseAmount" min="0" max="2" step="0.1" value="1">
+                    </div>
+                    <div class="control-group">
+                        <label>Tamanho <span class="val" id="sizeVal">1.00</span></label>
+                        <input type="range" id="sizeScale" min="0.5" max="2" step="0.1" value="1">
+                    </div>
+                    <div class="control-group">
+                        <label>Brilho <span class="val" id="glowVal">1.00</span></label>
+                        <input type="range" id="glowIntensity" min="0.5" max="2" step="0.1" value="1">
                     </div>
                 </div>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" id="enablePulse" />
-                    <label for="enablePulse">🔊 Pulsar (Tremolo) <span class="badge">extra</span></label>
-                </div>
-                <div class="control-group" id="pulseGroup" style="opacity:0.4;">
-                    <label>Velocidade <span class="val" id="pulseSpeedValue">2.0 Hz</span></label>
-                    <input type="range" id="pulseSpeed" min="0.5" max="5" step="0.1" value="2.0" />
-                </div>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" id="enableOscilacao" checked />
-                    <label for="enableOscilacao">🎵 Vibrato (Coral)</label>
-                </div>
-                <div class="control-group" id="oscilacaoGroup">
-                    <label>Profundidade <span class="val" id="oscilacaoValue">3 Hz</span></label>
-                    <input type="range" id="oscilacaoProf" min="0.5" max="8" value="3" step="0.5" />
-                </div>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" id="enableDual" />
-                    <label for="enableDual">🎵 Segunda Voz (Harmonia)</label>
-                </div>
-                <div class="control-group" id="dualGroup" style="opacity:0.4;">
-                    <label>Intervalo <span class="val" id="dualFreqValue">3ª maior</span></label>
-                    <input type="range" id="dualFreq" min="0" max="12" value="4" step="1" />
-                </div>
-
-                <div class="sep"></div>
-
-                <div class="panel-title">✨ EFEITOS VISUAIS</div>
-                <div class="efeitos-grid" id="efeitosGrid">
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="efOnda" checked />
-                        <label for="efOnda">🌊 Onda</label>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="efMandala" checked />
-                        <label for="efMandala">🌀 Mandala</label>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="ef3D" checked />
-                        <label for="ef3D">🎲 3D</label>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="efVolume" checked />
-                        <label for="efVolume">📊 Reage ao Volume</label>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="efBinaural" checked />
-                        <label for="efBinaural">🔮 Binaural</label>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="efParticulas" checked />
-                        <label for="efParticulas">💫 Partículas</label>
-                    </div>
-                </div>
-
-                <!-- CORES (adicionado) -->
-                <div class="sep"></div>
-                <div class="panel-title">🎨 CORES</div>
-                <div class="color-pickers">
-                    <input type="color" id="color1" value="#6C63FF" title="Cor principal" />
-                    <input type="color" id="color2" value="#f472b6" title="Cor secundária" />
-                    <input type="color" id="bgColor" value="#0a0a1a" title="Cor de fundo" />
-                    <span>→ Clique para trocar</span>
-                </div>
-
-                <div class="buttons">
-                    <button class="btn-play" id="btnPlay">▶ TOCAR</button>
-                    <button class="btn-stop" id="btnStop" disabled>⬛ PARAR</button>
-                </div>
-                <div class="status stopped" id="status">⏹️ Parado</div>
             </div>
 
-            <!-- PAINEL DIREITO: VISUALIZAÇÃO -->
-            <div class="visual-panel">
-                <canvas id="canvas" width="800" height="800"></canvas>
-                <div class="visual-info">
-                    <span id="shapeName">🔷 Círculo</span>
-                    <span id="colorInfo"><span class="color-dot" style="background:#6C63FF;"></span> #6C63FF</span>
-                    <span id="freqInfo">432 Hz</span>
-                    <span id="volInfo">🔊 50%</span>
-                    <span id="oscilaInfo">⏱️ Período: 1000ms</span>
-                    <span id="notaInfo">🎵 C4</span>
+            <!-- PAINEL DIREITO -->
+            <div class="panel">
+                <!-- Canvas -->
+                <canvas id="canvas"></canvas>
+
+                <!-- CONTROLES DE VOLUME E AUDIO -->
+                <div style="margin-top: 12px;">
+                    <div class="panel-title">🎚️ Volume</div>
+                    <div class="control-group">
+                        <label>Nível <span class="val" id="volValue">50%</span></label>
+                        <input type="range" id="volume" min="0" max="100" step="1" value="50">
+                    </div>
                 </div>
+
+                <!-- PERÍODO OSCILAÇÃO -->
+                <div style="margin-top: 12px;">
+                    <div class="panel-title">⏱️ Período Osc.</div>
+                    <div class="control-group">
+                        <label>Velocidade <span class="val" id="periodoValue">2000 ms</span></label>
+                        <input type="range" id="periodoSlider" min="500" max="5000" step="100" value="2000">
+                    </div>
+                    <div class="control-group">
+                        <label>Profundidade <span class="val" id="volOscValue">30%</span></label>
+                        <input type="range" id="volOscProf" min="0" max="100" step="1" value="30">
+                    </div>
+                </div>
+
+                <!-- MODO MELODIA -->
+                <div style="margin-top: 12px;">
+                    <div class="panel-title">🎵 Melodia</div>
+                    <div class="control-group">
+                        <label>Modo</label>
+                        <select id="melodyMode" style="width: 100%; padding: 6px; background: rgba(255,255,255,0.08); color: #eee; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; font-size: 12px;">
+                            <option value="continuous">Tom Contínuo</option>
+                            <option value="avemaria">Ave Maria</option>
+                            <option value="arpeggio">Arpejo</option>
+                        </select>
+                    </div>
+                    <div id="melodyInfo" style="font-size: 11px; color: #999; margin-top: 6px; text-align: center;">🔵 Tom contínuo</div>
+                </div>
+
+                <!-- WAVEFORM -->
+                <div style="margin-top: 12px;">
+                    <div class="panel-title">〰️ Forma de Onda</div>
+                    <div class="control-group">
+                        <label>Tipo</label>
+                        <select id="waveformSelect" style="width: 100%; padding: 6px; background: rgba(255,255,255,0.08); color: #eee; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; font-size: 12px;">
+                            <option value="sine">Senoidal</option>
+                            <option value="triangle">Triangular</option>
+                            <option value="square">Quadrada</option>
+                            <option value="sawtooth">Dente de Serra</option>
+                        </select>
+                    </div>
+                    <div style="font-size: 11px; color: #999; margin-top: 6px; text-align: center;" id="waveformLabel">Senoidal</div>
+                </div>
+
+                <!-- PULSE -->
+                <div style="margin-top: 12px;" id="pulseGroup">
+                    <div class="panel-title">
+                        <input type="checkbox" id="enablePulse" style="margin: 0;" checked>
+                        <label style="margin: 0; color: #888; font-size: 10px; text-transform: uppercase; flex: 1;">Pulsação Rítmica</label>
+                    </div>
+                    <div class="control-group" style="margin-left: 6px;">
+                        <label>Velocidade <span class="val" id="pulseSpeedValue">2 Hz</span></label>
+                        <input type="range" id="pulseSpeed" min="0.5" max="10" step="0.5" value="2">
+                    </div>
+                </div>
+
+                <!-- VIBRATO -->
+                <div style="margin-top: 12px;" id="oscilacaoGroup">
+                    <div class="panel-title">
+                        <input type="checkbox" id="enableOscilacao" style="margin: 0;" checked>
+                        <label style="margin: 0; color: #888; font-size: 10px; text-transform: uppercase; flex: 1;">Vibrato (Oscilação)</label>
+                    </div>
+                    <div class="control-group" style="margin-left: 6px;">
+                        <label>Profundidade <span class="val" id="oscilacaoValue">5 Hz</span></label>
+                        <input type="range" id="oscilacaoProf" min="0" max="20" step="1" value="5">
+                    </div>
+                </div>
+
+                <!-- DUAL FREQUENCY (Binaural) -->
+                <div style="margin-top: 12px;" id="dualGroup">
+                    <div class="panel-title">
+                        <input type="checkbox" id="enableDual" style="margin: 0;">
+                        <label style="margin: 0; color: #888; font-size: 10px; text-transform: uppercase; flex: 1;">Freq. Dual (Binaural)</label>
+                    </div>
+                    <div class="control-group" style="margin-left: 6px; opacity: 0.4;">
+                        <label>Intervalo <span class="val" id="dualFreqValue">3ª Maior</span></label>
+                        <input type="range" id="dualFreq" min="0" max="11" step="1" value="2" disabled>
+                    </div>
+                </div>
+
+                <!-- VOLUME OSCILLATION (VolumeOsc) -->
+                <div style="margin-top: 12px;">
+                    <div class="panel-title">
+                        <input type="checkbox" id="enableVolumeOsc" style="margin: 0;" checked>
+                        <label style="margin: 0; color: #888; font-size: 10px; text-transform: uppercase; flex: 1;">Osc. de Volume</label>
+                    </div>
+                </div>
+
+                <!-- EFEITOS VISUAIS -->
+                <div style="margin-top: 12px;">
+                    <div class="panel-title">✨ Efeitos Visuais</div>
+                    <div class="efeitos-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="efOnda" checked>
+                            <label for="efOnda">Onda</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="efMandala" checked>
+                            <label for="efMandala">Mandala</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="ef3D" checked>
+                            <label for="ef3D">3D</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="efVolume" checked>
+                            <label for="efVolume">Volume</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="efBinaural">
+                            <label for="efBinaural">Binaural</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="efParticulas">
+                            <label for="efParticulas">Partículas</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOTÕES (Play/Stop/Shots) -->
+                <div class="button-group">
+                    <button id="btnPlay">▶ PLAY</button>
+                    <button id="btnStop">⏹ STOP</button>
+                    <button id="btnShots">📸 SHOTS</button>
+                </div>
+
+                <!-- INFO BADGES -->
+                <div class="info-row">
+                    <div class="info-badge">
+                        Shape: <span id="shapeName">🔷 Círculo</span>
+                    </div>
+                    <div class="info-badge">
+                        Cor: <span id="colorInfo"></span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-badge" style="grid-column: 1 / -1;">
+                        Emoção: <span class="emotion-badge calmo" id="emotionInfo">😌 Calmo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Controle Emocional / Shots -->
+    <div id="modalShots" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🧠 Reforço de Controle Emocional · 42 SHOTS</h2>
+                <button class="modal-close" onclick="fecharModalShots()">✕</button>
+            </div>
+            <div class="shots-grid" id="shotsGrid">
+                <!-- Preenchido via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Salvar Preset Personalizado -->
+    <div id="modalSalvarPreset" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h2>💾 Salvar Preset Personalizado</h2>
+                <button class="modal-close" onclick="fecharModalSalvar()">✕</button>
+            </div>
+            <div class="modal-input-group">
+                <label>Nome do Preset</label>
+                <input type="text" id="inputNomePreset" placeholder="ex: Meu Preset Especial" maxlength="50">
+            </div>
+            <div class="modal-input-group">
+                <label>Descrição (opcional)</label>
+                <input type="text" id="inputDescricaoPreset" placeholder="ex: Para meditação matinal" maxlength="100">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-secondary" onclick="fecharModalSalvar()">Cancelar</button>
+                <button class="btn-primary" onclick="confirmarSalvarPreset()">Salvar</button>
             </div>
         </div>
     </div>
 
     <script>
         // ============================================================
-        //  LISTA COMPLETA DE FREQUÊNCIAS (29)
-        // ============================================================
-        const FREQUENCIAS = {
-            174: "Alívio da dor física\nSegurança\nRelaxamento muscular",
-            285: "Regeneração de tecidos\nCura\nRenovação celular",
-            396: "Libertação de medo\nDissolução de bloqueios",
-            417: "Desfaz padrões negativos\nMudanças\nCriatividade",
-            528: "Transformação\nPaz\nReparo do DNA (Frequência do Amor)",
-            639: "Relacionamentos\nCompaixão\nEquilíbrio emocional",
-            741: "Clareza\nExpressão criativa\nSolução de problemas",
-            852: "Intuição\nConsciência espiritual\nOrdem interior",
-            963: "Conexão espiritual\nConsciência pura\nAtivação da pineal",
-            432: "Relaxamento profundo\nRedução de ansiedade\nHarmonia com a natureza",
-            440: "Foco\nConcentração\nEquilíbrio (padrão ocidental)",
-            444: "Cura avançada\nFundação espiritual\nPresença divina",
-            111: "Manifestação\nConexão espiritual\nDespertar da intuição",
-            222: "Equilíbrio\nHarmonia\nPaz interior",
-            333: "Proteção espiritual\nElevação da consciência",
-            384: "Libertação de padrões\nRenovação mental",
-            480: "Consciência elevada\nConexão cósmica",
-            555: "Mudanças positivas\nReinvenção\nLibertação",
-            594: "Harmonia emocional\nRelaxamento profundo",
-            666: "Equilíbrio material e espiritual\nFoco no presente",
-            720: "Expansão da consciência\nConexão universal",
-            777: "Intuição elevada\nSorte espiritual\nSabedoria interior",
-            798: "Ativação da pineal\nPaz profunda\nSono reparador",
-            888: "Abundância\nFluxo de prosperidade\nRealização",
-            936: "Compaixão universal\nElevação espiritual",
-            999: "Expansão da consciência\nDespertar espiritual\nCompaixão",
-            1000: "Conexão divina\nIluminação\nTranscendência",
-            137.1: "Relaxamento muscular profundo\nAlívio de tensões (Freq. de Otto)",
-            256: "Equilíbrio energético\nEnraizamento (Ressonância Schumann)",
-            330: "Expansão da criatividade\nDesbloqueio de traumas",
-            420: "Conexão com a natureza\nRelaxamento mental"
-        };
-
-        // Escala maior (razões)
-        const NOTAS = [1, 9 / 8, 5 / 4, 4 / 3, 3 / 2, 5 / 3, 15 / 8, 2];
-        const NOMES_NOTAS = ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C'];
-        const NOMES_INTERVALOS = [
-            'Tônica', '2ª menor', '2ª maior', '3ª menor', '3ª maior',
-            '4ª justa', '5ª justa', '6ª menor', '6ª maior', '7ª menor',
-            '7ª maior', '8ª justa'
-        ];
-
-        // Melodia Ave Maria simplificada
-        const MELODIA_AVE_MARIA = [0, 2, 4, 7, 4, 2, 1, 4, 7, 5, 4, 2, 0];
-
-        // ============================================================
-        //  DOM REFS
+        //  UTILITÁRIOS
         // ============================================================
         const $ = id => document.getElementById(id);
-        const canvas = $('canvas');
-        const ctx = canvas.getContext('2d');
-        const freqList = $('freqList');
-        const currentFreqEl = $('currentFreq');
-        const freqDescEl = $('freqDesc');
-        const statusEl = $('status');
-        const btnPlay = $('btnPlay');
-        const btnStop = $('btnStop');
-        const melodyInfo = $('melodyInfo');
-        const shapeBtns = document.querySelectorAll('.shape-btn');
-        const presetSelect = $('presetSelect');
-
-        // Seletores de cor
-        const color1Input = $('color1');
-        const color2Input = $('color2');
-        const bgInput = $('bgColor');
-
-        // ============================================================
-        //  ESTADO GLOBAL
-        // ============================================================
-        const state = {
-            // Áudio
-            ctx: null,
-            osc1: null,
-            osc2: null,
-            gainMain: null,
-            gainPulse: null,
-            isPlaying: false,
-            currentFreq: 432,
-            volumeBase: 0.5,
-            volumeInstant: 0.5,
-            periodoMs: 1000,
-
-            // Melodia
-            melodyIndex: 0,
-            lastNoteChange: 0,
-
-            // Visual
-            shape: 'circle',
-            color1: '#6C63FF',
-            color2: '#f472b6',
-            bgColor: '#0a0a1a',
-            animId: null,
-            particles: [],
+        const FREQUENCIAS = {
+            174: 'Proteção Energética',
+            285: 'Regeneração Celular',
+            396: 'Libertação de Culpa',
+            417: 'Reversão de Situações',
+            432: 'Cura e Harmonia',
+            528: 'Transformação e Milagres',
+            639: 'Conexão Social',
+            741: 'Despertar Intuição',
+            852: 'Retorno à Ordem',
+            963: 'Iluminação Espiritual'
         };
 
-        // ============================================================
-        //  PRESETS (com cores)
-        // ============================================================
+        const NOTAS = {
+            0: 1.0,      // Uníssono
+            1: 1.0595,   // 2ª menor
+            2: 1.122,    // 2ª maior
+            3: 1.1892,   // 3ª menor
+            4: 1.2599,   // 3ª maior
+            5: 1.3348,   // 4ª justa
+            6: 1.4142,   // Trítono
+            7: 1.4983,   // 5ª justa
+            8: 1.587,    // 5ª aumentada
+            9: 1.6818,   // 6ª maior
+            10: 1.7818,  // 6ª aumentada
+            11: 1.8877   // 7ª maior
+        };
+
+        const NOMES_INTERVALOS = [
+            'Uníssono', '2ª menor', '2ª maior', '3ª menor', '3ª maior',
+            '4ª justa', 'Trítono', '5ª justa', '5ª aumentada', '6ª maior',
+            '6ª aumentada', '7ª maior'
+        ];
+
+        // State
+        let state = {
+            isPlaying: false,
+            audioContext: null,
+            oscillators: [],
+            gains: [],
+            currentFreq: 432,
+            volumeBase: 0.5,
+            color1: '#6C63FF',
+            color2: '#ff64c8',
+            bgColor: '#0a0a1a',
+            periodoMs: 2000,
+            shape: 'circle',
+            melodyIndex: 0,
+            lastNoteChange: 0,
+            animId: null,
+            // Animation state (ADDED)
+            rotationSpeed: 1,
+            pulseAmount: 1,
+            sizeScale: 1,
+            glowIntensity: 1,
+            currentEmotion: 'calmo',
+            osc2: null,
+            time: 0
+        };
+
+        // PRESETS
         const PRESETS = {
             meditacao: {
-                label: '🌿 Meditação Profunda',
-                freq: 432,
-                shape: 'circle',
-                volume: 40,
-                periodo: 4000,
-                volOscProf: 70,
-                melodyMode: 'drone',
-                waveform: 'sine',
-                enablePulse: false,
-                pulseSpeed: 2.0,
-                enableOscilacao: true,
-                oscilacaoProf: 2,
-                enableDual: false,
-                dualFreq: 4,
-                efOnda: false,
-                efMandala: true,
-                ef3D: true,
-                efVolume: true,
-                efBinaural: false,
-                efParticulas: true,
-                color1: '#6C63FF',
-                color2: '#a78bfa',
-                bgColor: '#0a0a1a'
-            },
-            pineal: {
-                label: '🔮 Ativação Pineal',
-                freq: 963,
-                shape: 'spiral',
-                volume: 50,
-                periodo: 3000,
-                volOscProf: 80,
-                melodyMode: 'drone',
-                waveform: 'sine',
-                enablePulse: true,
-                pulseSpeed: 1.5,
-                enableOscilacao: true,
-                oscilacaoProf: 5,
-                enableDual: true,
-                dualFreq: 4,
-                efOnda: true,
-                efMandala: true,
-                ef3D: true,
-                efVolume: true,
-                efBinaural: true,
-                efParticulas: true,
-                color1: '#7c3aed',
-                color2: '#f472b6',
-                bgColor: '#0a0a1a'
-            },
-            avemaria: {
-                label: '🎵 Ave Maria',
-                freq: 528,
-                shape: 'heart',
-                volume: 45,
-                periodo: 2000,
-                volOscProf: 60,
-                melodyMode: 'avemaria',
-                waveform: 'sine',
-                enablePulse: false,
-                pulseSpeed: 2.0,
-                enableOscilacao: true,
-                oscilacaoProf: 3,
-                enableDual: false,
-                dualFreq: 4,
-                efOnda: true,
-                efMandala: false,
-                ef3D: false,
-                efVolume: true,
-                efBinaural: false,
-                efParticulas: true,
-                color1: '#f59e0b',
-                color2: '#ef4444',
-                bgColor: '#1a0a0a'
+                freq: 432, volume: 30, periodo: 3000, volOscProf: 50,
+                melodyMode: 'continuous', waveform: 'sine',
+                enablePulse: true, pulseSpeed: 1, enableOscilacao: true, oscilacaoProf: 3,
+                enableDual: false, dualFreq: 0, enableVolumeOsc: true,
+                efOnda: true, efMandala: true, ef3D: false, efVolume: true, efBinaural: false, efParticulas: false,
+                color1: '#4a90e2', color2: '#7b68ee', bgColor: '#0a0a1a',
+                shape: 'circle', label: '🧘 Meditação Profunda'
             },
             energia: {
-                label: '⚡ Energia & Foco',
-                freq: 440,
-                shape: 'hexagon',
-                volume: 60,
-                periodo: 800,
-                volOscProf: 40,
-                melodyMode: 'arpeggio',
-                waveform: 'sawtooth',
-                enablePulse: true,
-                pulseSpeed: 3.0,
-                enableOscilacao: true,
-                oscilacaoProf: 1,
-                enableDual: false,
-                dualFreq: 4,
-                efOnda: true,
-                efMandala: false,
-                ef3D: true,
-                efVolume: true,
-                efBinaural: false,
-                efParticulas: false,
-                color1: '#3b82f6',
-                color2: '#06b6d4',
-                bgColor: '#0a0a1a'
+                freq: 741, volume: 70, periodo: 800, volOscProf: 80,
+                melodyMode: 'arpeggio', waveform: 'triangle',
+                enablePulse: true, pulseSpeed: 5, enableOscilacao: true, oscilacaoProf: 8,
+                enableDual: false, dualFreq: 7, enableVolumeOsc: true,
+                efOnda: true, efMandala: false, ef3D: true, efVolume: true, efBinaural: false, efParticulas: true,
+                color1: '#ff6464', color2: '#ffa500', bgColor: '#0a0a1a',
+                shape: 'star', label: '⚡ Energia Máxima'
+            },
+            criatividade: {
+                freq: 528, volume: 45, periodo: 1500, volOscProf: 40,
+                melodyMode: 'avemaria', waveform: 'sine',
+                enablePulse: true, pulseSpeed: 2, enableOscilacao: true, oscilacaoProf: 4,
+                enableDual: false, dualFreq: 4, enableVolumeOsc: true,
+                efOnda: true, efMandala: true, ef3D: false, efVolume: true, efBinaural: false, efParticulas: false,
+                color1: '#ff64c8', color2: '#ffc864', bgColor: '#0a0a1a',
+                shape: 'flower', label: '🎨 Criatividade'
+            },
+            foco: {
+                freq: 852, volume: 60, periodo: 1000, volOscProf: 35,
+                melodyMode: 'continuous', waveform: 'triangle',
+                enablePulse: true, pulseSpeed: 3, enableOscilacao: true, oscilacaoProf: 6,
+                enableDual: false, dualFreq: 7, enableVolumeOsc: true,
+                efOnda: true, efMandala: false, ef3D: true, efVolume: true, efBinaural: false, efParticulas: false,
+                color1: '#6C63FF', color2: '#00d4ff', bgColor: '#0a0a1a',
+                shape: 'hexagon', label: '🎯 Foco Total'
             },
             relaxamento: {
-                label: '🌊 Relaxamento',
-                freq: 174,
-                shape: 'moon',
-                volume: 35,
-                periodo: 6000,
-                volOscProf: 90,
-                melodyMode: 'drone',
-                waveform: 'sine',
-                enablePulse: false,
-                pulseSpeed: 2.0,
-                enableOscilacao: true,
-                oscilacaoProf: 1,
-                enableDual: false,
-                dualFreq: 4,
-                efOnda: false,
-                efMandala: true,
-                ef3D: false,
-                efVolume: true,
-                efBinaural: false,
-                efParticulas: true,
-                color1: '#0ea5e9',
-                color2: '#38bdf8',
-                bgColor: '#0a0a1a'
+                freq: 396, volume: 35, periodo: 2500, volOscProf: 45,
+                melodyMode: 'continuous', waveform: 'sine',
+                enablePulse: false, pulseSpeed: 1, enableOscilacao: true, oscilacaoProf: 2,
+                enableDual: false, dualFreq: 0, enableVolumeOsc: true,
+                efOnda: true, efMandala: true, ef3D: false, efVolume: false, efBinaural: true, efParticulas: false,
+                color1: '#64ff96', color2: '#4a90e2', bgColor: '#0a0a1a',
+                shape: 'circle', label: '😌 Relaxamento'
+            },
+            sono: {
+                freq: 174, volume: 20, periodo: 4000, volOscProf: 60,
+                melodyMode: 'continuous', waveform: 'sine',
+                enablePulse: false, pulseSpeed: 0.5, enableOscilacao: true, oscilacaoProf: 1,
+                enableDual: false, dualFreq: 0, enableVolumeOsc: true,
+                efOnda: false, efMandala: false, ef3D: false, efVolume: true, efBinaural: true, efParticulas: false,
+                color1: '#4a90e2', color2: '#1a1a3e', bgColor: '#0a0a1a',
+                shape: 'circle', label: '😴 Sono Profundo'
+            },
+            amor: {
+                freq: 639, volume: 50, periodo: 1800, volOscProf: 55,
+                melodyMode: 'avemaria', waveform: 'sine',
+                enablePulse: true, pulseSpeed: 1.5, enableOscilacao: true, oscilacaoProf: 5,
+                enableDual: false, dualFreq: 4, enableVolumeOsc: true,
+                efOnda: true, efMandala: true, ef3D: false, efVolume: true, efBinaural: false, efParticulas: true,
+                color1: '#ff64c8', color2: '#ff9999', bgColor: '#0a0a1a',
+                shape: 'heart', label: '💖 Amor Universal'
+            },
+            pineal: {
+                freq: 963, volume: 45, periodo: 3500, volOscProf: 80,
+                melodyMode: 'continuous', waveform: 'sine',
+                enablePulse: false, pulseSpeed: 1, enableOscilacao: true, oscilacaoProf: 2,
+                enableDual: false, dualFreq: 0, enableVolumeOsc: true,
+                efOnda: true, efMandala: true, ef3D: true, efVolume: true, efBinaural: false, efParticulas: true,
+                color1: '#6C63FF', color2: '#a5b4fc', bgColor: '#0a0a1a',
+                shape: 'circle', label: '🔮 Ativação Pineal'
+            }
+        };
+
+        const FORMAS = [
+            { id: 'circle', icon: '⭕', nome: 'Círculo' },
+            { id: 'square', icon: '⬜', nome: 'Quadrado' },
+            { id: 'triangle', icon: '🔺', nome: 'Triângulo' },
+            { id: 'hexagon', icon: '⬡', nome: 'Hexágono' },
+            { id: 'star', icon: '⭐', nome: 'Estrela' },
+            { id: 'cross', icon: '✚', nome: 'Cruz' },
+            { id: 'spiral', icon: '🌀', nome: 'Espiral' },
+            { id: 'flower', icon: '🌸', nome: 'Flor' },
+            { id: 'heart', icon: '❤️', nome: 'Coração' },
+            { id: 'moon', icon: '🌙', nome: 'Lua' },
+            { id: 'diamond', icon: '💎', nome: 'Losango' },
+            { id: 'ring', icon: '⭕', nome: 'Anel' }
+        ];
+
+        const FREQUENCIAS_LISTA = [174, 285, 396, 417, 432, 528, 639, 741, 852, 963];
+
+        // ============================================================
+        //  DADOS DOS 42 SHOTS EMOCIONAIS
+        // ============================================================
+        const SHOTS_EMOCIONAIS = [
+            { emoji: '🌿', nome: 'SOS Ansiedade', freq: 174, emocao: 'Deprimido / Triste', forma: 'circle' },
+            { emoji: '🌿', nome: 'SOS Antiestresse', freq: 396, emocao: 'Deprimido / Desânimo', forma: 'circle' },
+            { emoji: '🌙', nome: 'Sono Reparador', freq: 798, emocao: 'Deprimido / Cansaço', forma: 'moon' },
+            { emoji: '🌿', nome: 'SOS Ansiedade', freq: 174, emocao: 'Ansioso / Agitado', forma: 'moon' },
+            { emoji: '🌿', nome: 'SOS Antiestresse', freq: 396, emocao: 'Ansioso / Preocupado', forma: 'circle' },
+            { emoji: '🌿', nome: 'Crise Emocional', freq: 432, emocao: 'Ansioso / Pânico', forma: 'circle' },
+            { emoji: '🌿', nome: 'Anticortisol', freq: 417, emocao: 'Irritado / Nervoso', forma: 'circle' },
+            { emoji: '🌸', nome: 'TPM Balance', freq: 594, emocao: 'Irritado / Raiva', forma: 'flower' },
+            { emoji: '⚡', nome: 'Acorde e Viva', freq: 440, emocao: 'Cansado / Exausto', forma: 'hexagon' },
+            { emoji: '⚡', nome: 'Substitutivo Cafeína', freq: 285, emocao: 'Cansado / Sem Energia', forma: 'diamond' },
+            { emoji: '🌿', nome: 'SOS Antiestresse', freq: 396, emocao: 'Estressado / Tensão', forma: 'circle' },
+            { emoji: '🌿', nome: 'Anticortisol', freq: 417, emocao: 'Estressado / Pressão', forma: 'circle' },
+            { emoji: '🧠', nome: 'Foco Absoluto', freq: 852, emocao: 'Confuso / Distraído', forma: 'star' },
+            { emoji: '🧠', nome: 'Neurodivergente', freq: 963, emocao: 'Confuso / Mental', forma: 'spiral' },
+            { emoji: '🌸', nome: 'Flor da Lua', freq: 639, emocao: 'Bravo / Agressivo', forma: 'moon' },
+            { emoji: '🌸', nome: 'Pós-Briga', freq: 639, emocao: 'Bravo / Frustrado', forma: 'heart' },
+            { emoji: '❤️', nome: 'Libido Vital', freq: 639, emocao: 'Solitário / Carente', forma: 'heart' },
+            { emoji: '🌸', nome: 'Flor da Lua', freq: 639, emocao: 'Solitário / Isolado', forma: 'moon' },
+            { emoji: '🌸', nome: 'Pós-Briga', freq: 639, emocao: 'Triste / Sensível', forma: 'heart' },
+            { emoji: '🌿', nome: 'SOS Ansiedade', freq: 174, emocao: 'Triste / Melancólico', forma: 'moon' },
+            { emoji: '🌙', nome: 'Relaxamento Noturno', freq: 528, emocao: 'Calmo / Relaxado', forma: 'heart' },
+            { emoji: '🌙', nome: 'Sono Profundo', freq: 798, emocao: 'Calmo / Sereno', forma: 'moon' },
+            { emoji: '⚡', nome: 'Acorde e Viva', freq: 440, emocao: 'Feliz / Alegre', forma: 'hexagon' },
+            { emoji: '⚡', nome: 'Clarity Boost', freq: 741, emocao: 'Feliz / Eufórico', forma: 'star' },
+            { emoji: '🧠', nome: 'Foco Absoluto', freq: 852, emocao: 'Focado / Produtivo', forma: 'star' },
+            { emoji: '🧠', nome: 'Neurodivergente', freq: 963, emocao: 'Focado / Criativo', forma: 'spiral' },
+            { emoji: '⚡', nome: 'Acorde e Viva', freq: 440, emocao: 'Energético / Disposto', forma: 'hexagon' },
+            { emoji: '💪', nome: 'Vitalidade', freq: 440, emocao: 'Energético / Forte', forma: 'hexagon' },
+            { emoji: '❤️', nome: 'Libido Vital', freq: 639, emocao: 'Apaixonado / Desejo', forma: 'heart' },
+            { emoji: '🌸', nome: 'Encanto Azul', freq: 432, emocao: 'Apaixonado / Conexão', forma: 'flower' },
+            { emoji: '🧘', nome: 'Spray Rituais', freq: 420, emocao: 'Zen / Presente', forma: 'spiral' },
+            { emoji: '🌿', nome: 'Meditação', freq: 432, emocao: 'Zen / Meditativo', forma: 'moon' },
+            { emoji: '🧠', nome: 'Ativação Pineal', freq: 963, emocao: 'Espiritual / Iluminação', forma: 'spiral' },
+            { emoji: '🌟', nome: 'Clareza Mental', freq: 741, emocao: 'Mental / Perspectiva', forma: 'star' },
+            { emoji: '💎', nome: 'Abundância', freq: 528, emocao: 'Prosperidade / Riqueza', forma: 'diamond' },
+            { emoji: '🕯️', nome: 'Proteção', freq: 417, emocao: 'Segurança / Proteção', forma: 'circle' },
+            { emoji: '🌊', nome: 'Fluxo', freq: 174, emocao: 'Fluidez / Adaptação', forma: 'wave' },
+            { emoji: '✨', nome: 'Transformação', freq: 852, emocao: 'Mudança / Crescimento', forma: 'star' },
+            { emoji: '🔥', nome: 'Vontade', freq: 440, emocao: 'Determinação / Força', forma: 'triangle' },
+            { emoji: '🌈', nome: 'Esperança', freq: 639, emocao: 'Otimismo / Fé', forma: 'hexagon' },
+            { emoji: '🎭', nome: 'Expressão', freq: 741, emocao: 'Criatividade / Comunicação', forma: 'star' }
+        ];
+
+        // ============================================================
+        //  GERENCIAR PRESETS PERSONALIZADOS
+        // ============================================================
+        let presetsPersonalizados = {};
+
+        function carregarPresetsPersonalizados() {
+            const saved = localStorage.getItem('presetsPersonalizados');
+            if (saved) {
+                presetsPersonalizados = JSON.parse(saved);
+                atualizarOpcoesPresets();
+            }
+        }
+
+        function atualizarOpcoesPresets() {
+            const group = $('meusPresetsGroup');
+            if (!group) return;
+            
+            group.innerHTML = '';
+            Object.keys(presetsPersonalizados).forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = '⭐ ' + presetsPersonalizados[key].nome;
+                group.appendChild(option);
+            });
+        }
+
+        function abrirModalSalvar() {
+            $('modalSalvarPreset').classList.add('show');
+            $('inputNomePreset').value = '';
+            $('inputDescricaoPreset').value = '';
+            $('inputNomePreset').focus();
+        }
+
+        function fecharModalSalvar() {
+            $('modalSalvarPreset').classList.remove('show');
+        }
+
+        function confirmarSalvarPreset() {
+            const nome = $('inputNomePreset').value.trim();
+            if (!nome) {
+                alert('Por favor, digite um nome para o preset');
+                return;
+            }
+
+            const descricao = $('inputDescricaoPreset').value.trim();
+            const chave = 'custom_' + Date.now();
+
+            const preset = {
+                nome: nome,
+                descricao: descricao,
+                freq: state.currentFreq,
+                volume: Number($('volume').value),
+                periodo: Number($('periodoSlider').value),
+                volOscProf: Number($('volOscProf').value),
+                melodyMode: $('melodyMode').value,
+                waveform: $('waveformSelect').value,
+                enablePulse: $('enablePulse').checked,
+                pulseSpeed: Number($('pulseSpeed').value),
+                enableOscilacao: $('enableOscilacao').checked,
+                oscilacaoProf: Number($('oscilacaoProf').value),
+                enableDual: $('enableDual').checked,
+                dualFreq: Number($('dualFreq').value),
+                enableVolumeOsc: $('enableVolumeOsc').checked,
+                efOnda: $('efOnda').checked,
+                efMandala: $('efMandala').checked,
+                ef3D: $('ef3D').checked,
+                efVolume: $('efVolume').checked,
+                efBinaural: $('efBinaural').checked,
+                efParticulas: $('efParticulas').checked,
+                color1: state.color1,
+                color2: state.color2,
+                bgColor: state.bgColor,
+                shape: state.shape
+            };
+
+            presetsPersonalizados[chave] = preset;
+            localStorage.setItem('presetsPersonalizados', JSON.stringify(presetsPersonalizados));
+            
+            atualizarOpcoesPresets();
+            fecharModalSalvar();
+            
+            presetSelect.value = chave;
+            alert('✅ Preset "' + nome + '" salvo com sucesso!');
+        }
+
+        // ============================================================
+        //  FUNÇÕES DO MODAL DE SHOTS
+        // ============================================================
+        function abrirModalShots() {
+            const modal = $('modalShots');
+            const grid = $('shotsGrid');
+            grid.innerHTML = '';
+
+            SHOTS_EMOCIONAIS.forEach((shot, idx) => {
+                const card = document.createElement('div');
+                card.className = 'shot-card';
+                card.innerHTML = `
+                    <div class="shot-emoji">${shot.emoji}</div>
+                    <div class="shot-title">${shot.nome}</div>
+                    <div class="shot-freq">${shot.freq} Hz</div>
+                    <div class="shot-emotion">${shot.emocao}</div>
+                `;
+                card.onclick = () => aplicarShot(shot);
+                grid.appendChild(card);
+            });
+
+            modal.classList.add('show');
+        }
+
+        function fecharModalShots() {
+            const modal = $('modalShots');
+            modal.classList.remove('show');
+        }
+
+        function aplicarShot(shot) {
+            state.currentFreq = shot.freq;
+            state.shape = shot.forma || 'circle';
+            
+            // Atualizar UI
+            document.querySelectorAll('.freq-btn').forEach(b => {
+                b.classList.toggle('selected', Number(b.dataset.freq) === shot.freq);
+            });
+            currentFreqEl.textContent = shot.freq + ' Hz';
+            freqDescEl.textContent = FREQUENCIAS[shot.freq] || shot.emocao;
+            
+            shapeBtns.forEach(b => {
+                b.classList.toggle('active', b.dataset.shape === shot.forma);
+            });
+            
+            $('shapeName').textContent = '🔷 ' + (shot.nome || '');
+            presetSelect.value = 'personalizado';
+            
+            // Aumentar volume para shots
+            $('volume').value = 75;
+            state.volumeBase = 0.75;
+            $('volValue').textContent = '75%';
+            
+            // Fechar modal
+            fecharModalShots();
+            
+            // Reiniciar áudio se tocando
+            if (state.isPlaying) {
+                pararAudio();
+                setTimeout(tocarAudio, 100);
+            } else {
+                tocarAudio();
+            }
+            
+            salvarConfig();
+        }
+
+        // Fechar modal ao clicar fora
+        window.onclick = function(event) {
+            const modal = $('modalShots');
+            if (event.target === modal) {
+                fecharModalShots();
             }
         };
 
         // ============================================================
-        //  APLICAR PRESET (atualizado para cores)
+        //  FUNÇÃO AUXILIAR: OBTER LADOS POR FORMA
         // ============================================================
-        function aplicarPreset(nome) {
-            if (nome === 'personalizado') return;
-            const preset = PRESETS[nome];
+        function getLadosForma(shape) {
+            const formas = {
+                'circle': 20,
+                'square': 4,
+                'triangle': 3,
+                'hexagon': 6,
+                'star': 5,
+                'cross': 4,
+                'spiral': 20,
+                'flower': 6,
+                'heart': 20,
+                'moon': 20,
+                'diamond': 4,
+                'ring': 20
+            };
+            return formas[shape] || 6;
+        }
+
+        // ============================================================
+        //  INICIALIZAÇÃO DA UI
+        // ============================================================
+        const canvas = $('canvas');
+        const ctx = canvas.getContext('2d');
+        const presetSelect = $('presetSelect');
+        const color1Input = $('color1Input');
+        const color2Input = $('color2Input');
+        const bgInput = $('bgInput');
+        const btnPlay = $('btnPlay');
+        const btnStop = $('btnStop');
+        const btnShots = $('btnShots');
+        const currentFreqEl = $('currentFreq');
+        const freqDescEl = $('freqDesc');
+        const melodyInfo = $('melodyInfo');
+        const shapeBtns = [];
+
+        // Build freq buttons
+        const freqList = $('freqList');
+        FREQUENCIAS_LISTA.forEach(freq => {
+            const btn = document.createElement('button');
+            btn.className = 'freq-btn';
+            btn.dataset.freq = freq;
+            btn.textContent = freq;
+            btn.onclick = () => {
+                state.currentFreq = Number(freq);
+                document.querySelectorAll('.freq-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                currentFreqEl.textContent = freq + ' Hz';
+                freqDescEl.textContent = FREQUENCIAS[freq] || '';
+                presetSelect.value = 'personalizado';
+                if (state.isPlaying) {
+                    pararAudio();
+                    setTimeout(tocarAudio, 100);
+                }
+            };
+            freqList.appendChild(btn);
+        });
+
+        // Build shape buttons
+        const shapeGrid = $('shapeGrid');
+        FORMAS.forEach(forma => {
+            const btn = document.createElement('button');
+            btn.className = 'shape-btn';
+            btn.dataset.shape = forma.id;
+            btn.innerHTML = `<span class="icon">${forma.icon}</span>${forma.nome}`;
+            btn.onclick = () => {
+                document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                state.shape = forma.id;
+                $('shapeName').textContent = '🔷 ' + forma.nome;
+                presetSelect.value = 'personalizado';
+            };
+            shapeGrid.appendChild(btn);
+            shapeBtns.push(btn);
+        });
+
+        // Set initial button states
+        document.querySelectorAll('.freq-btn')[4].classList.add('selected'); // 432Hz
+        shapeBtns[0].classList.add('active');
+
+        // Resize canvas
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // ============================================================
+        //  AUDIO
+        // ============================================================
+        const AVE_MARIA_NOTES = [
+            { freq: 432, dur: 400 }, { freq: 540, dur: 400 }, { freq: 486, dur: 400 },
+            { freq: 432, dur: 400 }, { freq: 486, dur: 400 }, { freq: 540, dur: 400 },
+            { freq: 540, dur: 600 }, { freq: 486, dur: 400 }, { freq: 432, dur: 400 },
+            { freq: 486, dur: 400 }, { freq: 540, dur: 400 }, { freq: 486, dur: 400 },
+            { freq: 432, dur: 1000 }
+        ];
+
+        const ARPEGGIO_NOTES = [
+            { freq: 432, dur: 200 }, { freq: 540, dur: 200 }, { freq: 648, dur: 200 },
+            { freq: 540, dur: 200 }, { freq: 648, dur: 200 }, { freq: 810, dur: 200 }
+        ];
+
+        function tocarAudio() {
+            if (state.isPlaying) return;
+            state.isPlaying = true;
+            btnPlay.classList.add('active');
+
+            if (!state.audioContext) {
+                state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            const ac = state.audioContext;
+            const masterGain = ac.createGain();
+            masterGain.connect(ac.destination);
+            masterGain.gain.value = state.volumeBase * 0.7;
+
+            // Osc 1
+            const osc1 = ac.createOscillator();
+            osc1.frequency.value = state.currentFreq;
+            osc1.type = $('waveformSelect').value;
+            const gain1 = ac.createGain();
+            gain1.gain.value = 1;
+            osc1.connect(gain1);
+            gain1.connect(masterGain);
+            osc1.start();
+            state.oscillators.push(osc1);
+            state.gains.push(gain1);
+
+            // Osc 2 (Binaural)
+            if ($('enableDual').checked) {
+                const interval = Number($('dualFreq').value) || 0;
+                const osc2 = ac.createOscillator();
+                osc2.frequency.value = state.currentFreq * NOTAS[interval];
+                osc2.type = $('waveformSelect').value;
+                const gain2 = ac.createGain();
+                gain2.gain.value = 0.7;
+                osc2.connect(gain2);
+                gain2.connect(masterGain);
+                osc2.start();
+                state.osc2 = osc2;
+                state.oscillators.push(osc2);
+                state.gains.push(gain2);
+            }
+
+            animateAudio();
+        }
+
+        function animateAudio() {
+            if (!state.isPlaying) return;
+
+            const now = performance.now() / 1000;
+            const periodo = state.periodoMs / 1000;
+            const fase = (now % periodo) / periodo;
+            const vol = Math.sin(fase * Math.PI);
+            const profundidade = Number($('volOscProf').value) / 100;
+            const volumeFinal = state.volumeBase * (1 - profundidade + vol * profundidade) * 0.3;
+
+            state.gains[0].gain.value = volumeFinal;
+            if (state.gains[1]) state.gains[1].gain.value = volumeFinal * 0.7;
+
+            // Vibrato
+            if ($('enableOscilacao').checked && state.oscillators[0]) {
+                const vibFreq = Number($('oscilacaoProf').value);
+                const vibAmt = 10 * vibFreq;
+                state.oscillators[0].frequency.value = state.currentFreq + Math.sin(now * vibFreq * 2 * Math.PI) * vibAmt;
+                if (state.osc2) {
+                    const interval = Number($('dualFreq').value) || 0;
+                    state.osc2.frequency.value = state.currentFreq * NOTAS[interval] + Math.sin(now * vibFreq * 2 * Math.PI) * vibAmt;
+                }
+            }
+
+            // Melodia
+            const melodyMode = $('melodyMode').value;
+            if (melodyMode !== 'continuous' && state.oscillators[0]) {
+                const notes = melodyMode === 'avemaria' ? AVE_MARIA_NOTES : ARPEGGIO_NOTES;
+                const noteDur = (notes[state.melodyIndex]?.dur || 200) / 1000;
+                if (now - state.lastNoteChange > noteDur) {
+                    state.melodyIndex = (state.melodyIndex + 1) % notes.length;
+                    state.lastNoteChange = now;
+                    const noteFreq = notes[state.melodyIndex].freq;
+                    state.oscillators[0].frequency.value = noteFreq;
+                }
+            }
+
+            requestAnimationFrame(animateAudio);
+        }
+
+        function pararAudio() {
+            if (!state.isPlaying) return;
+            state.isPlaying = false;
+            btnPlay.classList.remove('active');
+
+            state.oscillators.forEach(osc => {
+                try { osc.stop(); } catch (e) {}
+            });
+            state.oscillators = [];
+            state.gains = [];
+            state.osc2 = null;
+        }
+
+        // ============================================================
+        //  CONFIGURAÇÃO
+        // ============================================================
+        function salvarConfig() {
+            const config = {
+                freq: state.currentFreq,
+                volume: Number($('volume').value),
+                shape: state.shape,
+                color1: state.color1,
+                color2: state.color2,
+                bgColor: state.bgColor,
+                emotion: state.currentEmotion,
+                rotationSpeed: state.rotationSpeed,
+                pulseAmount: state.pulseAmount,
+                sizeScale: state.sizeScale,
+                glowIntensity: state.glowIntensity
+            };
+            localStorage.setItem('audioVizConfig', JSON.stringify(config));
+        }
+
+        function carregarConfig() {
+            const saved = localStorage.getItem('audioVizConfig');
+            if (saved) {
+                const cfg = JSON.parse(saved);
+                state.currentFreq = cfg.freq || 432;
+                state.color1 = cfg.color1 || '#6C63FF';
+                state.color2 = cfg.color2 || '#ff64c8';
+                state.bgColor = cfg.bgColor || '#0a0a1a';
+                state.shape = cfg.shape || 'circle';
+                state.currentEmotion = cfg.emotion || 'calmo';
+                state.rotationSpeed = cfg.rotationSpeed || 1;
+                state.pulseAmount = cfg.pulseAmount || 1;
+                state.sizeScale = cfg.sizeScale || 1;
+                state.glowIntensity = cfg.glowIntensity || 1;
+                
+                color1Input.value = state.color1;
+                color2Input.value = state.color2;
+                bgInput.value = state.bgColor;
+                $('volume').value = cfg.volume || 50;
+            }
+        }
+
+        function atualizarLabels() {
+            $('volValue').textContent = $('volume').value + '%';
+            $('periodoValue').textContent = $('periodoSlider').value + ' ms';
+            $('volOscValue').textContent = $('volOscProf').value + '%';
+            $('pulseSpeedValue').textContent = $('pulseSpeed').value + ' Hz';
+            $('oscilacaoValue').textContent = $('oscilacaoProf').value + ' Hz';
+            $('colorInfo').innerHTML = `<span style="display:inline-block;width:12px;height:12px;background:${state.color1};border-radius:50%;margin-right:4px;"></span>${state.color1}`;
+        }
+
+        function aplicarEstadoUI() {
+            shapeBtns.forEach(b => {
+                b.classList.toggle('active', b.dataset.shape === state.shape);
+            });
+            
+            // Set default emotion
+            const def = document.querySelector(`[data-emotion="${state.currentEmotion}"]`);
+            if (def) def.classList.add('active');
+            
+            $('emotionInfo').className = 'emotion-badge ' + state.currentEmotion;
+            $('emotionInfo').textContent = def ? def.textContent.trim() : '😌 Calmo';
+        }
+
+        // ============================================================
+        //  EVENTO: ABRIR MODAL DE SHOTS EMOCIONAIS
+        // ============================================================
+        btnShots.onclick = () => {
+            abrirModalShots();
+        };
+
+        // ============================================================
+        //  EVENTO: SALVAR PRESET PERSONALIZADO
+        // ============================================================
+        $('btnSalvarPreset').onclick = () => {
+            abrirModalSalvar();
+        };
+
+        // Fechar modal de salvar ao clicar fora
+        window.addEventListener('click', function(event) {
+            const modalSalvar = $('modalSalvarPreset');
+            if (event.target === modalSalvar) {
+                fecharModalSalvar();
+            }
+        });
+
+        // ============================================================
+        //  EVENTO: PRESET
+        // ============================================================
+        presetSelect.addEventListener('change', function() {
+            const val = this.value;
+            if (val === 'personalizado') return;
+            
+            // Verificar se é um preset personalizado
+            if (presetsPersonalizados[val]) {
+                aplicarPresetPersonalizado(val);
+            } else {
+                aplicarPreset(val);
+            }
+            salvarConfig();
+        });
+
+        function aplicarPresetPersonalizado(chave) {
+            const preset = presetsPersonalizados[chave];
             if (!preset) return;
 
-            // --- Áudio ---
             state.currentFreq = preset.freq;
+            state.volumeBase = preset.volume / 100;
+            state.periodoMs = preset.periodo;
+            state.shape = preset.shape;
+            state.color1 = preset.color1;
+            state.color2 = preset.color2;
+            state.bgColor = preset.bgColor;
+
+            // Atualizar UI
             document.querySelectorAll('.freq-btn').forEach(b => {
                 b.classList.toggle('selected', Number(b.dataset.freq) === preset.freq);
             });
             currentFreqEl.textContent = preset.freq + ' Hz';
-            freqDescEl.textContent = FREQUENCIAS[preset.freq] || '';
+            freqDescEl.textContent = FREQUENCIAS[preset.freq] || preset.descricao || '';
 
-            // Volume
             $('volume').value = preset.volume;
-            state.volumeBase = preset.volume / 100;
             $('volValue').textContent = preset.volume + '%';
 
-            // Período
             $('periodoSlider').value = preset.periodo;
-            state.periodoMs = preset.periodo;
             $('periodoValue').textContent = preset.periodo + ' ms';
 
-            // Profundidade osc volume
             $('volOscProf').value = preset.volOscProf;
             $('volOscValue').textContent = preset.volOscProf + '%';
 
-            // Melodia
             $('melodyMode').value = preset.melodyMode;
-            state.melodyIndex = 0;
-            state.lastNoteChange = performance.now() / 1000;
-            const mode = preset.melodyMode;
-            if (mode === 'avemaria') {
-                melodyInfo.innerHTML = `<span class="melodia-ativa">🎵 Tocando sequência da Ave Maria</span>`;
-            } else if (mode === 'arpeggio') {
-                melodyInfo.textContent = '🔶 Tocando escala em arpejo';
-            } else {
-                melodyInfo.textContent = '🔵 Tom contínuo (sem melodia)';
-            }
-
-            // Waveform
             $('waveformSelect').value = preset.waveform;
             $('waveformLabel').textContent = preset.waveform;
 
-            // Pulse
             $('enablePulse').checked = preset.enablePulse;
             $('pulseGroup').style.opacity = preset.enablePulse ? '1' : '0.4';
             $('pulseSpeed').value = preset.pulseSpeed;
             $('pulseSpeedValue').textContent = preset.pulseSpeed + ' Hz';
 
-            // Vibrato
             $('enableOscilacao').checked = preset.enableOscilacao;
             $('oscilacaoGroup').style.opacity = preset.enableOscilacao ? '1' : '0.4';
             $('oscilacaoProf').value = preset.oscilacaoProf;
             $('oscilacaoValue').textContent = preset.oscilacaoProf + ' Hz';
 
-            // Dual
             $('enableDual').checked = preset.enableDual;
             $('dualGroup').style.opacity = preset.enableDual ? '1' : '0.4';
             $('dualFreq').value = preset.dualFreq;
-            const idx = preset.dualFreq;
-            $('dualFreqValue').textContent = NOMES_INTERVALOS[idx] || '3ª maior';
+            $('dualFreq').disabled = !preset.enableDual;
 
-            // Efeitos visuais
+            $('enableVolumeOsc').checked = preset.enableVolumeOsc;
+
             $('efOnda').checked = preset.efOnda;
             $('efMandala').checked = preset.efMandala;
             $('ef3D').checked = preset.ef3D;
@@ -960,13 +1570,92 @@
             $('efBinaural').checked = preset.efBinaural;
             $('efParticulas').checked = preset.efParticulas;
 
-            // Atualiza cores dos labels dos efeitos
             document.querySelectorAll('.efeitos-grid input[type="checkbox"]').forEach(cb => {
                 const lbl = cb.closest('.checkbox-group')?.querySelector('label');
                 if (lbl) lbl.style.color = cb.checked ? '#6C63FF' : '#888';
             });
 
-            // ---- CORES (novo) ----
+            color1Input.value = preset.color1;
+            color2Input.value = preset.color2;
+            bgInput.value = preset.bgColor;
+
+            shapeBtns.forEach(b => {
+                b.classList.toggle('active', b.dataset.shape === preset.shape);
+            });
+
+            if (state.isPlaying) {
+                pararAudio();
+                setTimeout(tocarAudio, 150);
+            }
+
+            presetSelect.value = chave;
+        }
+
+        function aplicarPreset(nome) {
+            const preset = PRESETS[nome];
+            if (!preset) return;
+
+            state.currentFreq = preset.freq;
+            document.querySelectorAll('.freq-btn').forEach(b => {
+                b.classList.toggle('selected', Number(b.dataset.freq) === preset.freq);
+            });
+            currentFreqEl.textContent = preset.freq + ' Hz';
+            freqDescEl.textContent = FREQUENCIAS[preset.freq] || '';
+
+            $('volume').value = preset.volume;
+            state.volumeBase = preset.volume / 100;
+            $('volValue').textContent = preset.volume + '%';
+
+            $('periodoSlider').value = preset.periodo;
+            state.periodoMs = preset.periodo;
+            $('periodoValue').textContent = preset.periodo + ' ms';
+
+            $('volOscProf').value = preset.volOscProf;
+            $('volOscValue').textContent = preset.volOscProf + '%';
+
+            $('melodyMode').value = preset.melodyMode;
+            state.melodyIndex = 0;
+            state.lastNoteChange = performance.now() / 1000;
+            const mode = preset.melodyMode;
+            if (mode === 'avemaria') {
+                melodyInfo.innerHTML = `<span style="color:#6C63FF;">🎵 Ave Maria</span>`;
+            } else if (mode === 'arpeggio') {
+                melodyInfo.textContent = '🔶 Arpejo';
+            } else {
+                melodyInfo.textContent = '🔵 Tom contínuo';
+            }
+
+            $('waveformSelect').value = preset.waveform;
+            $('waveformLabel').textContent = preset.waveform;
+
+            $('enablePulse').checked = preset.enablePulse;
+            $('pulseGroup').style.opacity = preset.enablePulse ? '1' : '0.4';
+            $('pulseSpeed').value = preset.pulseSpeed;
+            $('pulseSpeedValue').textContent = preset.pulseSpeed + ' Hz';
+
+            $('enableOscilacao').checked = preset.enableOscilacao;
+            $('oscilacaoGroup').style.opacity = preset.enableOscilacao ? '1' : '0.4';
+            $('oscilacaoProf').value = preset.oscilacaoProf;
+            $('oscilacaoValue').textContent = preset.oscilacaoProf + ' Hz';
+
+            $('enableDual').checked = preset.enableDual;
+            $('dualGroup').style.opacity = preset.enableDual ? '1' : '0.4';
+            $('dualFreq').value = preset.dualFreq;
+            $('dualFreqValue').textContent = NOMES_INTERVALOS[preset.dualFreq] || '3ª maior';
+            $('dualFreq').disabled = !preset.enableDual;
+
+            $('efOnda').checked = preset.efOnda;
+            $('efMandala').checked = preset.efMandala;
+            $('ef3D').checked = preset.ef3D;
+            $('efVolume').checked = preset.efVolume;
+            $('efBinaural').checked = preset.efBinaural;
+            $('efParticulas').checked = preset.efParticulas;
+
+            document.querySelectorAll('.efeitos-grid input[type="checkbox"]').forEach(cb => {
+                const lbl = cb.closest('.checkbox-group')?.querySelector('label');
+                if (lbl) lbl.style.color = cb.checked ? '#6C63FF' : '#888';
+            });
+
             if (preset.color1) {
                 state.color1 = preset.color1;
                 color1Input.value = preset.color1;
@@ -980,728 +1669,252 @@
                 bgInput.value = preset.bgColor;
             }
 
-            // Forma
             state.shape = preset.shape;
             shapeBtns.forEach(b => {
                 b.classList.toggle('active', b.dataset.shape === preset.shape);
             });
 
-            // Se estiver tocando, reinicia o áudio para aplicar as mudanças
             if (state.isPlaying) {
                 pararAudio();
                 setTimeout(tocarAudio, 150);
             }
 
-            // Marca o select como o preset atual
             presetSelect.value = nome;
         }
 
         // ============================================================
-        //  INICIALIZA BOTÕES DE FREQUÊNCIA
+        //  EVENTO: CONTROLES DE ANIMAÇÃO (ADDED)
         // ============================================================
-        (function initFreqButtons() {
-            Object.keys(FREQUENCIAS)
-                .map(Number)
-                .sort((a, b) => a - b)
-                .forEach(f => {
-                    const btn = document.createElement('div');
-                    btn.className = 'freq-btn' + (f === 432 ? ' selected' : '');
-                    btn.textContent = f + ' Hz';
-                    btn.dataset.freq = f;
-                    btn.onclick = () => {
-                        state.currentFreq = f;
-                        document.querySelectorAll('.freq-btn').forEach(b =>
-                            b.classList.toggle('selected', b === btn)
-                        );
-                        currentFreqEl.textContent = f + ' Hz';
-                        freqDescEl.textContent = FREQUENCIAS[f] || '';
-                        state.melodyIndex = 0;
-                        state.lastNoteChange = performance.now() / 1000;
-                        if (state.isPlaying && state.osc1) {
-                            state.osc1.frequency.setValueAtTime(f, state.ctx.currentTime);
+        document.addEventListener('DOMContentLoaded', () => {
+            // Emotion buttons
+            const emojiGrid = $('emojiGrid');
+            if (emojiGrid) {
+                emojiGrid.querySelectorAll('.emoji-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        emojiGrid.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        const emo = btn.dataset.emotion;
+                        state.currentEmotion = emo;
+                        const emotionInfoEl = $('emotionInfo');
+                        if (emotionInfoEl) {
+                            emotionInfoEl.className = 'emotion-badge ' + emo;
+                            emotionInfoEl.textContent = btn.textContent.trim();
                         }
-                        // Marca como personalizado
-                        presetSelect.value = 'personalizado';
-                    };
-                    freqList.appendChild(btn);
+                        salvarConfig();
+                    });
                 });
-        })();
+                const def = emojiGrid.querySelector('[data-emotion="calmo"]');
+                if (def) def.classList.add('active');
+            }
+
+            // Animation controls
+            const rot = $('rotationSpeed');
+            const rotVal = $('rotationVal');
+            if (rot && rotVal) {
+                rot.addEventListener('input', () => {
+                    state.rotationSpeed = Number(rot.value);
+                    rotVal.textContent = state.rotationSpeed.toFixed(1);
+                    salvarConfig();
+                });
+            }
+            const pulse = $('pulseAmount');
+            const pulseVal = $('pulseAmountVal');
+            if (pulse && pulseVal) {
+                pulse.addEventListener('input', () => {
+                    state.pulseAmount = Number(pulse.value);
+                    pulseVal.textContent = state.pulseAmount.toFixed(2);
+                    salvarConfig();
+                });
+            }
+            const size = $('sizeScale');
+            const sizeVal = $('sizeVal');
+            if (size && sizeVal) {
+                size.addEventListener('input', () => {
+                    state.sizeScale = Number(size.value);
+                    sizeVal.textContent = state.sizeScale.toFixed(2);
+                    salvarConfig();
+                });
+            }
+            const glow = $('glowIntensity');
+            const glowVal = $('glowVal');
+            if (glow && glowVal) {
+                glow.addEventListener('input', () => {
+                    state.glowIntensity = Number(glow.value);
+                    glowVal.textContent = state.glowIntensity.toFixed(2);
+                    salvarConfig();
+                });
+            }
+
+            if (rotVal) rotVal.textContent = state.rotationSpeed.toFixed(1);
+            if (pulseVal) pulseVal.textContent = state.pulseAmount.toFixed(2);
+            if (sizeVal) sizeVal.textContent = state.sizeScale.toFixed(2);
+            if (glowVal) glowVal.textContent = state.glowIntensity.toFixed(2);
+        });
 
         // ============================================================
-        //  INICIALIZA BOTÕES DE FORMA
+        //  CONTROLES GERAIS
         // ============================================================
-        shapeBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                shapeBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                state.shape = this.dataset.shape;
-                spawnParticles(canvas.width / 2, canvas.height / 2, 30, state.color1);
-                spawnParticles(canvas.width / 2, canvas.height / 2, 20, state.color2);
+        $('volume').addEventListener('input', function() {
+            state.volumeBase = this.value / 100;
+            $('volValue').textContent = this.value + '%';
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
+
+        $('periodoSlider').addEventListener('input', function() {
+            state.periodoMs = Number(this.value);
+            $('periodoValue').textContent = this.value + ' ms';
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
+
+        $('volOscProf').addEventListener('input', function() {
+            $('volOscValue').textContent = this.value + '%';
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
+
+        $('waveformSelect').addEventListener('change', function() {
+            $('waveformLabel').textContent = this.value;
+            presetSelect.value = 'personalizado';
+            if (state.isPlaying && state.oscillators[0]) {
+                state.oscillators[0].type = this.value;
+                if (state.osc2) state.osc2.type = this.value;
+            }
+            salvarConfig();
+        });
+
+        $('enablePulse').addEventListener('change', function() {
+            $('pulseGroup').style.opacity = this.checked ? '1' : '0.4';
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
+
+        $('pulseSpeed').addEventListener('input', function() {
+            $('pulseSpeedValue').textContent = this.value + ' Hz';
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
+
+        $('enableOscilacao').addEventListener('change', function() {
+            $('oscilacaoGroup').style.opacity = this.checked ? '1' : '0.4';
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
+
+        $('oscilacaoProf').addEventListener('input', function() {
+            $('oscilacaoValue').textContent = this.value + ' Hz';
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
+
+        $('enableDual').addEventListener('change', function() {
+            $('dualGroup').style.opacity = this.checked ? '1' : '0.4';
+            $('dualFreq').disabled = !this.checked;
+            presetSelect.value = 'personalizado';
+            if (state.isPlaying) {
+                pararAudio();
+                setTimeout(tocarAudio, 100);
+            }
+            salvarConfig();
+        });
+
+        $('dualFreq').addEventListener('input', function() {
+            $('dualFreqValue').textContent = NOMES_INTERVALOS[this.value] || '3ª maior';
+            presetSelect.value = 'personalizado';
+            if (state.isPlaying && state.osc2) {
+                const interval = Number(this.value) || 0;
+                state.osc2.frequency.value = state.currentFreq * NOTAS[interval];
+            }
+            salvarConfig();
+        });
+
+        $('enableVolumeOsc').addEventListener('change', function() {
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
+
+        ['efOnda', 'efMandala', 'ef3D', 'efVolume', 'efBinaural', 'efParticulas'].forEach(id => {
+            $(id).addEventListener('change', function() {
+                const lbl = this.closest('.checkbox-group')?.querySelector('label');
+                if (lbl) lbl.style.color = this.checked ? '#6C63FF' : '#888';
                 presetSelect.value = 'personalizado';
                 salvarConfig();
             });
         });
 
-        // ============================================================
-        //  PERSISTÊNCIA (localStorage)
-        // ============================================================
-        function salvarConfig() {
-            const cfg = {
-                freq: state.currentFreq,
-                shape: state.shape,
-                volume: $('volume').value,
-                periodo: $('periodoSlider').value,
-                volOscProf: $('volOscProf').value,
-                melodyMode: $('melodyMode').value,
-                waveform: $('waveformSelect').value,
-                enablePulse: $('enablePulse').checked,
-                pulseSpeed: $('pulseSpeed').value,
-                enableOscilacao: $('enableOscilacao').checked,
-                oscilacaoProf: $('oscilacaoProf').value,
-                enableDual: $('enableDual').checked,
-                dualFreq: $('dualFreq').value,
-                enableVolumeOsc: $('enableVolumeOsc').checked,
-                efOnda: $('efOnda').checked,
-                efMandala: $('efMandala').checked,
-                ef3D: $('ef3D').checked,
-                efVolume: $('efVolume').checked,
-                efBinaural: $('efBinaural').checked,
-                efParticulas: $('efParticulas').checked,
-                color1: state.color1,
-                color2: state.color2,
-                bgColor: state.bgColor,
-                preset: presetSelect.value,
-            };
-            try { localStorage.setItem('volOscConfig', JSON.stringify(cfg)); } catch (_) {}
-        }
+        color1Input.addEventListener('input', function() {
+            state.color1 = this.value;
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
 
-        function carregarConfig() {
-            try {
-                const raw = localStorage.getItem('volOscConfig');
-                if (!raw) return;
-                const cfg = JSON.parse(raw);
+        color2Input.addEventListener('input', function() {
+            state.color2 = this.value;
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
 
-                // Aplica preset se existir
-                if (cfg.preset && cfg.preset !== 'personalizado' && PRESETS[cfg.preset]) {
-                    presetSelect.value = cfg.preset;
-                    aplicarPreset(cfg.preset);
-                    // Recarrega valores que podem ter sido sobrescritos
-                } else {
-                    // Carrega individualmente
-                    if (cfg.freq) {
-                        state.currentFreq = cfg.freq;
-                        currentFreqEl.textContent = cfg.freq + ' Hz';
-                        freqDescEl.textContent = FREQUENCIAS[cfg.freq] || '';
-                        document.querySelectorAll('.freq-btn').forEach(b => {
-                            b.classList.toggle('selected', Number(b.dataset.freq) === cfg.freq);
-                        });
-                    }
-                    if (cfg.shape) {
-                        state.shape = cfg.shape;
-                        shapeBtns.forEach(b => {
-                            b.classList.toggle('active', b.dataset.shape === cfg.shape);
-                        });
-                    }
-                    if (cfg.volume) { $('volume').value = cfg.volume;
-                        state.volumeBase = cfg.volume / 100;
-                        $('volValue').textContent = cfg.volume + '%'; }
-                    if (cfg.periodo) { $('periodoSlider').value = cfg.periodo;
-                        state.periodoMs = cfg.periodo;
-                        $('periodoValue').textContent = cfg.periodo + ' ms'; }
-                    if (cfg.volOscProf) { $('volOscProf').value = cfg.volOscProf;
-                        $('volOscValue').textContent = cfg.volOscProf + '%'; }
-                    if (cfg.melodyMode) { $('melodyMode').value = cfg.melodyMode; }
-                    if (cfg.waveform) { $('waveformSelect').value = cfg.waveform;
-                        $('waveformLabel').textContent = cfg.waveform; }
-                    if (cfg.enablePulse !== undefined) { $('enablePulse').checked = cfg.enablePulse; }
-                    if (cfg.pulseSpeed) { $('pulseSpeed').value = cfg.pulseSpeed;
-                        $('pulseSpeedValue').textContent = cfg.pulseSpeed + ' Hz'; }
-                    if (cfg.enableOscilacao !== undefined) { $('enableOscilacao').checked = cfg.enableOscilacao; }
-                    if (cfg.oscilacaoProf) { $('oscilacaoProf').value = cfg.oscilacaoProf;
-                        $('oscilacaoValue').textContent = cfg.oscilacaoProf + ' Hz'; }
-                    if (cfg.enableDual !== undefined) { $('enableDual').checked = cfg.enableDual; }
-                    if (cfg.dualFreq) { $('dualFreq').value = cfg.dualFreq;
-                        const idx = cfg.dualFreq;
-                        $('dualFreqValue').textContent = NOMES_INTERVALOS[idx] || '3ª maior'; }
-                    if (cfg.enableVolumeOsc !== undefined) { $('enableVolumeOsc').checked = cfg.enableVolumeOsc; }
-                    if (cfg.efOnda !== undefined) { $('efOnda').checked = cfg.efOnda; }
-                    if (cfg.efMandala !== undefined) { $('efMandala').checked = cfg.efMandala; }
-                    if (cfg.ef3D !== undefined) { $('ef3D').checked = cfg.ef3D; }
-                    if (cfg.efVolume !== undefined) { $('efVolume').checked = cfg.efVolume; }
-                    if (cfg.efBinaural !== undefined) { $('efBinaural').checked = cfg.efBinaural; }
-                    if (cfg.efParticulas !== undefined) { $('efParticulas').checked = cfg.efParticulas; }
-                    if (cfg.color1) {
-                        state.color1 = cfg.color1;
-                        color1Input.value = cfg.color1;
-                    }
-                    if (cfg.color2) {
-                        state.color2 = cfg.color2;
-                        color2Input.value = cfg.color2;
-                    }
-                    if (cfg.bgColor) {
-                        state.bgColor = cfg.bgColor;
-                        bgInput.value = cfg.bgColor;
-                    }
-                    presetSelect.value = cfg.preset || 'personalizado';
-                }
-
-                atualizarLabels();
-                aplicarEstadoUI();
-            } catch (_) {}
-        }
-
-        function atualizarLabels() {
-            $('volValue').textContent = $('volume').value + '%';
-            $('periodoValue').textContent = $('periodoSlider').value + ' ms';
-            $('volOscValue').textContent = $('volOscProf').value + '%';
-            $('pulseSpeedValue').textContent = $('pulseSpeed').value + ' Hz';
-            $('oscilacaoValue').textContent = $('oscilacaoProf').value + ' Hz';
-            const idx = parseInt($('dualFreq').value) || 0;
-            $('dualFreqValue').textContent = NOMES_INTERVALOS[idx] || '3ª maior';
-            $('waveformLabel').textContent = $('waveformSelect').value;
-            state.volumeBase = parseFloat($('volume').value) / 100;
-            state.periodoMs = parseInt($('periodoSlider').value) || 1000;
-        }
-
-        function aplicarEstadoUI() {
-            const pulseOn = $('enablePulse').checked;
-            $('pulseGroup').style.opacity = pulseOn ? '1' : '0.4';
-            const vibOn = $('enableOscilacao').checked;
-            $('oscilacaoGroup').style.opacity = vibOn ? '1' : '0.4';
-            const dualOn = $('enableDual').checked;
-            $('dualGroup').style.opacity = dualOn ? '1' : '0.4';
-            const volOscOn = $('enableVolumeOsc').checked;
-            $('volOscGroup').style.opacity = volOscOn ? '1' : '0.4';
-            document.querySelectorAll('.efeitos-grid input[type="checkbox"]').forEach(cb => {
-                const lbl = cb.closest('.checkbox-group')?.querySelector('label');
-                if (lbl) lbl.style.color = cb.checked ? '#6C63FF' : '#888';
-            });
-            const mode = $('melodyMode').value;
-            if (mode === 'avemaria') {
-                melodyInfo.innerHTML = `<span class="melodia-ativa">🎵 Tocando sequência da Ave Maria</span>`;
-            } else if (mode === 'arpeggio') {
-                melodyInfo.textContent = '🔶 Tocando escala em arpejo';
-            } else {
-                melodyInfo.textContent = '🔵 Tom contínuo (sem melodia)';
-            }
-        }
+        bgInput.addEventListener('input', function() {
+            state.bgColor = this.value;
+            document.body.style.background = this.value;
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
 
         // ============================================================
-        //  PARTÍCULAS (sistema simples)
+        //  ANIMAÇÃO DO CANVAS
         // ============================================================
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.vx = (Math.random() - 0.5) * 2;
-                this.vy = (Math.random() - 0.5) * 2;
-                this.size = 2 + Math.random() * 4;
-                this.life = 1;
-                this.decay = 0.008 + Math.random() * 0.015;
-                this.color = color;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.life -= this.decay;
-                this.size *= 0.998;
-            }
-            draw(ctx) {
-                ctx.globalAlpha = this.life * 0.8;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.globalAlpha = 1;
-            }
-        }
+        let tempo = 0;
 
-        function spawnParticles(cx, cy, count, color) {
-            for (let i = 0; i < count; i++) {
-                const p = new Particle(cx, cy, color);
-                p.vx = (Math.random() - 0.5) * 4;
-                p.vy = (Math.random() - 0.5) * 4;
-                p.size = 2 + Math.random() * 6;
-                state.particles.push(p);
-            }
-        }
+        function renderFrame() {
+            const w = canvas.width;
+            const h = canvas.height;
+            const cx = w / 2;
+            const cy = h / 2;
 
-        function updateParticles() {
-            for (let i = state.particles.length - 1; i >= 0; i--) {
-                state.particles[i].update();
-                if (state.particles[i].life <= 0 || state.particles[i].size < 0.2) {
-                    state.particles.splice(i, 1);
-                }
-            }
-            if (state.particles.length > 500) state.particles.splice(0, state.particles.length - 500);
-        }
-
-        // ============================================================
-        //  ÁUDIO ENGINE
-        // ============================================================
-        function initAudio() {
-            if (state.ctx) {
-                if (state.ctx.state === 'suspended') state.ctx.resume();
-                return state.ctx;
-            }
-            const ctx = new(window.AudioContext || window.webkitAudioContext)();
-            state.ctx = ctx;
-            return ctx;
-        }
-
-        function criarOsciladores(ctx, freq) {
-            const osc = ctx.createOscillator();
-            osc.type = $('waveformSelect').value;
-            osc.frequency.value = freq;
-
-            const dualOn = $('enableDual').checked;
-            let osc2 = null;
-            if (dualOn) {
-                osc2 = ctx.createOscillator();
-                osc2.type = $('waveformSelect').value;
-                const idx = parseInt($('dualFreq').value) || 4;
-                const ratio = NOTAS[idx] || 1.25;
-                osc2.frequency.value = freq * ratio;
-            }
-            return { osc, osc2 };
-        }
-
-        function tocarAudio() {
-            try {
-                const ctx = initAudio();
-                if (!ctx) return;
-                if (state.isPlaying) pararAudio();
-
-                const freq = state.currentFreq;
-                const { osc, osc2 } = criarOsciladores(ctx, freq);
-
-                const gain = ctx.createGain();
-                state.volumeBase = parseFloat($('volume').value) / 100;
-                gain.gain.value = state.volumeBase;
-
-                let gainPulse = null;
-                if ($('enablePulse').checked) {
-                    gainPulse = ctx.createGain();
-                    gainPulse.gain.value = 1;
-                    osc.connect(gainPulse);
-                    if (osc2) osc2.connect(gainPulse);
-                    gainPulse.connect(gain);
-                } else {
-                    osc.connect(gain);
-                    if (osc2) osc2.connect(gain);
-                }
-                gain.connect(ctx.destination);
-
-                osc.start();
-                if (osc2) osc2.start();
-
-                state.osc1 = osc;
-                state.osc2 = osc2;
-                state.gainMain = gain;
-                state.gainPulse = gainPulse;
-                state.isPlaying = true;
-                state.ctx = ctx;
-
-                btnPlay.disabled = true;
-                btnStop.disabled = false;
-                statusEl.textContent = '▶ Tocando';
-                statusEl.className = 'status playing';
-
-                state.melodyIndex = 0;
-                state.lastNoteChange = performance.now() / 1000;
-
-                if (!state.animId) iniciarAnimacao();
-                salvarConfig();
-
-            } catch (e) {
-                console.error(e);
-                alert('Erro ao tocar: ' + e.message);
-            }
-        }
-
-        function pararAudio() {
-            if (state.osc1) { state.osc1.stop();
-                state.osc1.disconnect();
-                state.osc1 = null; }
-            if (state.osc2) { state.osc2.stop();
-                state.osc2.disconnect();
-                state.osc2 = null; }
-            if (state.gainMain) { state.gainMain.disconnect();
-                state.gainMain = null; }
-            if (state.gainPulse) { state.gainPulse.disconnect();
-                state.gainPulse = null; }
-            if (state.ctx) { state.ctx.suspend().catch(() => {}); }
-            state.isPlaying = false;
-            btnPlay.disabled = false;
-            btnStop.disabled = true;
-            statusEl.textContent = '⏹️ Parado';
-            statusEl.className = 'status stopped';
-        }
-
-        // ============================================================
-        //  ATUALIZA PARÂMETROS DE ÁUDIO (chamado a cada frame)
-        // ============================================================
-        function updateAudioParameters(tempoSegundos) {
-            if (!state.isPlaying || !state.osc1) return;
-            const ctx = state.ctx;
-            if (!ctx) return;
-            const now = ctx.currentTime;
-
-            const mode = $('melodyMode').value;
-            const speedMelodia = parseFloat($('pulseSpeed').value) || 2;
-            const profFreq = parseFloat($('oscilacaoProf').value) || 3;
-            const vibOn = $('enableOscilacao').checked;
-            const dualOn = $('enableDual').checked;
-            const volOscOn = $('enableVolumeOsc').checked;
-            const volOscProf = parseFloat($('volOscProf').value) / 100;
-            const periodo = parseInt($('periodoSlider').value) || 1000;
-
-            let noteMultiplier = 1;
-            let idxNota = 0;
-            if (mode === 'drone') {
-                noteMultiplier = 1;
-            } else if (mode === 'arpeggio') {
-                const step = Math.floor(tempoSegundos * speedMelodia * 2) % (NOTAS.length * 2 - 2);
-                const idx = step < NOTAS.length ? step : NOTAS.length * 2 - 2 - step;
-                noteMultiplier = NOTAS[idx] || 1;
-                idxNota = idx;
-            } else if (mode === 'avemaria') {
-                const duracao = 0.5 / speedMelodia;
-                if (tempoSegundos - state.lastNoteChange > duracao) {
-                    state.melodyIndex = (state.melodyIndex + 1) % MELODIA_AVE_MARIA.length;
-                    state.lastNoteChange = tempoSegundos;
-                }
-                const idx = MELODIA_AVE_MARIA[state.melodyIndex] || 0;
-                noteMultiplier = NOTAS[idx] || 1;
-                idxNota = idx;
-            }
-
-            // Frequência com vibrato
-            let freqBase = state.currentFreq * noteMultiplier;
-            let freqFinal = freqBase;
-            if (vibOn) {
-                const oscVal = Math.sin(tempoSegundos * speedMelodia * Math.PI * 2);
-                freqFinal = freqBase + oscVal * profFreq;
-            }
-            state.osc1.frequency.linearRampToValueAtTime(Math.max(20, freqFinal), now + 0.05);
-
-            // Volume oscilante (período em ms)
-            if (volOscOn && state.gainMain) {
-                const freqOsc = 1 / (periodo / 1000);
-                const oscVol = Math.sin(tempoSegundos * freqOsc * 2 * Math.PI);
-                const envelope = 0.5 + 0.5 * oscVol;
-                const volFinal = state.volumeBase * (1 - volOscProf * envelope);
-                const clamp = Math.max(0, Math.min(1, volFinal));
-                state.gainMain.gain.linearRampToValueAtTime(clamp, now + 0.02);
-                state.volumeInstant = clamp;
-            } else if (state.gainMain) {
-                state.gainMain.gain.linearRampToValueAtTime(state.volumeBase, now + 0.02);
-                state.volumeInstant = state.volumeBase;
-            }
-
-            // Oscilador secundário (harmonia)
-            if (dualOn && state.osc2) {
-                const idx = parseInt($('dualFreq').value) || 4;
-                const ratio = NOTAS[idx] || 1.25;
-                const freq2Base = state.currentFreq * noteMultiplier * ratio;
-                let freq2Final = freq2Base;
-                if (vibOn) {
-                    const oscVal2 = Math.sin(tempoSegundos * speedMelodia * Math.PI * 2 + 1.5);
-                    freq2Final = freq2Base + oscVal2 * profFreq * 0.8;
-                }
-                state.osc2.frequency.linearRampToValueAtTime(Math.max(20, freq2Final), now + 0.05);
-            }
-
-            // Pulse (tremolo)
-            if ($('enablePulse').checked && state.gainPulse) {
-                const speed = parseFloat($('pulseSpeed').value) || 2;
-                const raw = Math.sin(tempoSegundos * speed * Math.PI * 2);
-                const env = 0.3 + 0.7 * (raw * 0.5 + 0.5);
-                state.gainPulse.gain.linearRampToValueAtTime(env, now + 0.02);
-            }
-
-            // Atualiza UI
-            const displayFreq = Math.round(freqFinal);
-            $('freqInfo').textContent = displayFreq + ' Hz';
-            $('volInfo').textContent = '🔊 ' + Math.round(state.volumeInstant * 100) + '%';
-            $('oscilaInfo').textContent = '⏱️ Período: ' + periodo + 'ms';
-
-            const oitava = 4 + Math.floor(idxNota / 7);
-            const nomeNota = NOMES_NOTAS[idxNota % 7] || 'C';
-            $('notaInfo').textContent = '🎵 ' + nomeNota + oitava;
-
-            const modeLabel = mode === 'avemaria' ? 'Ave Maria' : mode === 'arpeggio' ? 'Arpejo' : 'Drone';
-            if (mode === 'avemaria') {
-                melodyInfo.innerHTML =
-                    `<span class="melodia-ativa">🎵 Nota ${state.melodyIndex+1}/${MELODIA_AVE_MARIA.length}: ${nomeNota}${oitava}</span>`;
-            } else if (mode === 'arpeggio') {
-                melodyInfo.textContent = '🔶 Tocando escala: ' + nomeNota + oitava;
-            } else {
-                melodyInfo.textContent = '🔵 Tom contínuo';
-            }
-        }
-
-        // ============================================================
-        //  DESENHO DAS FORMAS
-        // ============================================================
-        function drawShape(ctx, cx, cy, size, shape, rot, pulse, color1, color2, glow) {
-            const s = size * (1 + pulse * 0.3);
-            ctx.save();
-            ctx.translate(cx, cy);
-            ctx.rotate(rot);
-
-            if (glow > 0.05) {
-                ctx.shadowColor = color1;
-                ctx.shadowBlur = 30 * glow * (1 + pulse * 0.5);
-            }
-
-            const grad = ctx.createRadialGradient(-s * 0.2, -s * 0.2, 2, 0, 0, s);
-            grad.addColorStop(0, color2);
-            grad.addColorStop(0.7, color1);
-            grad.addColorStop(1, 'rgba(0,0,0,0)');
-            ctx.fillStyle = grad;
-
-            const ladosMap = {
-                circle: 64,
-                square: 4,
-                triangle: 3,
-                hexagon: 6,
-                star: 10,
-                cross: 12,
-                spiral: 100,
-                flower: 24,
-                heart: 0,
-                moon: 0,
-                diamond: 4,
-                ring: 64,
-            };
-            const pts = ladosMap[shape] || 6;
-            ctx.beginPath();
-
-            if (shape === 'heart') {
-                const scale = s * 0.7;
-                for (let t = 0; t < Math.PI * 2; t += 0.05) {
-                    const x = 16 * Math.pow(Math.sin(t), 3);
-                    const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
-                    ctx.lineTo(x * scale * 0.12, -y * scale * 0.12);
-                }
-                ctx.closePath();
-                ctx.fill();
-                ctx.shadowBlur = 0;
-                ctx.restore();
-                return;
-            }
-            if (shape === 'moon') {
-                ctx.arc(0, 0, s * 0.8, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.shadowBlur = 0;
-                ctx.fillStyle = state.bgColor;
-                ctx.beginPath();
-                ctx.arc(s * 0.35, -s * 0.2, s * 0.65, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-                return;
-            }
-            if (shape === 'spiral') {
-                const turns = 4,
-                    points = 200,
-                    maxR = s * 0.8;
-                for (let i = 0; i <= points; i++) {
-                    const t = i / points,
-                        angle = t * turns * 2 * Math.PI + rot,
-                        r = t * maxR;
-                    ctx.lineTo(Math.cos(angle) * r, Math.sin(angle) * r);
-                }
-                ctx.strokeStyle = color1;
-                ctx.lineWidth = 4 + pulse * 6;
-                ctx.shadowBlur = 0;
-                ctx.stroke();
-                ctx.beginPath();
-                for (let i = 0; i <= points; i++) {
-                    const t = i / points,
-                        angle = -t * turns * 2 * Math.PI + rot + 1.2,
-                        r = t * maxR * 0.9;
-                    ctx.lineTo(Math.cos(angle) * r, Math.sin(angle) * r);
-                }
-                ctx.strokeStyle = color2;
-                ctx.lineWidth = 2 + pulse * 4;
-                ctx.stroke();
-                ctx.shadowBlur = 0;
-                ctx.restore();
-                return;
-            }
-            if (shape === 'flower') {
-                const petals = 8,
-                    outer = s * 0.8,
-                    inner = s * 0.3;
-                for (let i = 0; i < petals; i++) {
-                    const ang = (i / petals) * Math.PI * 2 + rot;
-                    const x1 = Math.cos(ang) * outer,
-                        y1 = Math.sin(ang) * outer;
-                    const x2 = Math.cos(ang + 0.4) * inner,
-                        y2 = Math.sin(ang + 0.4) * inner;
-                    const x3 = Math.cos(ang - 0.4) * inner,
-                        y3 = Math.sin(ang - 0.4) * inner;
-                    ctx.moveTo(x1, y1);
-                    ctx.quadraticCurveTo(x2, y2, 0, 0);
-                    ctx.quadraticCurveTo(x3, y3, x1, y1);
-                }
-                ctx.closePath();
-                ctx.fill();
-                ctx.shadowBlur = 0;
-                ctx.beginPath();
-                ctx.arc(0, 0, s * 0.15, 0, Math.PI * 2);
-                ctx.fillStyle = color2;
-                ctx.fill();
-                ctx.restore();
-                return;
-            }
-            if (shape === 'star') {
-                const spikes = 5,
-                    outerR = s,
-                    innerR = s * 0.4;
-                for (let i = 0; i < spikes * 2; i++) {
-                    const r = i % 2 === 0 ? outerR : innerR;
-                    const ang = (i / (spikes * 2)) * Math.PI * 2 + rot;
-                    const x = Math.cos(ang) * r,
-                        y = Math.sin(ang) * r;
-                    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-                }
-                ctx.closePath();
-                ctx.fill();
-                ctx.shadowBlur = 0;
-                ctx.restore();
-                return;
-            }
-            if (shape === 'cross') {
-                const w = s * 0.25,
-                    h = s * 0.8;
-                ctx.rect(-w / 2, -h / 2, w, h);
-                ctx.rect(-h / 2, -w / 2, h, w);
-                ctx.fill();
-                ctx.shadowBlur = 0;
-                ctx.restore();
-                return;
-            }
-            if (shape === 'diamond') {
-                ctx.moveTo(0, -s);
-                ctx.lineTo(s * 0.7, 0);
-                ctx.lineTo(0, s);
-                ctx.lineTo(-s * 0.7, 0);
-                ctx.closePath();
-                ctx.fill();
-                ctx.shadowBlur = 0;
-                ctx.restore();
-                return;
-            }
-            if (shape === 'ring') {
-                ctx.arc(0, 0, s * 0.8, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.shadowBlur = 0;
-                ctx.fillStyle = state.bgColor;
-                ctx.beginPath();
-                ctx.arc(0, 0, s * 0.55, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-                return;
-            }
-
-            // Polígonos regulares
-            for (let i = 0; i < pts; i++) {
-                const ang = (i / pts) * Math.PI * 2 + rot;
-                const r = (shape === 'circle') ? s * (0.8 + 0.2 * Math.sin(performance.now() / 1000 * 2 + i)) : s;
-                const x = Math.cos(ang) * r,
-                    y = Math.sin(ang) * r;
-                i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-            }
-            ctx.closePath();
-            ctx.fill();
-            ctx.shadowBlur = 0;
-            ctx.restore();
-        }
-
-        // ============================================================
-        //  VISUALIZAÇÃO (canvas)
-        // ============================================================
-        function iniciarAnimacao() {
-            if (state.animId) cancelAnimationFrame(state.animId);
-            state.animId = requestAnimationFrame(renderFrame);
-        }
-
-        function renderFrame(timestamp) {
-            const tempo = timestamp / 1000;
-            const w = canvas.width,
-                h = canvas.height;
-            const cx = w / 2,
-                cy = h / 2;
-
-            updateAudioParameters(tempo);
-            updateParticles();
-
-            let freqReal = state.currentFreq;
-            if (state.osc1) {
-                try { freqReal = state.osc1.frequency.value; } catch (_) {}
-            }
-            const hue = ((freqReal - 100) / 1200) * 300;
-            const cor = `hsl(${hue % 360}, 80%, 55%)`;
-            const corEscura = `hsl(${hue % 360}, 60%, 30%)`;
-            const corClara = `hsl(${hue % 360}, 90%, 70%)`;
-            const corComp = `hsl(${(hue + 180) % 360}, 70%, 50%)`;
-
-            let pulso = 1;
-            if (state.isPlaying && $('enablePulse').checked) {
-                const speed = parseFloat($('pulseSpeed').value) || 2;
-                const raw = Math.sin(tempo * speed * Math.PI * 2);
-                pulso = 0.3 + 0.7 * (raw * 0.5 + 0.5);
-            }
-            const vol = state.volumeInstant || 0.5;
-            const reageVolume = $('efVolume').checked;
-
-            ctx.clearRect(0, 0, w, h);
+            // Clear
             ctx.fillStyle = state.bgColor;
             ctx.fillRect(0, 0, w, h);
 
-            const shape = state.shape;
-            const size = Math.min(w, h) * 0.35;
-            const rot = tempo * 0.3;
-            const pulse = Math.sin(tempo * 0.8) * 0.5 + 0.5;
-            const glow = 0.5 * (0.5 + vol * 0.5);
+            // Calculate pulse & volume
+            const agora = performance.now() / 1000;
+            const periodo = state.periodoMs / 1000;
+            const fase = (agora % periodo) / periodo;
+            const vol = Math.sin(fase * Math.PI);
+            const profundidade = Number($('volOscProf').value) / 100;
+            const pulso = $('enablePulse').checked ? (1 + vol * 0.5) : 1;
+            tempo = agora;
 
-            // Usa as cores definidas pelo usuário/preset
+            // Colors
             const color1 = state.color1;
-            const color2 = state.color2;
+            const corComp = state.color2;
+            const corClara = estado => {
+                const h = parseInt(color1.slice(1), 16);
+                const r = (h >> 16) & 0xFF;
+                const g = (h >> 8) & 0xFF;
+                const b = h & 0xFF;
+                return `rgba(${r},${g},${b},0.5)`;
+            };
+            const corEscura = `rgba(0,0,0,0.7)`;
 
-            drawShape(ctx, cx, cy, size, shape, rot, pulse, color1, color2, glow);
-
-            if ($('efParticulas').checked && state.isPlaying && vol > 0.3) {
-                const count = Math.floor(vol * 8) + 2;
-                spawnParticles(
-                    cx + (Math.random() - 0.5) * size * 0.6,
-                    cy + (Math.random() - 0.5) * size * 0.6,
-                    count,
-                    color2
-                );
-            }
-            for (const p of state.particles) p.draw(ctx);
+            // Shape parameters
+            const shape = state.shape;
+            let raioBase = Math.min(w, h) * 0.5 * state.sizeScale;
 
             // Mandala
             if ($('efMandala').checked) {
-                const raioBase = Math.min(w, h) * 0.38;
-                const camadas = 8;
-                const rotBase = tempo * 0.15;
-                const lados = (shape === 'circle') ? 20 : (shape === 'star' ? 5 : 6);
+                const camadas = 6;
+                const raioMax = Math.min(w, h) * 0.48 * state.sizeScale;
 
                 for (let i = 0; i < camadas; i++) {
-                    const fator = 0.2 + (i / camadas) * 0.8;
-                    let raio = raioBase * fator * (0.7 + pulso * 0.3);
-                    if (reageVolume) raio += vol * 30;
-                    const rotacao = rotBase * (i + 1) * 0.7;
-                    const opacidade = 0.08 + (1 - i / camadas) * 0.5;
-                    const ladosCamada = lados + (i % 3);
+                    const raio = raioMax * (1 - i / camadas) * pulso;
+                    const lados = getLadosForma(shape);
+                    const rotacao = (tempo * state.rotationSpeed * 0.5) + (i * Math.PI * 2 / camadas);
 
                     ctx.beginPath();
-                    for (let j = 0; j < ladosCamada; j++) {
-                        const ang = (j / ladosCamada) * 2 * Math.PI + rotacao;
+                    for (let j = 0; j < lados; j++) {
+                        const ang = (j / lados) * 2 * Math.PI + rotacao;
                         const x = cx + Math.cos(ang) * raio;
                         const y = cy + Math.sin(ang) * raio;
                         j === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
@@ -1713,7 +1926,7 @@
                     grad.addColorStop(0, corCamada);
                     grad.addColorStop(1, corEscura);
                     ctx.fillStyle = grad;
-                    ctx.globalAlpha = opacidade * (0.5 + vol * 0.5);
+                    ctx.globalAlpha = 0.3 * state.glowIntensity * (0.5 + vol * 0.5);
                     ctx.fill();
                     ctx.globalAlpha = 1;
                 }
@@ -1721,57 +1934,41 @@
 
             // Onda
             if ($('efOnda').checked) {
-                const raioOnda = Math.min(w, h) * 0.42;
+                const raioOnda = Math.min(w, h) * 0.50 * state.sizeScale;
                 const pontos = 60;
-                const lados = (shape === 'circle') ? 20 : (shape === 'star' ? 5 : 6);
+                const lados = getLadosForma(shape);
 
                 ctx.beginPath();
                 for (let i = 0; i <= pontos; i++) {
                     const ang = (i / pontos) * 2 * Math.PI;
-                    const onda = Math.sin(ang * lados + tempo * 1.2) * 15 * pulso;
-                    const dist = raioOnda + onda + (reageVolume ? vol * 25 : 0);
-                    const x = cx + Math.cos(ang + tempo * 0.1) * dist;
-                    const y = cy + Math.sin(ang + tempo * 0.1) * dist;
+                    const onda = Math.sin(ang * lados + tempo * 1.2 * state.rotationSpeed) * 15 * pulso * state.sizeScale;
+                    const dist = raioOnda + onda + (vol * 25);
+                    const x = cx + Math.cos(ang + tempo * 0.1 * state.rotationSpeed) * dist;
+                    const y = cy + Math.sin(ang + tempo * 0.1 * state.rotationSpeed) * dist;
                     i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
                 }
                 ctx.closePath();
-                ctx.strokeStyle = corClara;
-                ctx.lineWidth = 2 + vol * 3;
+                ctx.strokeStyle = corClara();
+                ctx.lineWidth = (2 + vol * 3) * state.glowIntensity;
                 ctx.globalAlpha = 0.5 + pulso * 0.3;
-                ctx.stroke();
-                ctx.globalAlpha = 1;
-
-                ctx.beginPath();
-                for (let i = 0; i <= pontos; i++) {
-                    const ang = (i / pontos) * 2 * Math.PI;
-                    const onda = Math.sin(ang * lados + tempo * 1.8) * 20 * pulso;
-                    const dist = raioOnda * 0.7 + onda + (reageVolume ? vol * 15 : 0);
-                    const x = cx + Math.cos(ang - tempo * 0.15) * dist;
-                    const y = cy + Math.sin(ang - tempo * 0.15) * dist;
-                    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-                }
-                ctx.closePath();
-                ctx.strokeStyle = corComp;
-                ctx.lineWidth = 1.5;
-                ctx.globalAlpha = 0.4;
                 ctx.stroke();
                 ctx.globalAlpha = 1;
             }
 
             // 3D
             if ($('ef3D').checked) {
-                const raio3D = Math.min(w, h) * 0.3;
-                const deslocX = Math.sin(tempo * 0.3) * 15 * pulso;
-                const deslocY = Math.cos(tempo * 0.5) * 10 * pulso;
+                const raio3D = Math.min(w, h) * 0.42 * state.sizeScale;
+                const deslocX = Math.sin(tempo * 0.3 * state.rotationSpeed) * 15 * pulso;
+                const deslocY = Math.cos(tempo * 0.5 * state.rotationSpeed) * 10 * pulso;
 
                 ctx.shadowColor = color1;
-                ctx.shadowBlur = 30 + pulso * 30;
+                ctx.shadowBlur = (30 + pulso * 30) * state.glowIntensity;
 
                 const grad3D = ctx.createRadialGradient(
                     cx + deslocX - 20, cy + deslocY - 20, 5,
                     cx + deslocX, cy + deslocY, raio3D * (0.7 + pulso * 0.3)
                 );
-                grad3D.addColorStop(0, corClara);
+                grad3D.addColorStop(0, corClara());
                 grad3D.addColorStop(0.7, color1);
                 grad3D.addColorStop(1, 'rgba(0,0,0,0)');
 
@@ -1784,83 +1981,11 @@
                 ctx.shadowBlur = 0;
             }
 
-            // Binaural
-            if ($('efBinaural').checked && $('enableDual').checked && state.osc2) {
-                const interval = parseInt($('dualFreq').value) || 4;
-                const hue2 = ((state.currentFreq * NOTAS[interval] - 100) / 1200) * 300;
-                const cor2 = `hsl(${hue2 % 360}, 80%, 55%)`;
-
-                const raioBinaural = Math.min(w, h) * 0.2;
-                const offsetX = Math.sin(tempo * 0.5) * raioBinaural * 1.5;
-                const offsetY = Math.cos(tempo * 0.7) * raioBinaural * 1.2;
-                const lados = (shape === 'circle') ? 20 : (shape === 'star' ? 5 : 6);
-
-                const x1 = cx + offsetX,
-                    y1 = cy + offsetY;
-                const rot1 = tempo * 0.8;
-                ctx.beginPath();
-                for (let j = 0; j < lados; j++) {
-                    const ang = (j / lados) * 2 * Math.PI + rot1;
-                    const r = raioBinaural * (0.6 + pulso * 0.4);
-                    const x = x1 + Math.cos(ang) * r,
-                        y = y1 + Math.sin(ang) * r;
-                    j === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-                }
-                ctx.closePath();
-                ctx.fillStyle = color1;
-                ctx.globalAlpha = 0.3 + vol * 0.2;
-                ctx.fill();
-                ctx.strokeStyle = color1;
-                ctx.lineWidth = 2;
-                ctx.globalAlpha = 0.6;
-                ctx.stroke();
-
-                const x2 = cx - offsetX,
-                    y2 = cy - offsetY;
-                const rot2 = -tempo * 0.8;
-                ctx.beginPath();
-                for (let j = 0; j < lados; j++) {
-                    const ang = (j / lados) * 2 * Math.PI + rot2;
-                    const r = raioBinaural * (0.6 + pulso * 0.4);
-                    const x = x2 + Math.cos(ang) * r,
-                        y = y2 + Math.sin(ang) * r;
-                    j === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-                }
-                ctx.closePath();
-                ctx.fillStyle = cor2;
-                ctx.globalAlpha = 0.3 + vol * 0.2;
-                ctx.fill();
-                ctx.strokeStyle = cor2;
-                ctx.lineWidth = 2;
-                ctx.globalAlpha = 0.6;
-                ctx.stroke();
-
-                ctx.beginPath();
-                ctx.moveTo(x1, y1);
-                ctx.lineTo(x2, y2);
-                ctx.strokeStyle = corClara;
-                ctx.lineWidth = 1 + pulso * 2;
-                ctx.globalAlpha = 0.3 + pulso * 0.2;
-                ctx.setLineDash([5, 10]);
-                ctx.stroke();
-                ctx.setLineDash([]);
-                ctx.globalAlpha = 1;
-            }
-
             // Info
             const shapeNames = {
-                circle: 'Círculo',
-                square: 'Quadrado',
-                triangle: 'Triângulo',
-                hexagon: 'Hexágono',
-                star: 'Estrela',
-                cross: 'Cruz',
-                spiral: 'Espiral',
-                flower: 'Flor',
-                heart: 'Coração',
-                moon: 'Lua',
-                diamond: 'Losango',
-                ring: 'Anel'
+                circle: 'Círculo', square: 'Quadrado', triangle: 'Triângulo', hexagon: 'Hexágono',
+                star: 'Estrela', cross: 'Cruz', spiral: 'Espiral', flower: 'Flor',
+                heart: 'Coração', moon: 'Lua', diamond: 'Losango', ring: 'Anel'
             };
             $('shapeName').textContent = '🔷 ' + (shapeNames[shape] || shape);
             $('colorInfo').innerHTML = `<span class="color-dot" style="background:${color1};"></span> ${color1}`;
@@ -1869,68 +1994,27 @@
         }
 
         // ============================================================
-        //  EVENTOS DA UI
-        // ============================================================
-        // Preset selector
-        presetSelect.addEventListener('change', function() {
-            const val = this.value;
-            if (val === 'personalizado') return;
-            aplicarPreset(val);
-            salvarConfig();
-        });
-
-        // Demais controles (marcam como personalizado)
-        const controlsToWatch = [
-            'volume', 'periodoSlider', 'volOscProf', 'melodyMode', 'waveformSelect',
-            'enablePulse', 'pulseSpeed', 'enableOscilacao', 'oscilacaoProf',
-            'enableDual', 'dualFreq', 'enableVolumeOsc',
-            'efOnda', 'efMandala', 'ef3D', 'efVolume', 'efBinaural', 'efParticulas'
-        ];
-        controlsToWatch.forEach(id => {
-            const el = $(id);
-            if (!el) return;
-            el.addEventListener('input', function() {
-                presetSelect.value = 'personalizado';
-                salvarConfig();
-            });
-            el.addEventListener('change', function() {
-                presetSelect.value = 'personalizado';
-                salvarConfig();
-            });
-        });
-
-        // Cores (marcam como personalizado e atualizam estado)
-        color1Input.addEventListener('input', function() {
-            state.color1 = this.value;
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-        color2Input.addEventListener('input', function() {
-            state.color2 = this.value;
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-        bgInput.addEventListener('input', function() {
-            state.bgColor = this.value;
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-
-        // Botões play/stop
-        btnPlay.onclick = tocarAudio;
-        btnStop.onclick = pararAudio;
-
-        // ============================================================
         //  INICIALIZAÇÃO
         // ============================================================
         carregarConfig();
+        carregarPresetsPersonalizados();
         atualizarLabels();
         aplicarEstadoUI();
-        iniciarAnimacao();
-        setInterval(salvarConfig, 5000);
+        btnPlay.onclick = tocarAudio;
+        btnStop.onclick = pararAudio;
 
-        console.log('🎵 VOLUME OSCILANTE + GALERIA DE FORMAS + PRESETS + CORES — Pronto!');
-        console.log('📌 Selecione um preset ou personalize todos os parâmetros, incluindo as cores.');
+        // Disparar DOMContentLoaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                atualizarLabels();
+                renderFrame();
+            });
+        } else {
+            atualizarLabels();
+            renderFrame();
+        }
+
+        console.log('✨ Sistema completo: Emoções + Controle de Animação + Shots funcionando!');
     </script>
 </body>
 </html>
