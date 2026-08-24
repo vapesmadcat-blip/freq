@@ -106,6 +106,58 @@
     log('audio stopped');
   };
 
+  // Helper: load and merge external presets files (presets.json and mara-presets.json)
+  async function loadExternalPresets() {
+    const urls = [
+      'presets/presets.json',
+      'presets/mara-presets.json'
+    ];
+    const loaded = [];
+    for (const u of urls) {
+      try {
+        const res = await fetch(u, { cache: 'no-store' });
+        if (!res.ok) continue;
+        const data = await res.json();
+        if (!data) continue;
+        if (Array.isArray(data)) {
+          // assume array of {id, displayName, settings}
+          loaded.push(...data);
+        } else if (typeof data === 'object') {
+          // if it's an object map (legacy), convert
+          Object.keys(data).forEach(k => {
+            const v = data[k];
+            if (v && typeof v === 'object') {
+              loaded.push({ id: k, displayName: v.label || k, description: v.terapia || '', settings: v.settings || v });
+            }
+          });
+        }
+      } catch (e) {
+        // ignore missing files or parse errors
+        console.debug('loadExternalPresets ignore', u, e && e.message);
+      }
+    }
+
+    // Normalize entries to format {id, displayName, settings}
+    const normalized = loaded.map(p => {
+      if (!p) return null;
+      if (p.id && p.settings) return p;
+      if (p.id && (p.freq || p.label)) return { id: p.id, displayName: p.displayName || p.label || p.id, settings: p.settings || p };
+      if (p.label && p.freq) return { id: (p.id || p.label).toString().toLowerCase().replace(/\s+/g,'_'), displayName: p.label, settings: p };
+      return null;
+    }).filter(Boolean);
+
+    // Merge into map by id; later items overwrite earlier ones (so mara-presets will override presets.json)
+    const map = {};
+    normalized.forEach(p => {
+      if (!p.id) return;
+      map[p.id] = { id: p.id, displayName: p.displayName || p.id, settings: p.settings || p };
+    });
+
+    // Convert to array and set window.presets
+    window.presets = Object.values(map);
+    return window.presets;
+  }
+
   // UI integration after DOM ready
   document.addEventListener('DOMContentLoaded', function () {
     const sel = document.getElementById('presetSelect');
@@ -125,16 +177,28 @@
     }
 
     function populateSelectFromPresets() {
-      if (!sel || !window.presets) return;
+      if (!sel) return;
+      // If window.presets exists and has entries, use it; otherwise keep current hardcoded options
+      if (!window.presets || !Array.isArray(window.presets) || window.presets.length === 0) return;
       sel.innerHTML = '';
       window.presets.forEach(p => {
         const opt = document.createElement('option'); opt.value = p.id; opt.textContent = p.displayName || p.id; sel.appendChild(opt);
       });
+      // add 'personalizado' option at end
+      const optCustom = document.createElement('option'); optCustom.value = 'personalizado'; optCustom.textContent = '✨ Personalizado (atual)'; sel.appendChild(optCustom);
     }
 
-    // If presets.json was loaded earlier and populated window.presets, refresh select
-    populateSelectFromPresets();
+    // First, try to load external presets and then populate the select if any were found
+    loadExternalPresets().then(pres => {
+      if (pres && pres.length) {
+        populateSelectFromPresets();
+        console.info('External presets loaded:', pres.length);
+      } else {
+        console.info('No external presets found');
+      }
+    }).catch(e => console.warn('Error loading external presets', e));
 
+    // If user selects by UI
     if (sel) {
       sel.addEventListener('change', async (ev) => {
         const id = ev.target.value;
