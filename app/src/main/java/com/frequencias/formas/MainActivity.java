@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private WebView webView;
     private static final String FREQ_COMPLETO_URL = "file:///android_asset/freq_completo.html";
     private static final String SHOTS_EMOCIONAIS_URL = "file:///android_asset/shots_emocionais.html";
-    private String currentUrl = SHOTS_EMOCIONAIS_URL;
+    // A tela principal precisa ser a experiência com áudio e visualização animada.
+    private String currentUrl = FREQ_COMPLETO_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient());
 
-        // Carregar a página de shots emocionais por padrão
+        // A página principal contém o player e a animação em canvas.
         webView.loadUrl(currentUrl);
     }
 
