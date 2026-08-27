@@ -562,6 +562,54 @@
         .modal-buttons .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.1);
         }
+        .mood-question {
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            margin: 4px 0 3px;
+        }
+        .mood-help {
+            color: #888;
+            font-size: 11px;
+            line-height: 1.4;
+            margin-bottom: 9px;
+        }
+        .shot-suggestion {
+            margin: 10px 0 14px;
+            padding: 10px 12px;
+            border: 1px solid rgba(108, 99, 255, 0.35);
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.13), rgba(255, 100, 200, 0.08));
+        }
+        .shot-suggestion .suggestion-label {
+            color: #aaa;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+        }
+        .shot-suggestion .suggestion-title {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            margin: 3px 0;
+        }
+        .shot-suggestion .suggestion-meta {
+            color: #c4b5fd;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+        #btnUsarSugestao {
+            width: 100%;
+            border: 0;
+            border-radius: 8px;
+            padding: 8px 10px;
+            background: #6C63FF;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        #btnUsarSugestao:hover { background: #5a52d9; }
     </style>
 </head>
 <body>
@@ -593,8 +641,10 @@
 
                 <button id="btnSalvarPreset" style="width: 100%; padding: 10px 12px; background: #6C63FF; color: #fff; border: none; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 16px; transition: 0.3s;" onmouseover="this.style.background='#5a52d9'" onmouseout="this.style.background='#6C63FF'">💾 Salvar Preset</button>
 
-                <!-- EMOÇÕES (ADDED) -->
-                <div class="panel-title">😊 Emoção</div>
+                <!-- HUMOR E SUGESTÃO SONORA -->
+                <div class="mood-question">Como você está se sentindo agora?</div>
+                <div class="mood-help">Escolha seu estado emocional para receber um shot sugerido e ouvir o estímulo sonoro correspondente.</div>
+                <div class="panel-title">😊 Seu humor</div>
                 <div class="emoji-grid" id="emojiGrid">
                     <button class="emoji-btn" data-emotion="calmo"><span>😌</span><span class="label">Calmo</span></button>
                     <button class="emoji-btn" data-emotion="energico"><span>⚡</span><span class="label">Energético</span></button>
@@ -603,6 +653,12 @@
                     <button class="emoji-btn" data-emotion="apaixonado"><span>💕</span><span class="label">Apaixonado</span></button>
                     <button class="emoji-btn" data-emotion="meditativo"><span>🧘</span><span class="label">Meditativo</span></button>
                     <button class="emoji-btn" data-emotion="misterioso"><span>🌑</span><span class="label">Misterioso</span></button>
+                </div>
+                <div class="shot-suggestion" id="shotSuggestion" aria-live="polite">
+                    <div class="suggestion-label">Sugestão para o seu momento</div>
+                    <div class="suggestion-title" id="suggestionTitle">Meditação Profunda</div>
+                    <div class="suggestion-meta" id="suggestionMeta">432 Hz · Lua · acalma e centraliza</div>
+                    <button id="btnUsarSugestao" type="button">▶ Usar sugestão e ouvir</button>
                 </div>
 
                 <!-- FREQUÊNCIAS -->
@@ -1047,6 +1103,30 @@
             { emoji: '🌈', nome: 'Esperança', freq: 639, emocao: 'Otimismo / Fé', forma: 'hexagon' },
             { emoji: '🎭', nome: 'Expressão', freq: 741, emocao: 'Criatividade / Comunicação', forma: 'star' }
         ];
+
+        // ============================================================
+        //  SUGESTÕES DE SHOT POR HUMOR
+        // ============================================================
+        const SUGESTOES_HUMOR = {
+            calmo: { preset: 'relaxamento', nome: 'Relaxamento', freq: '396 Hz', forma: 'Círculo', motivo: 'desacelera e ajuda a manter a calma' },
+            energico: { preset: 'energia', nome: 'Energia Máxima', freq: '741 Hz', forma: 'Estrela', motivo: 'favorece disposição e foco' },
+            triste: { preset: 'sono', nome: 'Sono Profundo', freq: '174 Hz', forma: 'Lua', motivo: 'acolhe o momento e convida ao descanso' },
+            alegre: { preset: 'energia', nome: 'Energia Máxima', freq: '741 Hz', forma: 'Estrela', motivo: 'acompanha sua energia com presença' },
+            apaixonado: { preset: 'amor', nome: 'Amor Universal', freq: '639 Hz', forma: 'Coração', motivo: 'acompanha conexão e abertura emocional' },
+            meditativo: { preset: 'meditacao', nome: 'Meditação Profunda', freq: '432 Hz', forma: 'Círculo', motivo: 'apoia presença e centramento' },
+            misterioso: { preset: 'pineal', nome: 'Ativação Pineal', freq: '963 Hz', forma: 'Círculo', motivo: 'acompanha introspecção e exploração interior' }
+        };
+
+        let sugestaoHumorAtual = SUGESTOES_HUMOR.calmo;
+
+        function atualizarSugestaoHumor(emocao) {
+            const sugestao = SUGESTOES_HUMOR[emocao] || SUGESTOES_HUMOR.calmo;
+            sugestaoHumorAtual = sugestao;
+            const title = $('suggestionTitle');
+            const meta = $('suggestionMeta');
+            if (title) title.textContent = sugestao.nome;
+            if (meta) meta.textContent = `${sugestao.freq} · ${sugestao.forma} · ${sugestao.motivo}`;
+        }
 
         // ============================================================
         //  GERENCIAR PRESETS PERSONALIZADOS
@@ -1700,11 +1780,21 @@
                             emotionInfoEl.className = 'emotion-badge ' + emo;
                             emotionInfoEl.textContent = btn.textContent.trim();
                         }
+                        atualizarSugestaoHumor(emo);
                         salvarConfig();
                     });
                 });
                 const def = emojiGrid.querySelector('[data-emotion="calmo"]');
                 if (def) def.classList.add('active');
+                atualizarSugestaoHumor(state.currentEmotion || 'calmo');
+            }
+
+            const btnUsarSugestao = $('btnUsarSugestao');
+            if (btnUsarSugestao) {
+                btnUsarSugestao.addEventListener('click', () => {
+                    aplicarPreset(sugestaoHumorAtual.preset);
+                    if (!state.isPlaying) tocarAudio();
+                });
             }
 
             // Animation controls
