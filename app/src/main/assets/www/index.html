@@ -2221,25 +2221,42 @@
                 }
             }
 
-            // Onda
+            // Onda: duas formas girando em sentidos opostos.
             if ($('efOnda').checked) {
-                const raioOnda = Math.min(w, h) * 0.50 * state.sizeScale;
+                const raioOnda = Math.min(w, h) * 0.42 * state.sizeScale;
                 const pontos = 60;
                 const lados = getLadosForma(shape);
+                const velocidade = state.rotationSpeed;
 
                 ctx.beginPath();
                 for (let i = 0; i <= pontos; i++) {
                     const ang = (i / pontos) * 2 * Math.PI;
-                    const onda = Math.sin(ang * lados + tempo * 1.2 * state.rotationSpeed) * 15 * pulso * state.sizeScale;
+                    const onda = Math.sin(ang * lados + tempo * 1.2 * velocidade) * 15 * pulso;
                     const dist = raioOnda + onda + (vol * 25);
-                    const x = cx + Math.cos(ang + tempo * 0.1 * state.rotationSpeed) * dist;
-                    const y = cy + Math.sin(ang + tempo * 0.1 * state.rotationSpeed) * dist;
+                    const x = cx + Math.cos(ang + tempo * 0.1 * velocidade) * dist;
+                    const y = cy + Math.sin(ang + tempo * 0.1 * velocidade) * dist;
                     i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
                 }
                 ctx.closePath();
                 ctx.strokeStyle = corClara();
                 ctx.lineWidth = (2 + vol * 3) * state.glowIntensity;
                 ctx.globalAlpha = 0.5 + pulso * 0.3;
+                ctx.stroke();
+                ctx.globalAlpha = 1;
+
+                ctx.beginPath();
+                for (let i = 0; i <= pontos; i++) {
+                    const ang = (i / pontos) * 2 * Math.PI;
+                    const onda = Math.sin(ang * lados + tempo * 1.8 * velocidade) * 20 * pulso;
+                    const dist = raioOnda * 0.7 + onda + (vol * 15);
+                    const x = cx + Math.cos(ang - tempo * 0.15 * velocidade) * dist;
+                    const y = cy + Math.sin(ang - tempo * 0.15 * velocidade) * dist;
+                    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.strokeStyle = corComp;
+                ctx.lineWidth = 1.5 * state.glowIntensity;
+                ctx.globalAlpha = 0.4;
                 ctx.stroke();
                 ctx.globalAlpha = 1;
             }
@@ -2268,6 +2285,32 @@
                 ctx.fill();
                 ctx.globalAlpha = 1;
                 ctx.shadowBlur = 0;
+            }
+
+            // Partículas: pontos luminosos orbitando e pulsando ao redor da forma.
+            if ($('efParticulas').checked) {
+                const numParticles = 30 + Math.floor(vol * 30);
+                const raioPart = Math.min(w, h) * 0.4 * state.sizeScale;
+
+                for (let i = 0; i < numParticles; i++) {
+                    const ang = (i / numParticles) * 2 * Math.PI + tempo * (0.2 + i * 0.01) * state.rotationSpeed;
+                    const dist = raioPart * (0.7 + pulso * 0.3) +
+                        Math.sin(tempo * 1.5 + i) * 15 * pulso + (vol * 20);
+                    const x = cx + Math.cos(ang) * dist;
+                    const y = cy + Math.sin(ang) * dist;
+                    const tamanho = 2 + pulso * 6 + vol * 4;
+                    const corPart = i % 2 === 0 ? color1 : corComp;
+
+                    ctx.beginPath();
+                    ctx.arc(x, y, tamanho, 0, 2 * Math.PI);
+                    ctx.fillStyle = corPart;
+                    ctx.globalAlpha = 0.4 + pulso * 0.4 + vol * 0.2;
+                    ctx.shadowColor = corPart;
+                    ctx.shadowBlur = 15 * state.glowIntensity;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                    ctx.globalAlpha = 1;
+                }
             }
 
             // Info
