@@ -2455,9 +2455,12 @@
             draw(ctx) {
                 ctx.globalAlpha = this.life * 0.8;
                 ctx.fillStyle = this.color;
+                ctx.shadowColor = this.color;
+                ctx.shadowBlur = 8 + this.size * 2;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
+                ctx.shadowBlur = 0;
                 ctx.globalAlpha = 1;
             }
         }
@@ -2486,6 +2489,85 @@
         //  ANIMAÇÃO DO CANVAS
         // ============================================================
         let tempo = 0;
+
+        function drawMaraShape(ctx, shape, cx, cy, size, rot, pulse, glow, color1, color2) {
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(rot);
+            ctx.shadowColor = color1;
+            ctx.shadowBlur = 30 * glow * (1 + pulse * 0.5);
+            const grad = ctx.createRadialGradient(-size * 0.2, -size * 0.2, 2, 0, 0, size);
+            grad.addColorStop(0, color2); grad.addColorStop(0.7, color1); grad.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = grad;
+            const poly = (points, inner) => {
+                ctx.beginPath();
+                for (let i=0;i<points;i++) { const r = inner && i%2 ? size*inner : size; const a=i/points*Math.PI*2; const x=Math.cos(a)*r, y=Math.sin(a)*r; i?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+                ctx.closePath(); ctx.fill();
+            };
+            if (shape === 'heart') {
+                ctx.beginPath();
+                for (let q=0;q<=Math.PI*2;q+=0.05) { const x=16*Math.sin(q)**3, y=13*Math.cos(q)-5*Math.cos(2*q)-2*Math.cos(3*q)-Math.cos(4*q); ctx.lineTo(x*size*.084,-y*size*.084); }
+                ctx.closePath(); ctx.fill();
+            } else if (shape === 'moon') {
+                ctx.beginPath(); ctx.arc(0,0,size*.82,0,Math.PI*2); ctx.fill();
+                ctx.shadowBlur=0; ctx.fillStyle='rgba(10,10,26,.96)'; ctx.beginPath(); ctx.arc(size*.34,-size*.2,size*.68,0,Math.PI*2); ctx.fill();
+            } else if (shape === 'spiral') {
+                for (const [c,w,shift,scale] of [[color1,5+pulse*5,0,1],[color2,2+pulse*3,1.2,.9]]) {
+                    ctx.beginPath(); for (let i=0;i<=220;i++) { const q=i/220, a=(q*4*2*Math.PI*(scale===1?1:-1))+shift, r=q*size*.82*scale; i?ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r):ctx.moveTo(Math.cos(a)*r,Math.sin(a)*r); }
+                    ctx.strokeStyle=c; ctx.lineWidth=w; ctx.shadowBlur=0; ctx.stroke();
+                }
+            } else if (shape === 'flower') {
+                const petals=8, outer=size*.82, inner=size*.30; ctx.beginPath();
+                for(let i=0;i<petals;i++){const a=i/petals*Math.PI*2,x1=Math.cos(a)*outer,y1=Math.sin(a)*outer,x2=Math.cos(a+.42)*inner,y2=Math.sin(a+.42)*inner,x3=Math.cos(a-.42)*inner,y3=Math.sin(a-.42)*inner;ctx.moveTo(0,0);ctx.quadraticCurveTo(x2,y2,x1,y1);ctx.quadraticCurveTo(x3,y3,0,0);} ctx.fill();
+                ctx.shadowBlur=0;ctx.fillStyle=color2;ctx.beginPath();ctx.arc(0,0,size*.15,0,Math.PI*2);ctx.fill();
+            } else if (shape === 'ring') {
+                ctx.beginPath();ctx.arc(0,0,size*.82,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='rgba(10,10,26,.96)';ctx.beginPath();ctx.arc(0,0,size*.55,0,Math.PI*2);ctx.fill();
+            } else if (shape === 'cross') {
+                ctx.beginPath();ctx.rect(-size*.16,-size*.82,size*.32,size*1.64);ctx.rect(-size*.82,-size*.16,size*1.64,size*.32);ctx.fill();
+            } else if (shape === 'diamond') { poly(4); }
+            else if (shape === 'star') { poly(10,.42); }
+            else if (shape === 'square') { poly(4); }
+            else if (shape === 'triangle') { poly(3); }
+            else if (shape === 'hexagon') { poly(6); }
+            else { poly(64); }
+            ctx.shadowBlur=0;ctx.restore();
+        }
+
+        function drawMaraContour(ctx, cx, cy, radius, tempo, pulse, color1, color2, glow) {
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.beginPath();
+            const points = 64;
+            for (let i = 0; i <= points; i++) {
+                const a = i / points * Math.PI * 2;
+                const wobble = 1 + 0.055 * Math.sin(a * 7 + tempo * 0.42) + 0.035 * Math.sin(a * 13 - tempo * 0.27) + pulse * 0.025 * Math.sin(a * 5 + tempo);
+                const r = radius * wobble;
+                const x = Math.cos(a) * r, y = Math.sin(a) * r;
+                i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+            }
+            ctx.closePath();
+            ctx.strokeStyle = color2;
+            ctx.lineWidth = 1.8 + pulse * 1.2;
+            ctx.globalAlpha = 0.55;
+            ctx.shadowColor = color2;
+            ctx.shadowBlur = 12 * glow;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawMaraLayers(ctx, shape, cx, cy, size, tempo, pulse, glow, color1, color2) {
+            const layers = [
+                { scale: 1.16, alpha: 0.075, rot: tempo * 0.045 },
+                { scale: 1.05, alpha: 0.12, rot: -tempo * 0.07 + 0.4 },
+                { scale: 0.94, alpha: 0.18, rot: tempo * 0.11 }
+            ];
+            for (const layer of layers) {
+                ctx.save();
+                ctx.globalAlpha = layer.alpha;
+                drawMaraShape(ctx, shape, cx, cy, size * layer.scale, layer.rot, pulse, glow * 0.7, color1, color2);
+                ctx.restore();
+            }
+        }
 
         function renderFrame() {
             const w = canvas.width;
@@ -2552,6 +2634,12 @@
                     ctx.globalAlpha = 1;
                 }
             }
+
+            const maraPulse = Math.max(0, vol) * state.pulseAmount;
+            const maraSize = raioBase * (0.90 + maraPulse * 0.08);
+            drawMaraContour(ctx, cx, cy, maraSize * 1.28, tempo, maraPulse, color1, corComp, state.glowIntensity);
+            drawMaraLayers(ctx, shape, cx, cy, maraSize, tempo * state.rotationSpeed, maraPulse, state.glowIntensity, color1, corComp);
+            drawMaraShape(ctx, shape, cx, cy, maraSize, tempo * 0.22 * state.rotationSpeed, maraPulse, state.glowIntensity, color1, corComp);
 
             // Onda: duas formas girando em sentidos opostos.
             if ($('efOnda').checked) {
@@ -2623,9 +2711,11 @@
             updateParticles();
             if ($('efParticulas').checked && (state.isPlaying || state.particles.length === 0)) {
                 const count = state.isPlaying ? 4 + Math.floor(vol * 5) : 1;
+                const emissionAngle = tempo * 0.28 * state.rotationSpeed;
+                const emissionRadius = raioBase * (0.82 + Math.random() * 0.32);
                 spawnParticles(
-                    cx + (Math.random() - 0.5) * raioBase * 0.45,
-                    cy + (Math.random() - 0.5) * raioBase * 0.45,
+                    cx + Math.cos(emissionAngle) * emissionRadius,
+                    cy + Math.sin(emissionAngle) * emissionRadius,
                     count,
                     Math.random() > 0.5 ? color1 : corComp
                 );
