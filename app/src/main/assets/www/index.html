@@ -2407,12 +2407,23 @@
             salvarConfig();
         });
 
-        ['efOnda', 'efMandala', 'ef3D', 'efVolume', 'efBinaural', 'efParticulas'].forEach(id => {
+        ['efOnda', 'efMandala', 'ef3D', 'efVolume', 'efBinaural'].forEach(id => {
             $(id).addEventListener('change', function() {
                 const lbl = this.closest('.checkbox-group')?.querySelector('label');
                 if (lbl) lbl.style.color = this.checked ? '#6C63FF' : '#888';
                 presetSelect.value = 'personalizado';
                 salvarConfig();
+            });
+        });
+        // Partículas são apenas uma camada visual: nunca devem parar áudio ou animação.
+        $('efParticulas').addEventListener('change', function() {
+            const lbl = this.closest('.checkbox-group')?.querySelector('label');
+            if (lbl) lbl.style.color = this.checked ? '#6C63FF' : '#888';
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+            // Se o WebView perdeu o callback por causa do clique, retoma somente o canvas.
+            requestAnimationFrame(() => {
+                if (performance.now() - ultimaRenderizacao > 350) renderFrame();
             });
         });
 
@@ -2515,6 +2526,7 @@
         //  ANIMAÇÃO DO CANVAS
         // ============================================================
         let tempo = 0;
+        let ultimaRenderizacao = performance.now();
 
         function drawMaraShape(ctx, shape, cx, cy, size, rot, pulse, glow, color1, color2) {
             ctx.save();
@@ -2596,6 +2608,7 @@
         }
 
         function renderFrame() {
+            ultimaRenderizacao = performance.now();
             const w = canvas.width;
             const h = canvas.height;
             const cx = w / 2;
@@ -2734,8 +2747,13 @@
             }
 
             // Partículas: 30 na base, até 60 conforme o volume instantâneo.
+            // A camada é isolada para nunca interromper o loop principal do canvas.
             if ($('efParticulas').checked) {
-                drawMaraParticles(ctx, cx, cy, raioBase * 0.4, tempo, pulso, vol, reageVolume, color1, corComp);
+                try {
+                    drawMaraParticles(ctx, cx, cy, raioBase * 0.4, tempo, pulso, vol, reageVolume, color1, corComp);
+                } catch (particleError) {
+                    console.warn('Partículas ignoradas neste frame:', particleError);
+                }
             }
             state.particles.length = 0;
 
@@ -2748,6 +2766,7 @@
             $('shapeName').textContent = '🔷 ' + (shapeNames[shape] || shape);
             $('colorInfo').innerHTML = `<span class="color-dot" style="background:${color1};"></span> ${color1}`;
 
+            // O próximo frame é agendado mesmo que uma camada visual falhe.
             state.animId = requestAnimationFrame(renderFrame);
         }
 
