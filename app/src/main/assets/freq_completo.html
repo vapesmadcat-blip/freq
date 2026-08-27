@@ -469,147 +469,178 @@
             background: #5a52d9;
             transform: scale(1.1);
         }
+
+        /* Survey Styles */
+        .survey-step {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+        .survey-step.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .survey-question {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .survey-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .survey-option {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            color: #ddd;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .survey-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #6C63FF;
+        }
+        .survey-option.selected {
+            background: #6C63FF;
+            border-color: #6C63FF;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(108, 99, 255, 0.3);
+        }
+        .survey-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .survey-buttons button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .btn-prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .btn-prev:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .btn-next, .btn-submit {
+            background: #6C63FF;
+            color: #fff;
+        }
+        .btn-next:hover, .btn-submit:hover {
+            background: #5a52d9;
+        }
+
+        /* Shots Grid */
         .shots-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
         }
         .shot-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 12px;
-            padding: 12px;
+            padding: 15px;
             cursor: pointer;
             transition: all 0.3s;
         }
         .shot-card:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: #6C63FF;
-            transform: translateY(-2px);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2);
         }
         .shot-emoji {
-            font-size: 24px;
-            margin-bottom: 6px;
+            font-size: 32px;
+            margin-bottom: 8px;
+            display: block;
         }
         .shot-title {
             font-weight: 600;
             color: #fff;
-            font-size: 13px;
-            margin-bottom: 4px;
-        }
-        .shot-freq {
-            font-size: 11px;
-            color: #6C63FF;
-            margin-bottom: 4px;
-        }
-        .shot-emotion {
-            font-size: 10px;
-            color: #999;
-            line-height: 1.3;
-        }
-
-        /* Modal Salvar Preset */
-        .modal-input-group {
-            margin: 20px 0;
-        }
-        .modal-input-group label {
-            display: block;
-            color: #aaa;
-            font-size: 12px;
-            margin-bottom: 8px;
-        }
-        .modal-input-group input {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
             font-size: 14px;
+            margin-bottom: 6px;
         }
-        .modal-input-group input:focus {
-            outline: none;
-            border-color: #6C63FF;
-            box-shadow: 0 0 15px rgba(108, 99, 255, 0.2);
+        .shot-categoria {
+            font-size: 10px;
+            color: #6C63FF;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        .modal-buttons {
+        .shot-descricao {
+            font-size: 11px;
+            color: #999;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .shot-detalhes {
             display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-            margin-top: 20px;
+            gap: 8px;
+            font-size: 10px;
+            color: #777;
+            margin-bottom: 10px;
         }
-        .modal-buttons button {
-            padding: 10px 24px;
-            border-radius: 8px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 12px;
+        .shot-detalhes span {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 4px 8px;
+            border-radius: 4px;
         }
-        .modal-buttons .btn-primary {
+        .shot-beneficios {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        .shot-badge {
+            background: rgba(108, 99, 255, 0.2);
+            color: #a5b4fc;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 9px;
+        }
+        .btn-usar {
+            width: 100%;
+            padding: 10px;
             background: #6C63FF;
             color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            transition: all 0.3s;
         }
-        .modal-buttons .btn-primary:hover {
+        .btn-usar:hover {
             background: #5a52d9;
         }
-        .modal-buttons .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: #aaa;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+
+        @media (max-width: 500px) {
+            .freq-list { grid-template-columns: repeat(4,1fr); }
+            .shape-grid { grid-template-columns: repeat(3,1fr); }
+            .button-group { flex-direction:column; }
+            h1 { font-size:18px; }
+            .container { padding:12px; }
+            .emoji-grid { grid-template-columns: repeat(4, 1fr); }
         }
-        .modal-buttons .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        .mood-question {
-            color: #fff;
-            font-size: 15px;
-            font-weight: 600;
-            margin: 4px 0 3px;
-        }
-        .mood-help {
-            color: #888;
-            font-size: 11px;
-            line-height: 1.4;
-            margin-bottom: 9px;
-        }
-        .shot-suggestion {
-            margin: 10px 0 14px;
-            padding: 10px 12px;
-            border: 1px solid rgba(108, 99, 255, 0.35);
-            border-radius: 12px;
-            background: linear-gradient(135deg, rgba(108, 99, 255, 0.13), rgba(255, 100, 200, 0.08));
-        }
-        .shot-suggestion .suggestion-label {
-            color: #aaa;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: .7px;
-        }
-        .shot-suggestion .suggestion-title {
-            color: #fff;
-            font-size: 14px;
-            font-weight: 700;
-            margin: 3px 0;
-        }
-        .shot-suggestion .suggestion-meta {
-            color: #c4b5fd;
-            font-size: 11px;
-            margin-bottom: 8px;
-        }
-        #btnUsarSugestao {
-            width: 100%;
-            border: 0;
-            border-radius: 8px;
-            padding: 8px 10px;
-            background: #6C63FF;
-            color: #fff;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        #btnUsarSugestao:hover { background: #5a52d9; }
     </style>
 </head>
 <body>
@@ -639,12 +670,10 @@
                     </select>
                 </div>
 
-                <button id="btnSalvarPreset" style="width: 100%; padding: 10px 12px; background: #6C63FF; color: #fff; border: none; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 16px; transition: 0.3s;" onmouseover="this.style.background='#5a52d9'" onmouseout="this.style.background='#6C63FF'">💾 Salvar Preset</button>
+                <button id="btnSalvarPreset" style="width: 100%; padding: 10px 12px; background: #6C63FF; color: #fff; border: none; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; margin-bottom: 15px; transition: 0.3s;">💾 Salvar Preset</button>
 
-                <!-- HUMOR E SUGESTÃO SONORA -->
-                <div class="mood-question">Como você está se sentindo agora?</div>
-                <div class="mood-help">Escolha seu estado emocional para receber um shot sugerido e ouvir o estímulo sonoro correspondente.</div>
-                <div class="panel-title">😊 Seu humor</div>
+                <!-- EMOÇÕES (ADDED) -->
+                <div class="panel-title">😊 Emoção</div>
                 <div class="emoji-grid" id="emojiGrid">
                     <button class="emoji-btn" data-emotion="calmo"><span>😌</span><span class="label">Calmo</span></button>
                     <button class="emoji-btn" data-emotion="energico"><span>⚡</span><span class="label">Energético</span></button>
@@ -653,12 +682,6 @@
                     <button class="emoji-btn" data-emotion="apaixonado"><span>💕</span><span class="label">Apaixonado</span></button>
                     <button class="emoji-btn" data-emotion="meditativo"><span>🧘</span><span class="label">Meditativo</span></button>
                     <button class="emoji-btn" data-emotion="misterioso"><span>🌑</span><span class="label">Misterioso</span></button>
-                </div>
-                <div class="shot-suggestion" id="shotSuggestion" aria-live="polite">
-                    <div class="suggestion-label">Sugestão para o seu momento</div>
-                    <div class="suggestion-title" id="suggestionTitle">Meditação Profunda</div>
-                    <div class="suggestion-meta" id="suggestionMeta">432 Hz · Lua · acalma e centraliza</div>
-                    <button id="btnUsarSugestao" type="button">▶ Usar sugestão e ouvir</button>
                 </div>
 
                 <!-- FREQUÊNCIAS -->
@@ -740,7 +763,7 @@
                     <div class="panel-title">🎵 Melodia</div>
                     <div class="control-group">
                         <label>Modo</label>
-                        <select id="melodyMode" style="width: 100%; padding: 6px; background: rgba(255,255,255,0.08); color: #eee; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; font-size: 12px;">
+                        <select id="melodyMode" style="width: 100%; padding: 6px; background: rgba(255,255,255,0.08); color: #eee; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; font-size: 12px; cursor: pointer;">
                             <option value="continuous">Tom Contínuo</option>
                             <option value="avemaria">Ave Maria</option>
                             <option value="arpeggio">Arpejo</option>
@@ -754,7 +777,7 @@
                     <div class="panel-title">〰️ Forma de Onda</div>
                     <div class="control-group">
                         <label>Tipo</label>
-                        <select id="waveformSelect" style="width: 100%; padding: 6px; background: rgba(255,255,255,0.08); color: #eee; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; font-size: 12px;">
+                        <select id="waveformSelect" style="width: 100%; padding: 6px; background: rgba(255,255,255,0.08); color: #eee; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; font-size: 12px; cursor: pointer;">
                             <option value="sine">Senoidal</option>
                             <option value="triangle">Triangular</option>
                             <option value="square">Quadrada</option>
@@ -843,7 +866,7 @@
                 <div class="button-group">
                     <button id="btnPlay">▶ PLAY</button>
                     <button id="btnStop">⏹ STOP</button>
-                    <button id="btnShots">📸 SHOTS</button>
+                    <button id="btnShots">🎯 SHOTS</button>
                 </div>
 
                 <!-- INFO BADGES -->
@@ -864,1247 +887,262 @@
         </div>
     </div>
 
-    <!-- Modal de Controle Emocional / Shots -->
-    <div id="modalShots" class="modal">
+    <!-- Modal de Sondagem Emocional / Recomendação de Shots -->
+    <div id="modalSondagem" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>🧠 Reforço de Controle Emocional · 42 SHOTS</h2>
-                <button class="modal-close" onclick="fecharModalShots()">✕</button>
+                <h2>🧠 Recomendação de Shots Funcionais</h2>
+                <button class="modal-close" onclick="fecharSondagem()">✕</button>
             </div>
-            <div class="shots-grid" id="shotsGrid">
-                <!-- Preenchido via JavaScript -->
-            </div>
-        </div>
-    </div>
 
-    <!-- Modal Salvar Preset Personalizado -->
-    <div id="modalSalvarPreset" class="modal">
-        <div class="modal-content" style="max-width: 500px;">
-            <div class="modal-header">
-                <h2>💾 Salvar Preset Personalizado</h2>
-                <button class="modal-close" onclick="fecharModalSalvar()">✕</button>
+            <!-- STEP 1: Emoção -->
+            <div class="survey-step active" data-step="1">
+                <div class="survey-question">Como você está se sentindo agora?</div>
+                <div class="survey-options" id="step1Options">
+                    <div class="survey-option" data-value="deprimido">😢 Deprimido</div>
+                    <div class="survey-option" data-value="ansioso">😰 Ansioso</div>
+                    <div class="survey-option" data-value="irritado">😡 Irritado</div>
+                    <div class="survey-option" data-value="cansado">😴 Cansado</div>
+                    <div class="survey-option" data-value="confuso">😶‍🌫️ Confuso</div>
+                    <div class="survey-option" data-value="calmo">😌 Calmo</div>
+                    <div class="survey-option" data-value="feliz">😊 Feliz</div>
+                </div>
+                <div class="survey-buttons">
+                    <button class="btn-next" onclick="proximaPasso()">Próximo ➜</button>
+                </div>
             </div>
-            <div class="modal-input-group">
-                <label>Nome do Preset</label>
-                <input type="text" id="inputNomePreset" placeholder="ex: Meu Preset Especial" maxlength="50">
+
+            <!-- STEP 2: Contexto -->
+            <div class="survey-step" data-step="2">
+                <div class="survey-question">Qual é seu contexto atual?</div>
+                <div class="survey-options" id="step2Options">
+                    <div class="survey-option" data-value="trabalho">💼 Trabalho</div>
+                    <div class="survey-option" data-value="estudo">📚 Estudo</div>
+                    <div class="survey-option" data-value="treino">💪 Treino</div>
+                    <div class="survey-option" data-value="dormir">🛏️ Dormir</div>
+                    <div class="survey-option" data-value="social">🎉 Social</div>
+                    <div class="survey-option" data-value="relaxamento">🌊 Relaxamento</div>
+                </div>
+                <div class="survey-buttons">
+                    <button class="btn-prev" onclick="paginaAnterior()">⬅ Voltar</button>
+                    <button class="btn-next" onclick="proximaPasso()">Próximo ➜</button>
+                </div>
             </div>
-            <div class="modal-input-group">
-                <label>Descrição (opcional)</label>
-                <input type="text" id="inputDescricaoPreset" placeholder="ex: Para meditação matinal" maxlength="100">
+
+            <!-- STEP 3: Horário -->
+            <div class="survey-step" data-step="3">
+                <div class="survey-question">Que horas são agora?</div>
+                <div class="survey-options" id="step3Options">
+                    <div class="survey-option" data-value="manha">🌅 Manhã</div>
+                    <div class="survey-option" data-value="tarde">☀️ Tarde</div>
+                    <div class="survey-option" data-value="noite">🌙 Noite</div>
+                    <div class="survey-option" data-value="madrugada">🌃 Madrugada</div>
+                </div>
+                <div class="survey-buttons">
+                    <button class="btn-prev" onclick="paginaAnterior()">⬅ Voltar</button>
+                    <button class="btn-submit" onclick="finalizarSondagem()">Ver Recomendações 🎯</button>
+                </div>
             </div>
-            <div class="modal-buttons">
-                <button class="btn-secondary" onclick="fecharModalSalvar()">Cancelar</button>
-                <button class="btn-primary" onclick="confirmarSalvarPreset()">Salvar</button>
+
+            <!-- STEP 4: Resultados -->
+            <div class="survey-step" data-step="4">
+                <div class="survey-question">✨ Shots Recomendados Para Você</div>
+                <p style="color: #999; text-align: center; margin-bottom: 15px; font-size: 12px;">
+                    Baseado em: <span id="resumoSondagem" style="color: #6C63FF;"></span>
+                </p>
+                <div class="shots-grid" id="shotsRecomendadosGrid">
+                    <!-- Preenchido via JavaScript -->
+                </div>
+                <div class="survey-buttons" style="margin-top: 20px;">
+                    <button class="btn-prev" onclick="fecharSondagem()">⬅ Fechar</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ============================================================
-        //  UTILITÁRIOS
-        // ============================================================
-        const $ = id => document.getElementById(id);
-        const FREQUENCIAS = {
-            174: 'Proteção Energética',
-            285: 'Regeneração Celular',
-            396: 'Libertação de Culpa',
-            417: 'Reversão de Situações',
-            432: 'Cura e Harmonia',
-            528: 'Transformação e Milagres',
-            639: 'Conexão Social',
-            741: 'Despertar Intuição',
-            852: 'Retorno à Ordem',
-            963: 'Iluminação Espiritual'
+        // Estado da sondagem
+        let sondagemState = {
+            emocao: null,
+            contexto: null,
+            horario: null,
+            passo: 1
         };
 
-        const NOTAS = {
-            0: 1.0,      // Uníssono
-            1: 1.0595,   // 2ª menor
-            2: 1.122,    // 2ª maior
-            3: 1.1892,   // 3ª menor
-            4: 1.2599,   // 3ª maior
-            5: 1.3348,   // 4ª justa
-            6: 1.4142,   // Trítono
-            7: 1.4983,   // 5ª justa
-            8: 1.587,    // 5ª aumentada
-            9: 1.6818,   // 6ª maior
-            10: 1.7818,  // 6ª aumentada
-            11: 1.8877   // 7ª maior
-        };
-
-        const NOMES_INTERVALOS = [
-            'Uníssono', '2ª menor', '2ª maior', '3ª menor', '3ª maior',
-            '4ª justa', 'Trítono', '5ª justa', '5ª aumentada', '6ª maior',
-            '6ª aumentada', '7ª maior'
-        ];
-
-        // State
-        let state = {
-            isPlaying: false,
-            audioContext: null,
-            oscillators: [],
-            gains: [],
-            currentFreq: 432,
-            volumeBase: 0.5,
-            color1: '#6C63FF',
-            color2: '#ff64c8',
-            bgColor: '#0a0a1a',
-            periodoMs: 2000,
-            shape: 'circle',
-            melodyIndex: 0,
-            lastNoteChange: 0,
-            animId: null,
-            // Animation state (ADDED)
-            rotationSpeed: 1,
-            pulseAmount: 1,
-            sizeScale: 1,
-            glowIntensity: 1,
-            currentEmotion: 'calmo',
-            osc2: null,
-            time: 0
-        };
-
-        // PRESETS
-        const PRESETS = {
-            meditacao: {
-                freq: 432, volume: 30, periodo: 3000, volOscProf: 50,
-                melodyMode: 'continuous', waveform: 'sine',
-                enablePulse: true, pulseSpeed: 1, enableOscilacao: true, oscilacaoProf: 3,
-                enableDual: false, dualFreq: 0, enableVolumeOsc: true,
-                efOnda: true, efMandala: true, ef3D: false, efVolume: true, efBinaural: false, efParticulas: false,
-                color1: '#4a90e2', color2: '#7b68ee', bgColor: '#0a0a1a',
-                shape: 'circle', label: '🧘 Meditação Profunda'
-            },
-            energia: {
-                freq: 741, volume: 70, periodo: 800, volOscProf: 80,
-                melodyMode: 'arpeggio', waveform: 'triangle',
-                enablePulse: true, pulseSpeed: 5, enableOscilacao: true, oscilacaoProf: 8,
-                enableDual: false, dualFreq: 7, enableVolumeOsc: true,
-                efOnda: true, efMandala: false, ef3D: true, efVolume: true, efBinaural: false, efParticulas: true,
-                color1: '#ff6464', color2: '#ffa500', bgColor: '#0a0a1a',
-                shape: 'star', label: '⚡ Energia Máxima'
-            },
-            criatividade: {
-                freq: 528, volume: 45, periodo: 1500, volOscProf: 40,
-                melodyMode: 'avemaria', waveform: 'sine',
-                enablePulse: true, pulseSpeed: 2, enableOscilacao: true, oscilacaoProf: 4,
-                enableDual: false, dualFreq: 4, enableVolumeOsc: true,
-                efOnda: true, efMandala: true, ef3D: false, efVolume: true, efBinaural: false, efParticulas: false,
-                color1: '#ff64c8', color2: '#ffc864', bgColor: '#0a0a1a',
-                shape: 'flower', label: '🎨 Criatividade'
-            },
-            foco: {
-                freq: 852, volume: 60, periodo: 1000, volOscProf: 35,
-                melodyMode: 'continuous', waveform: 'triangle',
-                enablePulse: true, pulseSpeed: 3, enableOscilacao: true, oscilacaoProf: 6,
-                enableDual: false, dualFreq: 7, enableVolumeOsc: true,
-                efOnda: true, efMandala: false, ef3D: true, efVolume: true, efBinaural: false, efParticulas: false,
-                color1: '#6C63FF', color2: '#00d4ff', bgColor: '#0a0a1a',
-                shape: 'hexagon', label: '🎯 Foco Total'
-            },
-            relaxamento: {
-                freq: 396, volume: 35, periodo: 2500, volOscProf: 45,
-                melodyMode: 'continuous', waveform: 'sine',
-                enablePulse: false, pulseSpeed: 1, enableOscilacao: true, oscilacaoProf: 2,
-                enableDual: false, dualFreq: 0, enableVolumeOsc: true,
-                efOnda: true, efMandala: true, ef3D: false, efVolume: false, efBinaural: true, efParticulas: false,
-                color1: '#64ff96', color2: '#4a90e2', bgColor: '#0a0a1a',
-                shape: 'circle', label: '😌 Relaxamento'
-            },
-            sono: {
-                freq: 174, volume: 20, periodo: 4000, volOscProf: 60,
-                melodyMode: 'continuous', waveform: 'sine',
-                enablePulse: false, pulseSpeed: 0.5, enableOscilacao: true, oscilacaoProf: 1,
-                enableDual: false, dualFreq: 0, enableVolumeOsc: true,
-                efOnda: false, efMandala: false, ef3D: false, efVolume: true, efBinaural: true, efParticulas: false,
-                color1: '#4a90e2', color2: '#1a1a3e', bgColor: '#0a0a1a',
-                shape: 'circle', label: '😴 Sono Profundo'
-            },
-            amor: {
-                freq: 639, volume: 50, periodo: 1800, volOscProf: 55,
-                melodyMode: 'avemaria', waveform: 'sine',
-                enablePulse: true, pulseSpeed: 1.5, enableOscilacao: true, oscilacaoProf: 5,
-                enableDual: false, dualFreq: 4, enableVolumeOsc: true,
-                efOnda: true, efMandala: true, ef3D: false, efVolume: true, efBinaural: false, efParticulas: true,
-                color1: '#ff64c8', color2: '#ff9999', bgColor: '#0a0a1a',
-                shape: 'heart', label: '💖 Amor Universal'
-            },
-            pineal: {
-                freq: 963, volume: 45, periodo: 3500, volOscProf: 80,
-                melodyMode: 'continuous', waveform: 'sine',
-                enablePulse: false, pulseSpeed: 1, enableOscilacao: true, oscilacaoProf: 2,
-                enableDual: false, dualFreq: 0, enableVolumeOsc: true,
-                efOnda: true, efMandala: true, ef3D: true, efVolume: true, efBinaural: false, efParticulas: true,
-                color1: '#6C63FF', color2: '#a5b4fc', bgColor: '#0a0a1a',
-                shape: 'circle', label: '🔮 Ativação Pineal'
-            }
-        };
-
-        const FORMAS = [
-            { id: 'circle', icon: '⭕', nome: 'Círculo' },
-            { id: 'square', icon: '⬜', nome: 'Quadrado' },
-            { id: 'triangle', icon: '🔺', nome: 'Triângulo' },
-            { id: 'hexagon', icon: '⬡', nome: 'Hexágono' },
-            { id: 'star', icon: '⭐', nome: 'Estrela' },
-            { id: 'cross', icon: '✚', nome: 'Cruz' },
-            { id: 'spiral', icon: '🌀', nome: 'Espiral' },
-            { id: 'flower', icon: '🌸', nome: 'Flor' },
-            { id: 'heart', icon: '❤️', nome: 'Coração' },
-            { id: 'moon', icon: '🌙', nome: 'Lua' },
-            { id: 'diamond', icon: '💎', nome: 'Losango' },
-            { id: 'ring', icon: '⭕', nome: 'Anel' }
-        ];
-
-        const FREQUENCIAS_LISTA = [174, 285, 396, 417, 432, 528, 639, 741, 852, 963];
-
-        // ============================================================
-        //  DADOS DOS 42 SHOTS EMOCIONAIS
-        // ============================================================
-        const SHOTS_EMOCIONAIS = [
-            { emoji: '🌿', nome: 'SOS Ansiedade', freq: 174, emocao: 'Deprimido / Triste', forma: 'circle' },
-            { emoji: '🌿', nome: 'SOS Antiestresse', freq: 396, emocao: 'Deprimido / Desânimo', forma: 'circle' },
-            { emoji: '🌙', nome: 'Sono Reparador', freq: 798, emocao: 'Deprimido / Cansaço', forma: 'moon' },
-            { emoji: '🌿', nome: 'SOS Ansiedade', freq: 174, emocao: 'Ansioso / Agitado', forma: 'moon' },
-            { emoji: '🌿', nome: 'SOS Antiestresse', freq: 396, emocao: 'Ansioso / Preocupado', forma: 'circle' },
-            { emoji: '🌿', nome: 'Crise Emocional', freq: 432, emocao: 'Ansioso / Pânico', forma: 'circle' },
-            { emoji: '🌿', nome: 'Anticortisol', freq: 417, emocao: 'Irritado / Nervoso', forma: 'circle' },
-            { emoji: '🌸', nome: 'TPM Balance', freq: 594, emocao: 'Irritado / Raiva', forma: 'flower' },
-            { emoji: '⚡', nome: 'Acorde e Viva', freq: 440, emocao: 'Cansado / Exausto', forma: 'hexagon' },
-            { emoji: '⚡', nome: 'Substitutivo Cafeína', freq: 285, emocao: 'Cansado / Sem Energia', forma: 'diamond' },
-            { emoji: '🌿', nome: 'SOS Antiestresse', freq: 396, emocao: 'Estressado / Tensão', forma: 'circle' },
-            { emoji: '🌿', nome: 'Anticortisol', freq: 417, emocao: 'Estressado / Pressão', forma: 'circle' },
-            { emoji: '🧠', nome: 'Foco Absoluto', freq: 852, emocao: 'Confuso / Distraído', forma: 'star' },
-            { emoji: '🧠', nome: 'Neurodivergente', freq: 963, emocao: 'Confuso / Mental', forma: 'spiral' },
-            { emoji: '🌸', nome: 'Flor da Lua', freq: 639, emocao: 'Bravo / Agressivo', forma: 'moon' },
-            { emoji: '🌸', nome: 'Pós-Briga', freq: 639, emocao: 'Bravo / Frustrado', forma: 'heart' },
-            { emoji: '❤️', nome: 'Libido Vital', freq: 639, emocao: 'Solitário / Carente', forma: 'heart' },
-            { emoji: '🌸', nome: 'Flor da Lua', freq: 639, emocao: 'Solitário / Isolado', forma: 'moon' },
-            { emoji: '🌸', nome: 'Pós-Briga', freq: 639, emocao: 'Triste / Sensível', forma: 'heart' },
-            { emoji: '🌿', nome: 'SOS Ansiedade', freq: 174, emocao: 'Triste / Melancólico', forma: 'moon' },
-            { emoji: '🌙', nome: 'Relaxamento Noturno', freq: 528, emocao: 'Calmo / Relaxado', forma: 'heart' },
-            { emoji: '🌙', nome: 'Sono Profundo', freq: 798, emocao: 'Calmo / Sereno', forma: 'moon' },
-            { emoji: '⚡', nome: 'Acorde e Viva', freq: 440, emocao: 'Feliz / Alegre', forma: 'hexagon' },
-            { emoji: '⚡', nome: 'Clarity Boost', freq: 741, emocao: 'Feliz / Eufórico', forma: 'star' },
-            { emoji: '🧠', nome: 'Foco Absoluto', freq: 852, emocao: 'Focado / Produtivo', forma: 'star' },
-            { emoji: '🧠', nome: 'Neurodivergente', freq: 963, emocao: 'Focado / Criativo', forma: 'spiral' },
-            { emoji: '⚡', nome: 'Acorde e Viva', freq: 440, emocao: 'Energético / Disposto', forma: 'hexagon' },
-            { emoji: '💪', nome: 'Vitalidade', freq: 440, emocao: 'Energético / Forte', forma: 'hexagon' },
-            { emoji: '❤️', nome: 'Libido Vital', freq: 639, emocao: 'Apaixonado / Desejo', forma: 'heart' },
-            { emoji: '🌸', nome: 'Encanto Azul', freq: 432, emocao: 'Apaixonado / Conexão', forma: 'flower' },
-            { emoji: '🧘', nome: 'Spray Rituais', freq: 420, emocao: 'Zen / Presente', forma: 'spiral' },
-            { emoji: '🌿', nome: 'Meditação', freq: 432, emocao: 'Zen / Meditativo', forma: 'moon' },
-            { emoji: '🧠', nome: 'Ativação Pineal', freq: 963, emocao: 'Espiritual / Iluminação', forma: 'spiral' },
-            { emoji: '🌟', nome: 'Clareza Mental', freq: 741, emocao: 'Mental / Perspectiva', forma: 'star' },
-            { emoji: '💎', nome: 'Abundância', freq: 528, emocao: 'Prosperidade / Riqueza', forma: 'diamond' },
-            { emoji: '🕯️', nome: 'Proteção', freq: 417, emocao: 'Segurança / Proteção', forma: 'circle' },
-            { emoji: '🌊', nome: 'Fluxo', freq: 174, emocao: 'Fluidez / Adaptação', forma: 'wave' },
-            { emoji: '✨', nome: 'Transformação', freq: 852, emocao: 'Mudança / Crescimento', forma: 'star' },
-            { emoji: '🔥', nome: 'Vontade', freq: 440, emocao: 'Determinação / Força', forma: 'triangle' },
-            { emoji: '🌈', nome: 'Esperança', freq: 639, emocao: 'Otimismo / Fé', forma: 'hexagon' },
-            { emoji: '🎭', nome: 'Expressão', freq: 741, emocao: 'Criatividade / Comunicação', forma: 'star' }
-        ];
-
-        // ============================================================
-        //  SUGESTÕES DE SHOT POR HUMOR
-        // ============================================================
-        const SUGESTOES_HUMOR = {
-            calmo: { preset: 'relaxamento', nome: 'Relaxamento', freq: '396 Hz', forma: 'Círculo', motivo: 'desacelera e ajuda a manter a calma' },
-            energico: { preset: 'energia', nome: 'Energia Máxima', freq: '741 Hz', forma: 'Estrela', motivo: 'favorece disposição e foco' },
-            triste: { preset: 'sono', nome: 'Sono Profundo', freq: '174 Hz', forma: 'Lua', motivo: 'acolhe o momento e convida ao descanso' },
-            alegre: { preset: 'energia', nome: 'Energia Máxima', freq: '741 Hz', forma: 'Estrela', motivo: 'acompanha sua energia com presença' },
-            apaixonado: { preset: 'amor', nome: 'Amor Universal', freq: '639 Hz', forma: 'Coração', motivo: 'acompanha conexão e abertura emocional' },
-            meditativo: { preset: 'meditacao', nome: 'Meditação Profunda', freq: '432 Hz', forma: 'Círculo', motivo: 'apoia presença e centramento' },
-            misterioso: { preset: 'pineal', nome: 'Ativação Pineal', freq: '963 Hz', forma: 'Círculo', motivo: 'acompanha introspecção e exploração interior' }
-        };
-
-        let sugestaoHumorAtual = SUGESTOES_HUMOR.calmo;
-
-        function atualizarSugestaoHumor(emocao) {
-            const sugestao = SUGESTOES_HUMOR[emocao] || SUGESTOES_HUMOR.calmo;
-            sugestaoHumorAtual = sugestao;
-            const title = $('suggestionTitle');
-            const meta = $('suggestionMeta');
-            if (title) title.textContent = sugestao.nome;
-            if (meta) meta.textContent = `${sugestao.freq} · ${sugestao.forma} · ${sugestao.motivo}`;
-        }
-
-        // ============================================================
-        //  GERENCIAR PRESETS PERSONALIZADOS
-        // ============================================================
-        let presetsPersonalizados = {};
-
-        function carregarPresetsPersonalizados() {
-            const saved = localStorage.getItem('presetsPersonalizados');
-            if (saved) {
-                presetsPersonalizados = JSON.parse(saved);
-                atualizarOpcoesPresets();
+        function abrirSondagem() {
+            const modal = document.getElementById('modalSondagem');
+            if (modal) {
+                modal.classList.add('show');
+                resetarSondagem();
             }
         }
 
-        function atualizarOpcoesPresets() {
-            const group = $('meusPresetsGroup');
-            if (!group) return;
+        function fecharSondagem() {
+            const modal = document.getElementById('modalSondagem');
+            if (modal) {
+                modal.classList.remove('show');
+            }
+        }
+
+        function resetarSondagem() {
+            sondagemState = { emocao: null, contexto: null, horario: null, passo: 1 };
+            document.querySelectorAll('.survey-step').forEach(s => s.classList.remove('active'));
+            document.querySelector('[data-step="1"]').classList.add('active');
+            document.querySelectorAll('.survey-option').forEach(o => o.classList.remove('selected'));
+        }
+
+        function selecionarOpcao(element) {
+            const opcoes = element.parentElement.querySelectorAll('.survey-option');
+            opcoes.forEach(o => o.classList.remove('selected'));
+            element.classList.add('selected');
+
+            const passo = parseInt(document.querySelector('.survey-step.active').dataset.step);
+            const valor = element.dataset.value;
+
+            if (passo === 1) sondagemState.emocao = valor;
+            else if (passo === 2) sondagemState.contexto = valor;
+            else if (passo === 3) sondagemState.horario = valor;
+        }
+
+        function proximaPasso() {
+            const passo = parseInt(document.querySelector('.survey-step.active').dataset.step);
             
-            group.innerHTML = '';
-            Object.keys(presetsPersonalizados).forEach(key => {
-                const option = document.createElement('option');
-                option.value = key;
-                option.textContent = '⭐ ' + presetsPersonalizados[key].nome;
-                group.appendChild(option);
-            });
-        }
-
-        function abrirModalSalvar() {
-            $('modalSalvarPreset').classList.add('show');
-            $('inputNomePreset').value = '';
-            $('inputDescricaoPreset').value = '';
-            $('inputNomePreset').focus();
-        }
-
-        function fecharModalSalvar() {
-            $('modalSalvarPreset').classList.remove('show');
-        }
-
-        function confirmarSalvarPreset() {
-            const nome = $('inputNomePreset').value.trim();
-            if (!nome) {
-                alert('Por favor, digite um nome para o preset');
+            if (passo === 1 && !sondagemState.emocao) {
+                alert('Por favor, selecione uma emoção');
+                return;
+            }
+            if (passo === 2 && !sondagemState.contexto) {
+                alert('Por favor, selecione um contexto');
+                return;
+            }
+            if (passo === 3 && !sondagemState.horario) {
+                alert('Por favor, selecione um horário');
                 return;
             }
 
-            const descricao = $('inputDescricaoPreset').value.trim();
-            const chave = 'custom_' + Date.now();
-
-            const preset = {
-                nome: nome,
-                descricao: descricao,
-                freq: state.currentFreq,
-                volume: Number($('volume').value),
-                periodo: Number($('periodoSlider').value),
-                volOscProf: Number($('volOscProf').value),
-                melodyMode: $('melodyMode').value,
-                waveform: $('waveformSelect').value,
-                enablePulse: $('enablePulse').checked,
-                pulseSpeed: Number($('pulseSpeed').value),
-                enableOscilacao: $('enableOscilacao').checked,
-                oscilacaoProf: Number($('oscilacaoProf').value),
-                enableDual: $('enableDual').checked,
-                dualFreq: Number($('dualFreq').value),
-                enableVolumeOsc: $('enableVolumeOsc').checked,
-                efOnda: $('efOnda').checked,
-                efMandala: $('efMandala').checked,
-                ef3D: $('ef3D').checked,
-                efVolume: $('efVolume').checked,
-                efBinaural: $('efBinaural').checked,
-                efParticulas: $('efParticulas').checked,
-                color1: state.color1,
-                color2: state.color2,
-                bgColor: state.bgColor,
-                shape: state.shape
-            };
-
-            presetsPersonalizados[chave] = preset;
-            localStorage.setItem('presetsPersonalizados', JSON.stringify(presetsPersonalizados));
-            
-            atualizarOpcoesPresets();
-            fecharModalSalvar();
-            
-            presetSelect.value = chave;
-            alert('✅ Preset "' + nome + '" salvo com sucesso!');
+            document.querySelector('.survey-step.active').classList.remove('active');
+            const proximoStep = document.querySelector(`[data-step="${passo + 1}"]`);
+            if (proximoStep) {
+                proximoStep.classList.add('active');
+                sondagemState.passo = passo + 1;
+            }
         }
 
-        // ============================================================
-        //  FUNÇÕES DO MODAL DE SHOTS
-        // ============================================================
-        function abrirModalShots() {
-            const modal = $('modalShots');
-            const grid = $('shotsGrid');
+        function paginaAnterior() {
+            const passo = parseInt(document.querySelector('.survey-step.active').dataset.step);
+            if (passo > 1) {
+                document.querySelector('.survey-step.active').classList.remove('active');
+                document.querySelector(`[data-step="${passo - 1}"]`).classList.add('active');
+                sondagemState.passo = passo - 1;
+            }
+        }
+
+        function finalizarSondagem() {
+            mostrarRecomendacoes();
+            proximaPasso();
+        }
+
+        function mostrarRecomendacoes() {
+            const emojiMap = { deprimido: '😢', ansioso: '😰', irritado: '😡', cansado: '😴', confuso: '😶‍🌫️', calmo: '😌', feliz: '😊' };
+            const contextoMap = { trabalho: '💼', estudo: '📚', treino: '💪', dormir: '🛏️', social: '🎉', relaxamento: '🌊' };
+            const horarioMap = { manha: '🌅', tarde: '☀️', noite: '🌙', madrugada: '🌃' };
+
+            const resumo = `${emojiMap[sondagemState.emocao] || '😐'} ${sondagemState.emocao} | ${contextoMap[sondagemState.contexto] || '❓'} ${sondagemState.contexto} | ${horarioMap[sondagemState.horario] || '❓'} ${sondagemState.horario}`;
+            document.getElementById('resumoSondagem').textContent = resumo;
+
+            // Dados de exemplo (sem fórmula)
+            const shotsExemplo = [
+                {
+                    emoji: '🎯',
+                    nome: 'Shot Foco Absoluto',
+                    categoria: 'Cognitivo',
+                    descricao: 'Clareza, atenção sustentada e foco mental',
+                    tempo: '15-20 min',
+                    compat: '9/10',
+                    beneficios: ['Foco', 'Atenção', 'Concentração']
+                },
+                {
+                    emoji: '💡',
+                    nome: 'Shot Clarity Boost',
+                    categoria: 'Energia',
+                    descricao: 'Clareza emocional, social e motivacional',
+                    tempo: '10-15 min',
+                    compat: '8.5/10',
+                    beneficios: ['Clareza', 'Foco', 'Motivação']
+                },
+                {
+                    emoji: '🌅',
+                    nome: 'Shot Acorde e Viva',
+                    categoria: 'Energia',
+                    descricao: 'Energia matinal, libido e clareza mental',
+                    tempo: '15-20 min',
+                    compat: '8/10',
+                    beneficios: ['Energia', 'Clareza', 'Vigor']
+                },
+                {
+                    emoji: '😌',
+                    nome: 'Shot Relaxamento Noturno',
+                    categoria: 'Sono',
+                    descricao: 'Indução ao sono e relaxamento emocional',
+                    tempo: '20-30 min',
+                    compat: '9/10',
+                    beneficios: ['Sono', 'Relaxamento', 'Tranquilidade']
+                },
+                {
+                    emoji: '❤️',
+                    nome: 'Shot Libido Vital',
+                    categoria: 'Feminino',
+                    descricao: 'Ativação sensorial, libido e vitalidade emocional',
+                    tempo: '20-30 min',
+                    compat: '8/10',
+                    beneficios: ['Libido', 'Sensorialidade', 'Vitalidade']
+                }
+            ];
+
+            const grid = document.getElementById('shotsRecomendadosGrid');
             grid.innerHTML = '';
 
-            SHOTS_EMOCIONAIS.forEach((shot, idx) => {
+            shotsExemplo.forEach((shot, index) => {
                 const card = document.createElement('div');
                 card.className = 'shot-card';
                 card.innerHTML = `
-                    <div class="shot-emoji">${shot.emoji}</div>
+                    <span class="shot-emoji">${shot.emoji}</span>
+                    <div class="shot-categoria">${shot.categoria}</div>
                     <div class="shot-title">${shot.nome}</div>
-                    <div class="shot-freq">${shot.freq} Hz</div>
-                    <div class="shot-emotion">${shot.emocao}</div>
+                    <div class="shot-descricao">${shot.descricao}</div>
+                    <div class="shot-detalhes">
+                        <span>⏱️ ${shot.tempo}</span>
+                        <span>⭐ ${shot.compat}</span>
+                    </div>
+                    <div class="shot-beneficios">
+                        ${shot.beneficios.map(b => `<span class="shot-badge">${b}</span>`).join('')}
+                    </div>
+                    <button class="btn-usar" onclick="usarShot('${shot.nome}')">Usar este Shot</button>
                 `;
-                card.onclick = () => aplicarShot(shot);
                 grid.appendChild(card);
             });
-
-            modal.classList.add('show');
         }
 
-        function fecharModalShots() {
-            const modal = $('modalShots');
-            modal.classList.remove('show');
+        function usarShot(nomShot) {
+            console.log('🎵 Usando shot:', nomShot);
+            alert(`✅ Shot "${nomShot}" selecionado!\n\nToque em PLAY para começar com a frequência recomendada.`);
+            fecharSondagem();
         }
 
-        function aplicarShot(shot) {
-            state.currentFreq = shot.freq;
-            state.shape = shot.forma || 'circle';
-            
-            // Atualizar UI
-            document.querySelectorAll('.freq-btn').forEach(b => {
-                b.classList.toggle('selected', Number(b.dataset.freq) === shot.freq);
-            });
-            currentFreqEl.textContent = shot.freq + ' Hz';
-            freqDescEl.textContent = FREQUENCIAS[shot.freq] || shot.emocao;
-            
-            shapeBtns.forEach(b => {
-                b.classList.toggle('active', b.dataset.shape === shot.forma);
-            });
-            
-            $('shapeName').textContent = '🔷 ' + (shot.nome || '');
-            presetSelect.value = 'personalizado';
-            
-            // Aumentar volume para shots
-            $('volume').value = 75;
-            state.volumeBase = 0.75;
-            $('volValue').textContent = '75%';
-            
-            // Fechar modal
-            fecharModalShots();
-            
-            // Reiniciar áudio se tocando
-            if (state.isPlaying) {
-                pararAudio();
-                setTimeout(tocarAudio, 100);
-            } else {
-                tocarAudio();
-            }
-            
-            salvarConfig();
-        }
-
-        // Fechar modal ao clicar fora
-        window.onclick = function(event) {
-            const modal = $('modalShots');
-            if (event.target === modal) {
-                fecharModalShots();
-            }
-        };
-
-        // ============================================================
-        //  FUNÇÃO AUXILIAR: OBTER LADOS POR FORMA
-        // ============================================================
-        function getLadosForma(shape) {
-            const formas = {
-                'circle': 20,
-                'square': 4,
-                'triangle': 3,
-                'hexagon': 6,
-                'star': 5,
-                'cross': 4,
-                'spiral': 20,
-                'flower': 6,
-                'heart': 20,
-                'moon': 20,
-                'diamond': 4,
-                'ring': 20
-            };
-            return formas[shape] || 6;
-        }
-
-        // ============================================================
-        //  INICIALIZAÇÃO DA UI
-        // ============================================================
-        const canvas = $('canvas');
-        const ctx = canvas.getContext('2d');
-        const presetSelect = $('presetSelect');
-        const color1Input = $('color1Input');
-        const color2Input = $('color2Input');
-        const bgInput = $('bgInput');
-        const btnPlay = $('btnPlay');
-        const btnStop = $('btnStop');
-        const btnShots = $('btnShots');
-        const currentFreqEl = $('currentFreq');
-        const freqDescEl = $('freqDesc');
-        const melodyInfo = $('melodyInfo');
-        const shapeBtns = [];
-
-        // Build freq buttons
-        const freqList = $('freqList');
-        FREQUENCIAS_LISTA.forEach(freq => {
-            const btn = document.createElement('button');
-            btn.className = 'freq-btn';
-            btn.dataset.freq = freq;
-            btn.textContent = freq;
-            btn.onclick = () => {
-                state.currentFreq = Number(freq);
-                document.querySelectorAll('.freq-btn').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                currentFreqEl.textContent = freq + ' Hz';
-                freqDescEl.textContent = FREQUENCIAS[freq] || '';
-                presetSelect.value = 'personalizado';
-                if (state.isPlaying) {
-                    pararAudio();
-                    setTimeout(tocarAudio, 100);
-                }
-            };
-            freqList.appendChild(btn);
-        });
-
-        // Build shape buttons
-        const shapeGrid = $('shapeGrid');
-        FORMAS.forEach(forma => {
-            const btn = document.createElement('button');
-            btn.className = 'shape-btn';
-            btn.dataset.shape = forma.id;
-            btn.innerHTML = `<span class="icon">${forma.icon}</span>${forma.nome}`;
-            btn.onclick = () => {
-                document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                state.shape = forma.id;
-                $('shapeName').textContent = '🔷 ' + forma.nome;
-                presetSelect.value = 'personalizado';
-            };
-            shapeGrid.appendChild(btn);
-            shapeBtns.push(btn);
-        });
-
-        // Set initial button states
-        document.querySelectorAll('.freq-btn')[4].classList.add('selected'); // 432Hz
-        shapeBtns[0].classList.add('active');
-
-        // Resize canvas
-        function resizeCanvas() {
-            const rect = canvas.getBoundingClientRect();
-            canvas.width = rect.width;
-            canvas.height = rect.height;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        // ============================================================
-        //  AUDIO
-        // ============================================================
-        const AVE_MARIA_NOTES = [
-            { freq: 432, dur: 400 }, { freq: 540, dur: 400 }, { freq: 486, dur: 400 },
-            { freq: 432, dur: 400 }, { freq: 486, dur: 400 }, { freq: 540, dur: 400 },
-            { freq: 540, dur: 600 }, { freq: 486, dur: 400 }, { freq: 432, dur: 400 },
-            { freq: 486, dur: 400 }, { freq: 540, dur: 400 }, { freq: 486, dur: 400 },
-            { freq: 432, dur: 1000 }
-        ];
-
-        const ARPEGGIO_NOTES = [
-            { freq: 432, dur: 200 }, { freq: 540, dur: 200 }, { freq: 648, dur: 200 },
-            { freq: 540, dur: 200 }, { freq: 648, dur: 200 }, { freq: 810, dur: 200 }
-        ];
-
-        function tocarAudio() {
-            if (state.isPlaying) return;
-            state.isPlaying = true;
-            btnPlay.classList.add('active');
-
-            if (!state.audioContext) {
-                state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            }
-
-            const ac = state.audioContext;
-            const masterGain = ac.createGain();
-            masterGain.connect(ac.destination);
-            masterGain.gain.value = state.volumeBase * 0.7;
-
-            // Osc 1
-            const osc1 = ac.createOscillator();
-            osc1.frequency.value = state.currentFreq;
-            osc1.type = $('waveformSelect').value;
-            const gain1 = ac.createGain();
-            gain1.gain.value = 1;
-            osc1.connect(gain1);
-            gain1.connect(masterGain);
-            osc1.start();
-            state.oscillators.push(osc1);
-            state.gains.push(gain1);
-
-            // Osc 2 (Binaural)
-            if ($('enableDual').checked) {
-                const interval = Number($('dualFreq').value) || 0;
-                const osc2 = ac.createOscillator();
-                osc2.frequency.value = state.currentFreq * NOTAS[interval];
-                osc2.type = $('waveformSelect').value;
-                const gain2 = ac.createGain();
-                gain2.gain.value = 0.7;
-                osc2.connect(gain2);
-                gain2.connect(masterGain);
-                osc2.start();
-                state.osc2 = osc2;
-                state.oscillators.push(osc2);
-                state.gains.push(gain2);
-            }
-
-            animateAudio();
-        }
-
-        function animateAudio() {
-            if (!state.isPlaying) return;
-
-            const now = performance.now() / 1000;
-            const periodo = state.periodoMs / 1000;
-            const fase = (now % periodo) / periodo;
-            const vol = Math.sin(fase * Math.PI);
-            const profundidade = Number($('volOscProf').value) / 100;
-            const volumeFinal = state.volumeBase * (1 - profundidade + vol * profundidade) * 0.3;
-
-            state.gains[0].gain.value = volumeFinal;
-            if (state.gains[1]) state.gains[1].gain.value = volumeFinal * 0.7;
-
-            // Vibrato
-            if ($('enableOscilacao').checked && state.oscillators[0]) {
-                const vibFreq = Number($('oscilacaoProf').value);
-                const vibAmt = 10 * vibFreq;
-                state.oscillators[0].frequency.value = state.currentFreq + Math.sin(now * vibFreq * 2 * Math.PI) * vibAmt;
-                if (state.osc2) {
-                    const interval = Number($('dualFreq').value) || 0;
-                    state.osc2.frequency.value = state.currentFreq * NOTAS[interval] + Math.sin(now * vibFreq * 2 * Math.PI) * vibAmt;
-                }
-            }
-
-            // Melodia
-            const melodyMode = $('melodyMode').value;
-            if (melodyMode !== 'continuous' && state.oscillators[0]) {
-                const notes = melodyMode === 'avemaria' ? AVE_MARIA_NOTES : ARPEGGIO_NOTES;
-                const noteDur = (notes[state.melodyIndex]?.dur || 200) / 1000;
-                if (now - state.lastNoteChange > noteDur) {
-                    state.melodyIndex = (state.melodyIndex + 1) % notes.length;
-                    state.lastNoteChange = now;
-                    const noteFreq = notes[state.melodyIndex].freq;
-                    state.oscillators[0].frequency.value = noteFreq;
-                }
-            }
-
-            requestAnimationFrame(animateAudio);
-        }
-
-        function pararAudio() {
-            if (!state.isPlaying) return;
-            state.isPlaying = false;
-            btnPlay.classList.remove('active');
-
-            state.oscillators.forEach(osc => {
-                try { osc.stop(); } catch (e) {}
-            });
-            state.oscillators = [];
-            state.gains = [];
-            state.osc2 = null;
-        }
-
-        // ============================================================
-        //  CONFIGURAÇÃO
-        // ============================================================
-        function salvarConfig() {
-            const config = {
-                freq: state.currentFreq,
-                volume: Number($('volume').value),
-                shape: state.shape,
-                color1: state.color1,
-                color2: state.color2,
-                bgColor: state.bgColor,
-                emotion: state.currentEmotion,
-                rotationSpeed: state.rotationSpeed,
-                pulseAmount: state.pulseAmount,
-                sizeScale: state.sizeScale,
-                glowIntensity: state.glowIntensity
-            };
-            localStorage.setItem('audioVizConfig', JSON.stringify(config));
-        }
-
-        function carregarConfig() {
-            const saved = localStorage.getItem('audioVizConfig');
-            if (saved) {
-                const cfg = JSON.parse(saved);
-                state.currentFreq = cfg.freq || 432;
-                state.color1 = cfg.color1 || '#6C63FF';
-                state.color2 = cfg.color2 || '#ff64c8';
-                state.bgColor = cfg.bgColor || '#0a0a1a';
-                state.shape = cfg.shape || 'circle';
-                state.currentEmotion = cfg.emotion || 'calmo';
-                state.rotationSpeed = cfg.rotationSpeed || 1;
-                state.pulseAmount = cfg.pulseAmount || 1;
-                state.sizeScale = cfg.sizeScale || 1;
-                state.glowIntensity = cfg.glowIntensity || 1;
-                
-                color1Input.value = state.color1;
-                color2Input.value = state.color2;
-                bgInput.value = state.bgColor;
-                $('volume').value = cfg.volume || 50;
-            }
-        }
-
-        function atualizarLabels() {
-            $('volValue').textContent = $('volume').value + '%';
-            $('periodoValue').textContent = $('periodoSlider').value + ' ms';
-            $('volOscValue').textContent = $('volOscProf').value + '%';
-            $('pulseSpeedValue').textContent = $('pulseSpeed').value + ' Hz';
-            $('oscilacaoValue').textContent = $('oscilacaoProf').value + ' Hz';
-            $('colorInfo').innerHTML = `<span style="display:inline-block;width:12px;height:12px;background:${state.color1};border-radius:50%;margin-right:4px;"></span>${state.color1}`;
-        }
-
-        function aplicarEstadoUI() {
-            shapeBtns.forEach(b => {
-                b.classList.toggle('active', b.dataset.shape === state.shape);
-            });
-            
-            // Set default emotion
-            const def = document.querySelector(`[data-emotion="${state.currentEmotion}"]`);
-            if (def) def.classList.add('active');
-            
-            $('emotionInfo').className = 'emotion-badge ' + state.currentEmotion;
-            $('emotionInfo').textContent = def ? def.textContent.trim() : '😌 Calmo';
-        }
-
-        // ============================================================
-        //  EVENTO: ABRIR MODAL DE SHOTS EMOCIONAIS
-        // ============================================================
-        btnShots.onclick = () => {
-            abrirModalShots();
-        };
-
-        // ============================================================
-        //  EVENTO: SALVAR PRESET PERSONALIZADO
-        // ============================================================
-        $('btnSalvarPreset').onclick = () => {
-            abrirModalSalvar();
-        };
-
-        // Fechar modal de salvar ao clicar fora
-        window.addEventListener('click', function(event) {
-            const modalSalvar = $('modalSalvarPreset');
-            if (event.target === modalSalvar) {
-                fecharModalSalvar();
-            }
-        });
-
-        // ============================================================
-        //  EVENTO: PRESET
-        // ============================================================
-        presetSelect.addEventListener('change', function() {
-            const val = this.value;
-            if (val === 'personalizado') return;
-            
-            // Verificar se é um preset personalizado
-            if (presetsPersonalizados[val]) {
-                aplicarPresetPersonalizado(val);
-            } else {
-                aplicarPreset(val);
-            }
-            salvarConfig();
-        });
-
-        function aplicarPresetPersonalizado(chave) {
-            const preset = presetsPersonalizados[chave];
-            if (!preset) return;
-
-            state.currentFreq = preset.freq;
-            state.volumeBase = preset.volume / 100;
-            state.periodoMs = preset.periodo;
-            state.shape = preset.shape;
-            state.color1 = preset.color1;
-            state.color2 = preset.color2;
-            state.bgColor = preset.bgColor;
-
-            // Atualizar UI
-            document.querySelectorAll('.freq-btn').forEach(b => {
-                b.classList.toggle('selected', Number(b.dataset.freq) === preset.freq);
-            });
-            currentFreqEl.textContent = preset.freq + ' Hz';
-            freqDescEl.textContent = FREQUENCIAS[preset.freq] || preset.descricao || '';
-
-            $('volume').value = preset.volume;
-            $('volValue').textContent = preset.volume + '%';
-
-            $('periodoSlider').value = preset.periodo;
-            $('periodoValue').textContent = preset.periodo + ' ms';
-
-            $('volOscProf').value = preset.volOscProf;
-            $('volOscValue').textContent = preset.volOscProf + '%';
-
-            $('melodyMode').value = preset.melodyMode;
-            $('waveformSelect').value = preset.waveform;
-            $('waveformLabel').textContent = preset.waveform;
-
-            $('enablePulse').checked = preset.enablePulse;
-            $('pulseGroup').style.opacity = preset.enablePulse ? '1' : '0.4';
-            $('pulseSpeed').value = preset.pulseSpeed;
-            $('pulseSpeedValue').textContent = preset.pulseSpeed + ' Hz';
-
-            $('enableOscilacao').checked = preset.enableOscilacao;
-            $('oscilacaoGroup').style.opacity = preset.enableOscilacao ? '1' : '0.4';
-            $('oscilacaoProf').value = preset.oscilacaoProf;
-            $('oscilacaoValue').textContent = preset.oscilacaoProf + ' Hz';
-
-            $('enableDual').checked = preset.enableDual;
-            $('dualGroup').style.opacity = preset.enableDual ? '1' : '0.4';
-            $('dualFreq').value = preset.dualFreq;
-            $('dualFreq').disabled = !preset.enableDual;
-
-            $('enableVolumeOsc').checked = preset.enableVolumeOsc;
-
-            $('efOnda').checked = preset.efOnda;
-            $('efMandala').checked = preset.efMandala;
-            $('ef3D').checked = preset.ef3D;
-            $('efVolume').checked = preset.efVolume;
-            $('efBinaural').checked = preset.efBinaural;
-            $('efParticulas').checked = preset.efParticulas;
-
-            document.querySelectorAll('.efeitos-grid input[type="checkbox"]').forEach(cb => {
-                const lbl = cb.closest('.checkbox-group')?.querySelector('label');
-                if (lbl) lbl.style.color = cb.checked ? '#6C63FF' : '#888';
-            });
-
-            color1Input.value = preset.color1;
-            color2Input.value = preset.color2;
-            bgInput.value = preset.bgColor;
-
-            shapeBtns.forEach(b => {
-                b.classList.toggle('active', b.dataset.shape === preset.shape);
-            });
-
-            if (state.isPlaying) {
-                pararAudio();
-                setTimeout(tocarAudio, 150);
-            }
-
-            presetSelect.value = chave;
-        }
-
-        function aplicarPreset(nome) {
-            const preset = PRESETS[nome];
-            if (!preset) return;
-
-            state.currentFreq = preset.freq;
-            document.querySelectorAll('.freq-btn').forEach(b => {
-                b.classList.toggle('selected', Number(b.dataset.freq) === preset.freq);
-            });
-            currentFreqEl.textContent = preset.freq + ' Hz';
-            freqDescEl.textContent = FREQUENCIAS[preset.freq] || '';
-
-            $('volume').value = preset.volume;
-            state.volumeBase = preset.volume / 100;
-            $('volValue').textContent = preset.volume + '%';
-
-            $('periodoSlider').value = preset.periodo;
-            state.periodoMs = preset.periodo;
-            $('periodoValue').textContent = preset.periodo + ' ms';
-
-            $('volOscProf').value = preset.volOscProf;
-            $('volOscValue').textContent = preset.volOscProf + '%';
-
-            $('melodyMode').value = preset.melodyMode;
-            state.melodyIndex = 0;
-            state.lastNoteChange = performance.now() / 1000;
-            const mode = preset.melodyMode;
-            if (mode === 'avemaria') {
-                melodyInfo.innerHTML = `<span style="color:#6C63FF;">🎵 Ave Maria</span>`;
-            } else if (mode === 'arpeggio') {
-                melodyInfo.textContent = '🔶 Arpejo';
-            } else {
-                melodyInfo.textContent = '🔵 Tom contínuo';
-            }
-
-            $('waveformSelect').value = preset.waveform;
-            $('waveformLabel').textContent = preset.waveform;
-
-            $('enablePulse').checked = preset.enablePulse;
-            $('pulseGroup').style.opacity = preset.enablePulse ? '1' : '0.4';
-            $('pulseSpeed').value = preset.pulseSpeed;
-            $('pulseSpeedValue').textContent = preset.pulseSpeed + ' Hz';
-
-            $('enableOscilacao').checked = preset.enableOscilacao;
-            $('oscilacaoGroup').style.opacity = preset.enableOscilacao ? '1' : '0.4';
-            $('oscilacaoProf').value = preset.oscilacaoProf;
-            $('oscilacaoValue').textContent = preset.oscilacaoProf + ' Hz';
-
-            $('enableDual').checked = preset.enableDual;
-            $('dualGroup').style.opacity = preset.enableDual ? '1' : '0.4';
-            $('dualFreq').value = preset.dualFreq;
-            $('dualFreqValue').textContent = NOMES_INTERVALOS[preset.dualFreq] || '3ª maior';
-            $('dualFreq').disabled = !preset.enableDual;
-
-            $('efOnda').checked = preset.efOnda;
-            $('efMandala').checked = preset.efMandala;
-            $('ef3D').checked = preset.ef3D;
-            $('efVolume').checked = preset.efVolume;
-            $('efBinaural').checked = preset.efBinaural;
-            $('efParticulas').checked = preset.efParticulas;
-
-            document.querySelectorAll('.efeitos-grid input[type="checkbox"]').forEach(cb => {
-                const lbl = cb.closest('.checkbox-group')?.querySelector('label');
-                if (lbl) lbl.style.color = cb.checked ? '#6C63FF' : '#888';
-            });
-
-            if (preset.color1) {
-                state.color1 = preset.color1;
-                color1Input.value = preset.color1;
-            }
-            if (preset.color2) {
-                state.color2 = preset.color2;
-                color2Input.value = preset.color2;
-            }
-            if (preset.bgColor) {
-                state.bgColor = preset.bgColor;
-                bgInput.value = preset.bgColor;
-            }
-
-            state.shape = preset.shape;
-            shapeBtns.forEach(b => {
-                b.classList.toggle('active', b.dataset.shape === preset.shape);
-            });
-
-            if (state.isPlaying) {
-                pararAudio();
-                setTimeout(tocarAudio, 150);
-            }
-
-            presetSelect.value = nome;
-        }
-
-        // ============================================================
-        //  EVENTO: CONTROLES DE ANIMAÇÃO (ADDED)
-        // ============================================================
+        // Adicionar listeners aos botões de opções
         document.addEventListener('DOMContentLoaded', () => {
-            // Emotion buttons
-            const emojiGrid = $('emojiGrid');
-            if (emojiGrid) {
-                emojiGrid.querySelectorAll('.emoji-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        emojiGrid.querySelectorAll('.emoji-btn').forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        const emo = btn.dataset.emotion;
-                        state.currentEmotion = emo;
-                        const emotionInfoEl = $('emotionInfo');
-                        if (emotionInfoEl) {
-                            emotionInfoEl.className = 'emotion-badge ' + emo;
-                            emotionInfoEl.textContent = btn.textContent.trim();
-                        }
-                        atualizarSugestaoHumor(emo);
-                        salvarConfig();
-                    });
+            document.querySelectorAll('.survey-option').forEach(opt => {
+                opt.addEventListener('click', function() {
+                    selecionarOpcao(this);
                 });
-                const def = emojiGrid.querySelector('[data-emotion="calmo"]');
-                if (def) def.classList.add('active');
-                atualizarSugestaoHumor(state.currentEmotion || 'calmo');
-            }
-
-            const btnUsarSugestao = $('btnUsarSugestao');
-            if (btnUsarSugestao) {
-                btnUsarSugestao.addEventListener('click', () => {
-                    aplicarPreset(sugestaoHumorAtual.preset);
-                    if (!state.isPlaying) tocarAudio();
-                });
-            }
-
-            // Animation controls
-            const rot = $('rotationSpeed');
-            const rotVal = $('rotationVal');
-            if (rot && rotVal) {
-                rot.addEventListener('input', () => {
-                    state.rotationSpeed = Number(rot.value);
-                    rotVal.textContent = state.rotationSpeed.toFixed(1);
-                    salvarConfig();
-                });
-            }
-            const pulse = $('pulseAmount');
-            const pulseVal = $('pulseAmountVal');
-            if (pulse && pulseVal) {
-                pulse.addEventListener('input', () => {
-                    state.pulseAmount = Number(pulse.value);
-                    pulseVal.textContent = state.pulseAmount.toFixed(2);
-                    salvarConfig();
-                });
-            }
-            const size = $('sizeScale');
-            const sizeVal = $('sizeVal');
-            if (size && sizeVal) {
-                size.addEventListener('input', () => {
-                    state.sizeScale = Number(size.value);
-                    sizeVal.textContent = state.sizeScale.toFixed(2);
-                    salvarConfig();
-                });
-            }
-            const glow = $('glowIntensity');
-            const glowVal = $('glowVal');
-            if (glow && glowVal) {
-                glow.addEventListener('input', () => {
-                    state.glowIntensity = Number(glow.value);
-                    glowVal.textContent = state.glowIntensity.toFixed(2);
-                    salvarConfig();
-                });
-            }
-
-            if (rotVal) rotVal.textContent = state.rotationSpeed.toFixed(1);
-            if (pulseVal) pulseVal.textContent = state.pulseAmount.toFixed(2);
-            if (sizeVal) sizeVal.textContent = state.sizeScale.toFixed(2);
-            if (glowVal) glowVal.textContent = state.glowIntensity.toFixed(2);
-        });
-
-        // ============================================================
-        //  CONTROLES GERAIS
-        // ============================================================
-        $('volume').addEventListener('input', function() {
-            state.volumeBase = this.value / 100;
-            $('volValue').textContent = this.value + '%';
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-
-        $('periodoSlider').addEventListener('input', function() {
-            state.periodoMs = Number(this.value);
-            $('periodoValue').textContent = this.value + ' ms';
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-
-        $('volOscProf').addEventListener('input', function() {
-            $('volOscValue').textContent = this.value + '%';
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-
-        $('waveformSelect').addEventListener('change', function() {
-            $('waveformLabel').textContent = this.value;
-            presetSelect.value = 'personalizado';
-            if (state.isPlaying && state.oscillators[0]) {
-                state.oscillators[0].type = this.value;
-                if (state.osc2) state.osc2.type = this.value;
-            }
-            salvarConfig();
-        });
-
-        $('enablePulse').addEventListener('change', function() {
-            $('pulseGroup').style.opacity = this.checked ? '1' : '0.4';
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-
-        $('pulseSpeed').addEventListener('input', function() {
-            $('pulseSpeedValue').textContent = this.value + ' Hz';
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-
-        $('enableOscilacao').addEventListener('change', function() {
-            $('oscilacaoGroup').style.opacity = this.checked ? '1' : '0.4';
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-
-        $('oscilacaoProf').addEventListener('input', function() {
-            $('oscilacaoValue').textContent = this.value + ' Hz';
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-
-        $('enableDual').addEventListener('change', function() {
-            $('dualGroup').style.opacity = this.checked ? '1' : '0.4';
-            $('dualFreq').disabled = !this.checked;
-            presetSelect.value = 'personalizado';
-            if (state.isPlaying) {
-                pararAudio();
-                setTimeout(tocarAudio, 100);
-            }
-            salvarConfig();
-        });
-
-        $('dualFreq').addEventListener('input', function() {
-            $('dualFreqValue').textContent = NOMES_INTERVALOS[this.value] || '3ª maior';
-            presetSelect.value = 'personalizado';
-            if (state.isPlaying && state.osc2) {
-                const interval = Number(this.value) || 0;
-                state.osc2.frequency.value = state.currentFreq * NOTAS[interval];
-            }
-            salvarConfig();
-        });
-
-        $('enableVolumeOsc').addEventListener('change', function() {
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-
-        ['efOnda', 'efMandala', 'ef3D', 'efVolume', 'efBinaural', 'efParticulas'].forEach(id => {
-            $(id).addEventListener('change', function() {
-                const lbl = this.closest('.checkbox-group')?.querySelector('label');
-                if (lbl) lbl.style.color = this.checked ? '#6C63FF' : '#888';
-                presetSelect.value = 'personalizado';
-                salvarConfig();
             });
-        });
 
-        color1Input.addEventListener('input', function() {
-            state.color1 = this.value;
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-
-        color2Input.addEventListener('input', function() {
-            state.color2 = this.value;
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-
-        bgInput.addEventListener('input', function() {
-            state.bgColor = this.value;
-            document.body.style.background = this.value;
-            presetSelect.value = 'personalizado';
-            salvarConfig();
-        });
-
-        // ============================================================
-        //  ANIMAÇÃO DO CANVAS
-        // ============================================================
-        let tempo = 0;
-
-        function renderFrame() {
-            const w = canvas.width;
-            const h = canvas.height;
-            const cx = w / 2;
-            const cy = h / 2;
-
-            // Clear
-            ctx.fillStyle = state.bgColor;
-            ctx.fillRect(0, 0, w, h);
-
-            // Calculate pulse & volume
-            const agora = performance.now() / 1000;
-            const periodo = state.periodoMs / 1000;
-            const fase = (agora % periodo) / periodo;
-            const vol = Math.sin(fase * Math.PI);
-            const profundidade = Number($('volOscProf').value) / 100;
-            const pulso = $('enablePulse').checked ? (1 + vol * 0.5) : 1;
-            tempo = agora;
-
-            // Colors
-            const color1 = state.color1;
-            const corComp = state.color2;
-            const corClara = estado => {
-                const h = parseInt(color1.slice(1), 16);
-                const r = (h >> 16) & 0xFF;
-                const g = (h >> 8) & 0xFF;
-                const b = h & 0xFF;
-                return `rgba(${r},${g},${b},0.5)`;
-            };
-            const corEscura = `rgba(0,0,0,0.7)`;
-
-            // Shape parameters
-            const shape = state.shape;
-            let raioBase = Math.min(w, h) * 0.5 * state.sizeScale;
-
-            // Mandala
-            if ($('efMandala').checked) {
-                const camadas = 6;
-                const raioMax = Math.min(w, h) * 0.48 * state.sizeScale;
-
-                for (let i = 0; i < camadas; i++) {
-                    const raio = raioMax * (1 - i / camadas) * pulso;
-                    const lados = getLadosForma(shape);
-                    const rotacao = (tempo * state.rotationSpeed * 0.5) + (i * Math.PI * 2 / camadas);
-
-                    ctx.beginPath();
-                    for (let j = 0; j < lados; j++) {
-                        const ang = (j / lados) * 2 * Math.PI + rotacao;
-                        const x = cx + Math.cos(ang) * raio;
-                        const y = cy + Math.sin(ang) * raio;
-                        j === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-                    }
-                    ctx.closePath();
-
-                    const grad = ctx.createRadialGradient(cx, cy, 5, cx, cy, raio);
-                    const corCamada = i % 2 === 0 ? color1 : corComp;
-                    grad.addColorStop(0, corCamada);
-                    grad.addColorStop(1, corEscura);
-                    ctx.fillStyle = grad;
-                    ctx.globalAlpha = 0.3 * state.glowIntensity * (0.5 + vol * 0.5);
-                    ctx.fill();
-                    ctx.globalAlpha = 1;
-                }
+            // Botão de shots
+            const btnShots = document.getElementById('btnShots');
+            if (btnShots) {
+                btnShots.addEventListener('click', abrirSondagem);
             }
-
-            // Onda
-            if ($('efOnda').checked) {
-                const raioOnda = Math.min(w, h) * 0.50 * state.sizeScale;
-                const pontos = 60;
-                const lados = getLadosForma(shape);
-
-                ctx.beginPath();
-                for (let i = 0; i <= pontos; i++) {
-                    const ang = (i / pontos) * 2 * Math.PI;
-                    const onda = Math.sin(ang * lados + tempo * 1.2 * state.rotationSpeed) * 15 * pulso * state.sizeScale;
-                    const dist = raioOnda + onda + (vol * 25);
-                    const x = cx + Math.cos(ang + tempo * 0.1 * state.rotationSpeed) * dist;
-                    const y = cy + Math.sin(ang + tempo * 0.1 * state.rotationSpeed) * dist;
-                    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-                }
-                ctx.closePath();
-                ctx.strokeStyle = corClara();
-                ctx.lineWidth = (2 + vol * 3) * state.glowIntensity;
-                ctx.globalAlpha = 0.5 + pulso * 0.3;
-                ctx.stroke();
-                ctx.globalAlpha = 1;
-            }
-
-            // 3D
-            if ($('ef3D').checked) {
-                const raio3D = Math.min(w, h) * 0.42 * state.sizeScale;
-                const deslocX = Math.sin(tempo * 0.3 * state.rotationSpeed) * 15 * pulso;
-                const deslocY = Math.cos(tempo * 0.5 * state.rotationSpeed) * 10 * pulso;
-
-                ctx.shadowColor = color1;
-                ctx.shadowBlur = (30 + pulso * 30) * state.glowIntensity;
-
-                const grad3D = ctx.createRadialGradient(
-                    cx + deslocX - 20, cy + deslocY - 20, 5,
-                    cx + deslocX, cy + deslocY, raio3D * (0.7 + pulso * 0.3)
-                );
-                grad3D.addColorStop(0, corClara());
-                grad3D.addColorStop(0.7, color1);
-                grad3D.addColorStop(1, 'rgba(0,0,0,0)');
-
-                ctx.beginPath();
-                ctx.arc(cx + deslocX, cy + deslocY, raio3D * (0.7 + pulso * 0.3), 0, 2 * Math.PI);
-                ctx.fillStyle = grad3D;
-                ctx.globalAlpha = 0.3 + vol * 0.3;
-                ctx.fill();
-                ctx.globalAlpha = 1;
-                ctx.shadowBlur = 0;
-            }
-
-            // Info
-            const shapeNames = {
-                circle: 'Círculo', square: 'Quadrado', triangle: 'Triângulo', hexagon: 'Hexágono',
-                star: 'Estrela', cross: 'Cruz', spiral: 'Espiral', flower: 'Flor',
-                heart: 'Coração', moon: 'Lua', diamond: 'Losango', ring: 'Anel'
-            };
-            $('shapeName').textContent = '🔷 ' + (shapeNames[shape] || shape);
-            $('colorInfo').innerHTML = `<span class="color-dot" style="background:${color1};"></span> ${color1}`;
-
-            state.animId = requestAnimationFrame(renderFrame);
-        }
-
-        // ============================================================
-        //  INICIALIZAÇÃO
-        // ============================================================
-        carregarConfig();
-        carregarPresetsPersonalizados();
-        atualizarLabels();
-        aplicarEstadoUI();
-        btnPlay.onclick = tocarAudio;
-        btnStop.onclick = pararAudio;
-
-        // Disparar DOMContentLoaded
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-                atualizarLabels();
-                renderFrame();
-            });
-        } else {
-            atualizarLabels();
-            renderFrame();
-        }
-
-        console.log('✨ Sistema completo: Emoções + Controle de Animação + Shots funcionando!');
+        });
     </script>
 </body>
 </html>
