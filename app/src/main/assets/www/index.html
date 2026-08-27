@@ -351,6 +351,21 @@
         }
         .particle-controls .control-group { margin: 5px 0; }
         .particle-controls select { padding: 5px 7px; font-size: 11px; }
+        .particle-toggles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            margin-top: 7px;
+        }
+        .particle-toggles label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #aaa;
+            font-size: 10px;
+            cursor: pointer;
+        }
+        .particle-toggles input { accent-color: #6C63FF; }
 
         canvas {
             background: #000;
@@ -987,6 +1002,11 @@
                                 <option value="explosao">Explosão pulsante</option>
                             </select>
                         </div>
+                        <div class="particle-toggles">
+                            <label><input type="checkbox" id="particleRotate" checked> Girar</label>
+                            <label><input type="checkbox" id="particlePulse" checked> Pulsar</label>
+                            <label><input type="checkbox" id="particleExplode"> Explodir</label>
+                        </div>
                     </div>
                 </div>
 
@@ -1256,7 +1276,13 @@
             particleRadius: 40,
             particleCount: 30,
             particleSize: 1,
-            particleBehavior: 'orbita'
+            particleBehavior: 'orbita',
+            particleRotate: true,
+            particlePulse: true,
+            particleExplode: false,
+            explosionParticles: [],
+            explosionLastTime: 0,
+            explosionLastFrame: performance.now()
         };
 
         // PRESETS
@@ -2028,7 +2054,10 @@
                 particleRadius: Number($('particleRadius').value),
                 particleCount: Number($('particleCount').value),
                 particleSize: Number($('particleSize').value),
-                particleBehavior: $('particleBehavior').value
+                particleBehavior: $('particleBehavior').value,
+                particleRotate: $('particleRotate').checked,
+                particlePulse: $('particlePulse').checked,
+                particleExplode: $('particleExplode').checked
             };
             localStorage.setItem('audioVizConfig', JSON.stringify(config));
         }
@@ -2056,10 +2085,16 @@
                 $('particleCount').value = cfg.particleCount ?? state.particleCount;
                 $('particleSize').value = cfg.particleSize ?? state.particleSize;
                 $('particleBehavior').value = cfg.particleBehavior || state.particleBehavior;
+                $('particleRotate').checked = cfg.particleRotate ?? state.particleRotate;
+                $('particlePulse').checked = cfg.particlePulse ?? state.particlePulse;
+                $('particleExplode').checked = cfg.particleExplode ?? state.particleExplode;
                 state.particleRadius = Number($('particleRadius').value);
                 state.particleCount = Number($('particleCount').value);
                 state.particleSize = Number($('particleSize').value);
                 state.particleBehavior = $('particleBehavior').value;
+                state.particleRotate = $('particleRotate').checked;
+                state.particlePulse = $('particlePulse').checked;
+                state.particleExplode = $('particleExplode').checked;
             }
         }
 
@@ -2492,6 +2527,13 @@
             presetSelect.value = 'personalizado';
             salvarConfig();
         });
+        ['particleRotate', 'particlePulse', 'particleExplode'].forEach(id => {
+            $(id).addEventListener('change', function() {
+                state[id] = this.checked;
+                presetSelect.value = 'personalizado';
+                salvarConfig();
+            });
+        });
 
         color1Input.addEventListener('input', function() {
             state.color1 = this.value;
@@ -2558,35 +2600,40 @@
             const quantidadeBase = Number($('particleCount').value) || 30;
             const tamanhoControle = Number($('particleSize').value) || 1;
             const comportamento = $('particleBehavior').value || 'orbita';
+            const girar = $('particleRotate').checked;
+            const pulsar = $('particlePulse').checked;
             const quantidade = Math.min(160, quantidadeBase + Math.floor(vol * quantidadeBase));
             const raioConfigurado = raioPart * raioControle;
+            const pulsoParticula = pulsar ? pulso : 1;
+            const volumeParticula = reageVolume ? vol : 0;
             for (let i = 0; i < quantidade; i++) {
                 let velocidadeAngular = 0.2 + i * 0.01;
-                let oscilacao = Math.sin(tempo * 1.5 + i) * 15 * pulso;
-                let expansaoVolume = reageVolume ? vol * 20 : 0;
+                let oscilacao = pulsar ? Math.sin(tempo * 1.5 + i) * 15 * pulsoParticula : 0;
+                let expansaoVolume = volumeParticula * 20;
                 if (comportamento === 'expansao') {
                     velocidadeAngular = 0.12 + i * 0.004;
-                    oscilacao = Math.sin(tempo * 1.1 + i) * 8 * pulso;
-                    expansaoVolume += reageVolume ? vol * 40 : 0;
+                    oscilacao = pulsar ? Math.sin(tempo * 1.1 + i) * 8 * pulsoParticula : 0;
+                    expansaoVolume += volumeParticula * 40;
                 } else if (comportamento === 'flutuacao') {
                     velocidadeAngular = 0.06 + i * 0.002;
-                    oscilacao = Math.sin(tempo * 1.7 + i * 1.7) * 24 * pulso;
+                    oscilacao = Math.sin(tempo * 1.7 + i * 1.7) * 24 * pulsoParticula;
                 } else if (comportamento === 'explosao') {
                     velocidadeAngular = 0.35 + i * 0.014;
-                    oscilacao = Math.sin(tempo * 2.5 + i) * 10 * pulso;
-                    expansaoVolume += vol * 50 + pulso * 18;
+                    oscilacao = pulsar ? Math.sin(tempo * 2.5 + i) * 10 * pulsoParticula : 0;
+                    expansaoVolume += volumeParticula * 50 + pulsoParticula * 18;
                 }
-                const ang = (i / quantidade) * Math.PI * 2 + tempo * velocidadeAngular;
-                const distancia = raioConfigurado * (0.7 + pulso * 0.3) + oscilacao + expansaoVolume;
+                const rotacao = girar ? tempo * velocidadeAngular : 0;
+                const ang = (i / quantidade) * Math.PI * 2 + rotacao;
+                const distancia = raioConfigurado * (0.7 + (pulsar ? pulso * 0.3 : 0.15)) + oscilacao + expansaoVolume;
                 const x = cx + Math.cos(ang) * distancia;
                 const y = cy + Math.sin(ang) * distancia;
-                const tamanho = (2 + pulso * 6 + vol * 4) * tamanhoControle;
+                const tamanho = (2 + pulsoParticula * 6 + volumeParticula * 4) * tamanhoControle;
                 const corParticula = i % 2 === 0 ? color1 : color2;
 
                 ctx.beginPath();
                 ctx.arc(x, y, tamanho, 0, Math.PI * 2);
                 ctx.fillStyle = corParticula;
-                ctx.globalAlpha = Math.min(1, 0.4 + pulso * 0.4 + vol * 0.2);
+                ctx.globalAlpha = Math.min(1, 0.4 + pulsoParticula * 0.4 + volumeParticula * 0.2);
                 ctx.fill();
                 ctx.shadowColor = corParticula;
                 ctx.shadowBlur = 15;
@@ -2594,6 +2641,54 @@
                 ctx.shadowBlur = 0;
                 ctx.globalAlpha = 1;
             }
+        }
+
+        // Rajadas opcionais: cada partícula nasce no centro com direção aleatória.
+        function drawExplosionParticles(ctx, cx, cy, tempo, pulso, vol, color1, color2) {
+            const now = performance.now();
+            const delta = Math.min(0.05, Math.max(0.001, (now - state.explosionLastFrame) / 1000));
+            state.explosionLastFrame = now;
+            const quantidadeBase = Number($('particleCount').value) || 30;
+            const tamanhoControle = Number($('particleSize').value) || 1;
+            const pulsoParticula = $('particlePulse').checked ? pulso : 1;
+            const volumeParticula = $('efVolume').checked ? vol : 0;
+            const intervalo = Math.max(90, 420 - volumeParticula * 260);
+            if (now - state.explosionLastTime >= intervalo) {
+                const rajada = Math.max(3, Math.floor(quantidadeBase * (0.12 + volumeParticula * 0.12)));
+                for (let i = 0; i < rajada; i++) {
+                    const ang = Math.random() * Math.PI * 2;
+                    const velocidade = 90 + Math.random() * (130 + volumeParticula * 180);
+                    state.explosionParticles.push({
+                        x: cx, y: cy,
+                        vx: Math.cos(ang) * velocidade,
+                        vy: Math.sin(ang) * velocidade,
+                        size: (1.5 + Math.random() * 4 + pulsoParticula * 2 + volumeParticula * 3) * tamanhoControle,
+                        life: 1,
+                        decay: 0.45 + Math.random() * 0.55,
+                        color: Math.random() > 0.5 ? color1 : color2
+                    });
+                }
+                state.explosionLastTime = now;
+            }
+            for (let i = state.explosionParticles.length - 1; i >= 0; i--) {
+                const p = state.explosionParticles[i];
+                p.x += p.vx * delta;
+                p.y += p.vy * delta;
+                p.life -= p.decay * delta;
+                if (p.life <= 0) {
+                    state.explosionParticles.splice(i, 1);
+                    continue;
+                }
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * (0.65 + p.life * 0.35), 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = Math.min(1, p.life * (0.55 + volumeParticula * 0.45));
+                ctx.shadowColor = p.color;
+                ctx.shadowBlur = 14 + volumeParticula * 12;
+                ctx.fill();
+            }
+            ctx.shadowBlur = 0;
+            ctx.globalAlpha = 1;
         }
 
         function updateParticles() {
@@ -2883,9 +2978,16 @@
             if ($('efParticulas').checked) {
                 try {
                     drawMaraParticles(ctx, cx, cy, raioBase * 0.4, tempo, pulso, vol, reageVolume, color1, corComp);
+                    if ($('particleExplode').checked) {
+                        drawExplosionParticles(ctx, cx, cy, tempo, pulso, vol, color1, corComp);
+                    } else {
+                        state.explosionParticles.length = 0;
+                    }
                 } catch (particleError) {
                     console.warn('Partículas ignoradas neste frame:', particleError);
                 }
+            } else {
+                state.explosionParticles.length = 0;
             }
             state.particles.length = 0;
 
