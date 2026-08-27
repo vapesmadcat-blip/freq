@@ -1076,17 +1076,39 @@
         //  UTILITÁRIOS
         // ============================================================
         const $ = id => document.getElementById(id);
+        // Lista ampliada copiada exclusivamente do freq_completo.html fornecido.
         const FREQUENCIAS = {
-            174: 'Proteção Energética',
-            285: 'Regeneração Celular',
-            396: 'Libertação de Culpa',
-            417: 'Reversão de Situações',
-            432: 'Cura e Harmonia',
-            528: 'Transformação e Milagres',
-            639: 'Conexão Social',
-            741: 'Despertar Intuição',
-            852: 'Retorno à Ordem',
-            963: 'Iluminação Espiritual'
+            174: 'Alívio da dor física\nSegurança\nRelaxamento muscular',
+            285: 'Regeneração de tecidos\nCura\nRenovação celular',
+            396: 'Libertação de medo\nDissolução de bloqueios',
+            417: 'Desfaz padrões negativos\nMudanças\nCriatividade',
+            528: 'Transformação\nPaz\nReparo do DNA (Frequência do Amor)',
+            639: 'Relacionamentos\nCompaixão\nEquilíbrio emocional',
+            741: 'Clareza\nExpressão criativa\nSolução de problemas',
+            852: 'Intuição\nConsciência espiritual\nOrdem interior',
+            963: 'Conexão espiritual\nConsciência pura\nAtivação da pineal',
+            432: 'Relaxamento profundo\nRedução de ansiedade\nHarmonia com a natureza',
+            440: 'Foco\nConcentração\nEquilíbrio (padrão ocidental)',
+            444: 'Cura avançada\nFundação espiritual\nPresença divina',
+            111: 'Manifestação\nConexão espiritual\nDespertar da intuição',
+            222: 'Equilíbrio\nHarmonia\nPaz interior',
+            333: 'Proteção espiritual\nElevação da consciência',
+            384: 'Libertação de padrões\nRenovação mental',
+            480: 'Consciência elevada\nConexão cósmica',
+            555: 'Mudanças positivas\nReinvenção\nLibertação',
+            594: 'Harmonia emocional\nRelaxamento profundo',
+            666: 'Equilíbrio material e espiritual\nFoco no presente',
+            720: 'Expansão da consciência\nConexão universal',
+            777: 'Intuição elevada\nSorte espiritual\nSabedoria interior',
+            798: 'Ativação da pineal\nPaz profunda\nSono reparador',
+            888: 'Abundância\nFluxo de prosperidade\nRealização',
+            936: 'Compaixão universal\nElevação espiritual',
+            999: 'Expansão da consciência\nDespertar espiritual\nCompaixão',
+            1000: 'Conexão divina\nIluminação\nTranscendência',
+            137.1: 'Relaxamento muscular profundo\nAlívio de tensões (Freq. de Otto)',
+            256: 'Equilíbrio energético\nEnraizamento (Ressonância Schumann)',
+            330: 'Expansão da criatividade\nDesbloqueio de traumas',
+            420: 'Conexão com a natureza\nRelaxamento mental'
         };
 
         const NOTAS = {
@@ -1227,7 +1249,11 @@
             { id: 'ring', icon: '⭕', nome: 'Anel' }
         ];
 
-        const FREQUENCIAS_LISTA = [174, 285, 396, 417, 432, 528, 639, 741, 852, 963];
+        const FREQUENCIAS_LISTA = [
+            174, 285, 396, 417, 528, 639, 741, 852, 963, 432,
+            440, 444, 111, 222, 333, 384, 480, 555, 594, 666,
+            720, 777, 798, 888, 936, 999, 1000, 137.1, 256, 330, 420
+        ];
 
         // ============================================================
         //  DADOS DOS 42 SHOTS EMOCIONAIS
