@@ -1195,76 +1195,129 @@
         // PRESETS
         const PRESETS = {
             meditacao: {
-                freq: 432, volume: 30, periodo: 3000, volOscProf: 50,
-                melodyMode: 'continuous', waveform: 'sine',
-                enablePulse: true, pulseSpeed: 1, enableOscilacao: true, oscilacaoProf: 3,
-                enableDual: false, dualFreq: 0, enableVolumeOsc: true,
-                efOnda: true, efMandala: true, ef3D: false, efVolume: true, efBinaural: false, efParticulas: false,
-                color1: '#4a90e2', color2: '#7b68ee', bgColor: '#0a0a1a',
-                shape: 'circle', label: '🧘 Meditação Profunda'
-            },
-            energia: {
-                freq: 741, volume: 70, periodo: 800, volOscProf: 80,
-                melodyMode: 'arpeggio', waveform: 'triangle',
-                enablePulse: true, pulseSpeed: 5, enableOscilacao: true, oscilacaoProf: 8,
-                enableDual: false, dualFreq: 7, enableVolumeOsc: true,
-                efOnda: true, efMandala: false, ef3D: true, efVolume: true, efBinaural: false, efParticulas: true,
-                color1: '#ff6464', color2: '#ffa500', bgColor: '#0a0a1a',
-                shape: 'star', label: '⚡ Energia Máxima'
-            },
-            criatividade: {
-                freq: 528, volume: 45, periodo: 1500, volOscProf: 40,
-                melodyMode: 'avemaria', waveform: 'sine',
-                enablePulse: true, pulseSpeed: 2, enableOscilacao: true, oscilacaoProf: 4,
-                enableDual: false, dualFreq: 4, enableVolumeOsc: true,
-                efOnda: true, efMandala: true, ef3D: false, efVolume: true, efBinaural: false, efParticulas: false,
-                color1: '#ff64c8', color2: '#ffc864', bgColor: '#0a0a1a',
-                shape: 'flower', label: '🎨 Criatividade'
-            },
-            foco: {
-                freq: 852, volume: 60, periodo: 1000, volOscProf: 35,
-                melodyMode: 'continuous', waveform: 'triangle',
-                enablePulse: true, pulseSpeed: 3, enableOscilacao: true, oscilacaoProf: 6,
-                enableDual: false, dualFreq: 7, enableVolumeOsc: true,
-                efOnda: true, efMandala: false, ef3D: true, efVolume: true, efBinaural: false, efParticulas: false,
-                color1: '#6C63FF', color2: '#00d4ff', bgColor: '#0a0a1a',
-                shape: 'hexagon', label: '🎯 Foco Total'
-            },
-            relaxamento: {
-                freq: 396, volume: 35, periodo: 2500, volOscProf: 45,
-                melodyMode: 'continuous', waveform: 'sine',
-                enablePulse: false, pulseSpeed: 1, enableOscilacao: true, oscilacaoProf: 2,
-                enableDual: false, dualFreq: 0, enableVolumeOsc: true,
-                efOnda: true, efMandala: true, ef3D: false, efVolume: false, efBinaural: true, efParticulas: false,
-                color1: '#64ff96', color2: '#4a90e2', bgColor: '#0a0a1a',
-                shape: 'circle', label: '😌 Relaxamento'
-            },
-            sono: {
-                freq: 174, volume: 20, periodo: 4000, volOscProf: 60,
-                melodyMode: 'continuous', waveform: 'sine',
-                enablePulse: false, pulseSpeed: 0.5, enableOscilacao: true, oscilacaoProf: 1,
-                enableDual: false, dualFreq: 0, enableVolumeOsc: true,
-                efOnda: false, efMandala: false, ef3D: false, efVolume: true, efBinaural: true, efParticulas: false,
-                color1: '#4a90e2', color2: '#1a1a3e', bgColor: '#0a0a1a',
-                shape: 'circle', label: '😴 Sono Profundo'
-            },
-            amor: {
-                freq: 639, volume: 50, periodo: 1800, volOscProf: 55,
-                melodyMode: 'avemaria', waveform: 'sine',
-                enablePulse: true, pulseSpeed: 1.5, enableOscilacao: true, oscilacaoProf: 5,
-                enableDual: false, dualFreq: 4, enableVolumeOsc: true,
-                efOnda: true, efMandala: true, ef3D: false, efVolume: true, efBinaural: false, efParticulas: true,
-                color1: '#ff64c8', color2: '#ff9999', bgColor: '#0a0a1a',
-                shape: 'heart', label: '💖 Amor Universal'
+                label: '🌿 Meditação Profunda',
+                freq: 432,
+                shape: 'circle',
+                volume: 40,
+                periodo: 4000,
+                volOscProf: 70,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 2,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                color1: '#6C63FF',
+                color2: '#a78bfa',
+                bgColor: '#0a0a1a'
             },
             pineal: {
-                freq: 963, volume: 50, periodo: 3000, volOscProf: 80,
-                melodyMode: 'drone', waveform: 'sine',
-                enablePulse: true, pulseSpeed: 1.5, enableOscilacao: true, oscilacaoProf: 5,
-                enableDual: true, dualFreq: 4, enableVolumeOsc: true,
-                efOnda: true, efMandala: true, ef3D: true, efVolume: true, efBinaural: false, efParticulas: true,
-                color1: '#6C63FF', color2: '#a5b4fc', bgColor: '#0a0a1a',
-                shape: 'circle', label: '🔮 Ativação Pineal'
+                label: '🔮 Ativação Pineal',
+                freq: 963,
+                shape: 'spiral',
+                volume: 50,
+                periodo: 3000,
+                volOscProf: 80,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: true,
+                pulseSpeed: 1.5,
+                enableOscilacao: true,
+                oscilacaoProf: 5,
+                enableDual: true,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: true,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: true,
+                efParticulas: true,
+                color1: '#7c3aed',
+                color2: '#f472b6',
+                bgColor: '#0a0a1a'
+            },
+            avemaria: {
+                label: '🎵 Ave Maria',
+                freq: 528,
+                shape: 'heart',
+                volume: 45,
+                periodo: 2000,
+                volOscProf: 60,
+                melodyMode: 'avemaria',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 3,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: false,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                color1: '#f59e0b',
+                color2: '#ef4444',
+                bgColor: '#1a0a0a'
+            },
+            energia: {
+                label: '⚡ Energia & Foco',
+                freq: 440,
+                shape: 'hexagon',
+                volume: 60,
+                periodo: 800,
+                volOscProf: 40,
+                melodyMode: 'arpeggio',
+                waveform: 'sawtooth',
+                enablePulse: true,
+                pulseSpeed: 3.0,
+                enableOscilacao: true,
+                oscilacaoProf: 1,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: true,
+                efMandala: false,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: false,
+                color1: '#3b82f6',
+                color2: '#06b6d4',
+                bgColor: '#0a0a1a'
+            },
+            relaxamento: {
+                label: '🌊 Relaxamento',
+                freq: 174,
+                shape: 'moon',
+                volume: 35,
+                periodo: 6000,
+                volOscProf: 90,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: false,
+                pulseSpeed: 2.0,
+                enableOscilacao: true,
+                oscilacaoProf: 1,
+                enableDual: false,
+                dualFreq: 4,
+                efOnda: false,
+                efMandala: true,
+                ef3D: false,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                color1: '#0ea5e9',
+                color2: '#38bdf8',
+                bgColor: '#0a0a1a'
             }
         };
 
@@ -2221,6 +2274,53 @@
             salvarConfig();
         });
 
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.size = 2 + Math.random() * 4;
+                this.life = 1;
+                this.decay = 0.008 + Math.random() * 0.015;
+                this.color = color;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= this.decay;
+                this.size *= 0.998;
+            }
+            draw(ctx) {
+                ctx.globalAlpha = this.life * 0.8;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        function spawnParticles(cx, cy, count, color) {
+            for (let i = 0; i < count; i++) {
+                const p = new Particle(cx, cy, color);
+                p.vx = (Math.random() - 0.5) * 4;
+                p.vy = (Math.random() - 0.5) * 4;
+                p.size = 2 + Math.random() * 6;
+                state.particles.push(p);
+            }
+        }
+
+        function updateParticles() {
+            for (let i = state.particles.length - 1; i >= 0; i--) {
+                state.particles[i].update();
+                if (state.particles[i].life <= 0 || state.particles[i].size < 0.2) {
+                    state.particles.splice(i, 1);
+                }
+            }
+            if (state.particles.length > 500) state.particles.splice(0, state.particles.length - 500);
+        }
+
         // ============================================================
         //  ANIMAÇÃO DO CANVAS
         // ============================================================
@@ -2357,31 +2457,19 @@
                 ctx.shadowBlur = 0;
             }
 
-            // Partículas: pontos luminosos orbitando e pulsando ao redor da forma.
-            if ($('efParticulas').checked) {
-                const numParticles = 30 + Math.floor(vol * 30);
-                const raioPart = Math.min(w, h) * 0.4 * state.sizeScale;
-
-                for (let i = 0; i < numParticles; i++) {
-                    const ang = (i / numParticles) * 2 * Math.PI + tempo * (0.2 + i * 0.01) * state.rotationSpeed;
-                    const dist = raioPart * (0.7 + pulso * 0.3) +
-                        Math.sin(tempo * 1.5 + i) * 15 * pulso + (vol * 20);
-                    const x = cx + Math.cos(ang) * dist;
-                    const y = cy + Math.sin(ang) * dist;
-                    const tamanho = 2 + pulso * 6 + vol * 4;
-                    const corPart = i % 2 === 0 ? color1 : corComp;
-
-                    ctx.beginPath();
-                    ctx.arc(x, y, tamanho, 0, 2 * Math.PI);
-                    ctx.fillStyle = corPart;
-                    ctx.globalAlpha = 0.4 + pulso * 0.4 + vol * 0.2;
-                    ctx.shadowColor = corPart;
-                    ctx.shadowBlur = 15 * state.glowIntensity;
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
-                    ctx.globalAlpha = 1;
-                }
+            // Partículas persistentes: partículas reais com vida, velocidade e brilho.
+            updateParticles();
+            if ($('efParticulas').checked && (state.isPlaying || state.particles.length === 0)) {
+                const count = state.isPlaying ? 4 + Math.floor(vol * 5) : 1;
+                spawnParticles(
+                    cx + (Math.random() - 0.5) * raioBase * 0.45,
+                    cy + (Math.random() - 0.5) * raioBase * 0.45,
+                    count,
+                    Math.random() > 0.5 ? color1 : corComp
+                );
             }
+            if (!$('efParticulas').checked) state.particles.length = 0;
+            for (const p of state.particles) p.draw(ctx);
 
             // Info
             const shapeNames = {
