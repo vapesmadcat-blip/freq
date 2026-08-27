@@ -1856,7 +1856,9 @@
             const fase = (now % periodo) / periodo;
             const vol = Math.sin(fase * Math.PI);
             const profundidade = Number($('volOscProf').value) / 100;
-            const volumeFinal = state.volumeBase * (1 - profundidade + vol * profundidade) * 0.3;
+            const pulseRate = Number($('pulseSpeed').value) || 2;
+            const pulseEnvelope = $('enablePulse').checked ? (0.72 + 0.28 * (0.5 + 0.5 * Math.sin(now * pulseRate * Math.PI * 2))) : 1;
+            const volumeFinal = state.volumeBase * (1 - profundidade + vol * profundidade) * 0.3 * pulseEnvelope;
 
             state.gains[0].gain.value = volumeFinal;
             if (state.gains[1]) state.gains[1].gain.value = volumeFinal * 0.7;
@@ -2498,9 +2500,10 @@
             const agora = performance.now() / 1000;
             const periodo = state.periodoMs / 1000;
             const fase = (agora % periodo) / periodo;
-            const vol = Math.sin(fase * Math.PI);
+            const pulseRate = Number($('pulseSpeed').value) || 2;
+            const vol = Math.sin(agora * pulseRate * Math.PI);
             const profundidade = Number($('volOscProf').value) / 100;
-            const pulso = $('enablePulse').checked ? (1 + vol * 0.5 * state.pulseAmount) : 1;
+            const pulso = $('enablePulse').checked ? (1 + Math.max(0, vol) * 0.5 * state.pulseAmount) : 1;
             tempo = agora;
 
             // Colors
