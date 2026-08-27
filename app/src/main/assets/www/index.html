@@ -1000,7 +1000,23 @@
                                 <option value="expansao">Expansão no volume</option>
                                 <option value="flutuacao">Flutuação suave</option>
                                 <option value="explosao">Explosão pulsante</option>
+                                <option value="roseta">Roseta viva</option>
+                                <option value="vortice">Vórtice</option>
+                                <option value="duplo">Duplo fluxo</option>
                             </select>
+                        </div>
+                        <div class="control-group">
+                            <label>Sentido</label>
+                            <select id="particleDirection">
+                                <option value="horario">Horário</option>
+                                <option value="antihorario">Anti-horário</option>
+                                <option value="alternado">Alternado</option>
+                                <option value="caotico">Caótico</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label>Velocidade <span class="val" id="particleSpeedValue">1.0×</span></label>
+                            <input type="range" id="particleSpeed" min="0" max="3" step="0.1" value="1">
                         </div>
                         <div class="particle-toggles">
                             <label><input type="checkbox" id="particleRotate" checked> Girar</label>
@@ -1277,6 +1293,8 @@
             particleCount: 30,
             particleSize: 1,
             particleBehavior: 'orbita',
+            particleDirection: 'horario',
+            particleSpeed: 1,
             particleRotate: true,
             particlePulse: true,
             particleExplode: false,
@@ -2055,6 +2073,8 @@
                 particleCount: Number($('particleCount').value),
                 particleSize: Number($('particleSize').value),
                 particleBehavior: $('particleBehavior').value,
+                particleDirection: $('particleDirection').value,
+                particleSpeed: Number($('particleSpeed').value),
                 particleRotate: $('particleRotate').checked,
                 particlePulse: $('particlePulse').checked,
                 particleExplode: $('particleExplode').checked
@@ -2085,6 +2105,8 @@
                 $('particleCount').value = cfg.particleCount ?? state.particleCount;
                 $('particleSize').value = cfg.particleSize ?? state.particleSize;
                 $('particleBehavior').value = cfg.particleBehavior || state.particleBehavior;
+                $('particleDirection').value = cfg.particleDirection || state.particleDirection;
+                $('particleSpeed').value = cfg.particleSpeed ?? state.particleSpeed;
                 $('particleRotate').checked = cfg.particleRotate ?? state.particleRotate;
                 $('particlePulse').checked = cfg.particlePulse ?? state.particlePulse;
                 $('particleExplode').checked = cfg.particleExplode ?? state.particleExplode;
@@ -2092,6 +2114,8 @@
                 state.particleCount = Number($('particleCount').value);
                 state.particleSize = Number($('particleSize').value);
                 state.particleBehavior = $('particleBehavior').value;
+                state.particleDirection = $('particleDirection').value;
+                state.particleSpeed = Number($('particleSpeed').value);
                 state.particleRotate = $('particleRotate').checked;
                 state.particlePulse = $('particlePulse').checked;
                 state.particleExplode = $('particleExplode').checked;
@@ -2107,6 +2131,7 @@
             $('particleRadiusValue').textContent = $('particleRadius').value + '%';
             $('particleCountValue').textContent = $('particleCount').value;
             $('particleSizeValue').textContent = Number($('particleSize').value).toFixed(1) + '×';
+            $('particleSpeedValue').textContent = Number($('particleSpeed').value).toFixed(1) + '×';
             $('colorInfo').innerHTML = `<span style="display:inline-block;width:12px;height:12px;background:${state.color1};border-radius:50%;margin-right:4px;"></span>${state.color1}`;
         }
 
@@ -2527,6 +2552,17 @@
             presetSelect.value = 'personalizado';
             salvarConfig();
         });
+        $('particleDirection').addEventListener('change', function() {
+            state.particleDirection = this.value;
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
+        $('particleSpeed').addEventListener('input', function() {
+            state.particleSpeed = Number(this.value);
+            atualizarLabels();
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
         ['particleRotate', 'particlePulse', 'particleExplode'].forEach(id => {
             $(id).addEventListener('change', function() {
                 state[id] = this.checked;
@@ -2600,6 +2636,8 @@
             const quantidadeBase = Number($('particleCount').value) || 30;
             const tamanhoControle = Number($('particleSize').value) || 1;
             const comportamento = $('particleBehavior').value || 'orbita';
+            const direcao = $('particleDirection').value || 'horario';
+            const velocidadeControle = Number($('particleSpeed').value) || 0;
             const girar = $('particleRotate').checked;
             const pulsar = $('particlePulse').checked;
             const quantidade = Math.min(160, quantidadeBase + Math.floor(vol * quantidadeBase));
@@ -2610,6 +2648,9 @@
                 let velocidadeAngular = 0.2 + i * 0.01;
                 let oscilacao = pulsar ? Math.sin(tempo * 1.5 + i) * 15 * pulsoParticula : 0;
                 let expansaoVolume = volumeParticula * 20;
+                let sentido = direcao === 'antihorario' ? -1 : 1;
+                if (direcao === 'alternado') sentido = i % 2 === 0 ? 1 : -1;
+                if (direcao === 'caotico') sentido = Math.sin(i * 12.9898) >= 0 ? 1 : -1;
                 if (comportamento === 'expansao') {
                     velocidadeAngular = 0.12 + i * 0.004;
                     oscilacao = pulsar ? Math.sin(tempo * 1.1 + i) * 8 * pulsoParticula : 0;
@@ -2621,9 +2662,21 @@
                     velocidadeAngular = 0.35 + i * 0.014;
                     oscilacao = pulsar ? Math.sin(tempo * 2.5 + i) * 10 * pulsoParticula : 0;
                     expansaoVolume += volumeParticula * 50 + pulsoParticula * 18;
+                } else if (comportamento === 'roseta') {
+                    velocidadeAngular = 0.16 + i * 0.003;
+                    oscilacao = pulsar ? Math.sin(tempo * 0.9 + i * 0.7) * 22 * pulsoParticula : 0;
+                    expansaoVolume += Math.sin(tempo * 0.55 + i * 0.45) * 10;
+                } else if (comportamento === 'vortice') {
+                    velocidadeAngular = 0.5 + i * 0.018;
+                    oscilacao = pulsar ? Math.sin(tempo * 1.3 + i) * 7 * pulsoParticula : 0;
+                    expansaoVolume += (i / quantidade) * 32 + (pulsar ? Math.sin(tempo * 0.7) * 8 : 0);
+                } else if (comportamento === 'duplo') {
+                    velocidadeAngular = 0.24 + i * 0.008;
+                    sentido = i % 2 === 0 ? 1 : -1;
+                    oscilacao = pulsar ? Math.sin(tempo * 1.2 + i) * 13 * pulsoParticula : 0;
                 }
-                const rotacao = girar ? tempo * velocidadeAngular : 0;
-                const ang = (i / quantidade) * Math.PI * 2 + rotacao;
+                const rotacao = girar ? tempo * velocidadeAngular * velocidadeControle * sentido : 0;
+                const ang = (i / quantidade) * Math.PI * 2 + rotacao + (comportamento === 'roseta' ? Math.sin(tempo * 0.8 + i) * 0.08 : 0);
                 const distancia = raioConfigurado * (0.7 + (pulsar ? pulso * 0.3 : 0.15)) + oscilacao + expansaoVolume;
                 const x = cx + Math.cos(ang) * distancia;
                 const y = cy + Math.sin(ang) * distancia;
@@ -2657,7 +2710,7 @@
                 const rajada = Math.max(3, Math.floor(quantidadeBase * (0.12 + volumeParticula * 0.12)));
                 for (let i = 0; i < rajada; i++) {
                     const ang = Math.random() * Math.PI * 2;
-                    const velocidade = 90 + Math.random() * (130 + volumeParticula * 180);
+                    const velocidade = (90 + Math.random() * (130 + volumeParticula * 180)) * Math.max(0.15, Number($('particleSpeed').value) || 1);
                     state.explosionParticles.push({
                         x: cx, y: cy,
                         vx: Math.cos(ang) * velocidade,
