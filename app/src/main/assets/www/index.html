@@ -610,6 +610,178 @@
             cursor: pointer;
         }
         #btnUsarSugestao:hover { background: #5a52d9; }
+        /* Survey Styles */
+        .survey-step {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+        .survey-step.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .survey-question {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .survey-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .survey-option {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: center;
+            color: #ddd;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .survey-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #6C63FF;
+        }
+        .survey-option.selected {
+            background: #6C63FF;
+            border-color: #6C63FF;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(108, 99, 255, 0.3);
+        }
+        .survey-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .survey-buttons button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .btn-prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .btn-prev:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .btn-next, .btn-submit {
+            background: #6C63FF;
+            color: #fff;
+        }
+        .btn-next:hover, .btn-submit:hover {
+            background: #5a52d9;
+        }
+
+        /* Shots Grid */
+        .shots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .shot-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .shot-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #6C63FF;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.2);
+        }
+        .shot-emoji {
+            font-size: 32px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .shot-title {
+            font-weight: 600;
+            color: #fff;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+        .shot-categoria {
+            font-size: 10px;
+            color: #6C63FF;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .shot-descricao {
+            font-size: 11px;
+            color: #999;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .shot-detalhes {
+            display: flex;
+            gap: 8px;
+            font-size: 10px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        .shot-detalhes span {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .shot-beneficios {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        .shot-badge {
+            background: rgba(108, 99, 255, 0.2);
+            color: #a5b4fc;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 9px;
+        }
+        .btn-usar {
+            width: 100%;
+            padding: 10px;
+            background: #6C63FF;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        .btn-usar:hover {
+            background: #5a52d9;
+        }
+
+        @media (max-width: 500px) {
+            .freq-list { grid-template-columns: repeat(4,1fr); }
+            .shape-grid { grid-template-columns: repeat(3,1fr); }
+            .button-group { flex-direction:column; }
+            h1 { font-size:18px; }
+            .container { padding:12px; }
+            .emoji-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
     </style>
 </head>
 <body>
@@ -1559,8 +1731,9 @@
         // ============================================================
         //  EVENTO: ABRIR MODAL DE SHOTS EMOCIONAIS
         // ============================================================
+        btnShots.textContent = '🎯 HUMOR + SHOTS';
         btnShots.onclick = () => {
-            abrirModalShots();
+            abrirSondagem();
         };
 
         // ============================================================
@@ -2105,6 +2278,270 @@
         }
 
         console.log('✨ Sistema completo: Emoções + Controle de Animação + Shots funcionando!');
+    </script>
+    <div id="modalSondagem" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🧠 Recomendação de Shots Funcionais</h2>
+                <button class="modal-close" onclick="fecharSondagem()">✕</button>
+            </div>
+
+            <!-- STEP 1: Emoção -->
+            <div class="survey-step active" data-step="1">
+                <div class="survey-question">Como você está se sentindo agora?</div>
+                <div class="survey-options" id="step1Options">
+                    <div class="survey-option" data-value="deprimido">😢 Deprimido</div>
+                    <div class="survey-option" data-value="ansioso">😰 Ansioso</div>
+                    <div class="survey-option" data-value="irritado">😡 Irritado</div>
+                    <div class="survey-option" data-value="cansado">😴 Cansado</div>
+                    <div class="survey-option" data-value="confuso">😶‍🌫️ Confuso</div>
+                    <div class="survey-option" data-value="calmo">😌 Calmo</div>
+                    <div class="survey-option" data-value="feliz">😊 Feliz</div>
+                </div>
+                <div class="survey-buttons">
+                    <button class="btn-next" onclick="proximaPasso()">Próximo ➜</button>
+                </div>
+            </div>
+
+            <!-- STEP 2: Contexto -->
+            <div class="survey-step" data-step="2">
+                <div class="survey-question">Qual é seu contexto atual?</div>
+                <div class="survey-options" id="step2Options">
+                    <div class="survey-option" data-value="trabalho">💼 Trabalho</div>
+                    <div class="survey-option" data-value="estudo">📚 Estudo</div>
+                    <div class="survey-option" data-value="treino">💪 Treino</div>
+                    <div class="survey-option" data-value="dormir">🛏️ Dormir</div>
+                    <div class="survey-option" data-value="social">🎉 Social</div>
+                    <div class="survey-option" data-value="relaxamento">🌊 Relaxamento</div>
+                </div>
+                <div class="survey-buttons">
+                    <button class="btn-prev" onclick="paginaAnterior()">⬅ Voltar</button>
+                    <button class="btn-next" onclick="proximaPasso()">Próximo ➜</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Horário -->
+            <div class="survey-step" data-step="3">
+                <div class="survey-question">Que horas são agora?</div>
+                <div class="survey-options" id="step3Options">
+                    <div class="survey-option" data-value="manha">🌅 Manhã</div>
+                    <div class="survey-option" data-value="tarde">☀️ Tarde</div>
+                    <div class="survey-option" data-value="noite">🌙 Noite</div>
+                    <div class="survey-option" data-value="madrugada">🌃 Madrugada</div>
+                </div>
+                <div class="survey-buttons">
+                    <button class="btn-prev" onclick="paginaAnterior()">⬅ Voltar</button>
+                    <button class="btn-submit" onclick="finalizarSondagem()">Ver Recomendações 🎯</button>
+                </div>
+            </div>
+
+            <!-- STEP 4: Resultados -->
+            <div class="survey-step" data-step="4">
+                <div class="survey-question">✨ Shots Recomendados Para Você</div>
+                <p style="color: #999; text-align: center; margin-bottom: 15px; font-size: 12px;">
+                    Baseado em: <span id="resumoSondagem" style="color: #6C63FF;"></span>
+                </p>
+                <div class="shots-grid" id="shotsRecomendadosGrid">
+                    <!-- Preenchido via JavaScript -->
+                </div>
+                <div class="survey-buttons" style="margin-top: 20px;">
+                    <button class="btn-prev" onclick="fecharSondagem()">⬅ Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Estado da sondagem
+        let sondagemState = {
+            emocao: null,
+            contexto: null,
+            horario: null,
+            passo: 1
+        };
+
+        function abrirSondagem() {
+            const modal = document.getElementById('modalSondagem');
+            if (modal) {
+                modal.classList.add('show');
+                resetarSondagem();
+            }
+        }
+
+        function fecharSondagem() {
+            const modal = document.getElementById('modalSondagem');
+            if (modal) {
+                modal.classList.remove('show');
+            }
+        }
+
+        function resetarSondagem() {
+            sondagemState = { emocao: null, contexto: null, horario: null, passo: 1 };
+            document.querySelectorAll('.survey-step').forEach(s => s.classList.remove('active'));
+            document.querySelector('[data-step="1"]').classList.add('active');
+            document.querySelectorAll('.survey-option').forEach(o => o.classList.remove('selected'));
+        }
+
+        function selecionarOpcao(element) {
+            const opcoes = element.parentElement.querySelectorAll('.survey-option');
+            opcoes.forEach(o => o.classList.remove('selected'));
+            element.classList.add('selected');
+
+            const passo = parseInt(document.querySelector('.survey-step.active').dataset.step);
+            const valor = element.dataset.value;
+
+            if (passo === 1) sondagemState.emocao = valor;
+            else if (passo === 2) sondagemState.contexto = valor;
+            else if (passo === 3) sondagemState.horario = valor;
+        }
+
+        function proximaPasso() {
+            const passo = parseInt(document.querySelector('.survey-step.active').dataset.step);
+
+            if (passo === 1 && !sondagemState.emocao) {
+                alert('Por favor, selecione uma emoção');
+                return;
+            }
+            if (passo === 2 && !sondagemState.contexto) {
+                alert('Por favor, selecione um contexto');
+                return;
+            }
+            if (passo === 3 && !sondagemState.horario) {
+                alert('Por favor, selecione um horário');
+                return;
+            }
+
+            document.querySelector('.survey-step.active').classList.remove('active');
+            const proximoStep = document.querySelector(`[data-step="${passo + 1}"]`);
+            if (proximoStep) {
+                proximoStep.classList.add('active');
+                sondagemState.passo = passo + 1;
+            }
+        }
+
+        function paginaAnterior() {
+            const passo = parseInt(document.querySelector('.survey-step.active').dataset.step);
+            if (passo > 1) {
+                document.querySelector('.survey-step.active').classList.remove('active');
+                document.querySelector(`[data-step="${passo - 1}"]`).classList.add('active');
+                sondagemState.passo = passo - 1;
+            }
+        }
+
+        function finalizarSondagem() {
+            mostrarRecomendacoes();
+            proximaPasso();
+        }
+
+        function mostrarRecomendacoes() {
+            const emojiMap = { deprimido: '😢', ansioso: '😰', irritado: '😡', cansado: '😴', confuso: '😶‍🌫️', calmo: '😌', feliz: '😊' };
+            const contextoMap = { trabalho: '💼', estudo: '📚', treino: '💪', dormir: '🛏️', social: '🎉', relaxamento: '🌊' };
+            const horarioMap = { manha: '🌅', tarde: '☀️', noite: '🌙', madrugada: '🌃' };
+
+            const resumo = `${emojiMap[sondagemState.emocao] || '😐'} ${sondagemState.emocao} | ${contextoMap[sondagemState.contexto] || '❓'} ${sondagemState.contexto} | ${horarioMap[sondagemState.horario] || '❓'} ${sondagemState.horario}`;
+            document.getElementById('resumoSondagem').textContent = resumo;
+
+            // Dados de exemplo (sem fórmula)
+            const shotsExemplo = [
+                {
+                    emoji: '🎯',
+                    nome: 'Shot Foco Absoluto',
+                    categoria: 'Cognitivo',
+                    descricao: 'Clareza, atenção sustentada e foco mental',
+                    tempo: '15-20 min',
+                    compat: '9/10',
+                    beneficios: ['Foco', 'Atenção', 'Concentração']
+                },
+                {
+                    emoji: '💡',
+                    nome: 'Shot Clarity Boost',
+                    categoria: 'Energia',
+                    descricao: 'Clareza emocional, social e motivacional',
+                    tempo: '10-15 min',
+                    compat: '8.5/10',
+                    beneficios: ['Clareza', 'Foco', 'Motivação']
+                },
+                {
+                    emoji: '🌅',
+                    nome: 'Shot Acorde e Viva',
+                    categoria: 'Energia',
+                    descricao: 'Energia matinal, libido e clareza mental',
+                    tempo: '15-20 min',
+                    compat: '8/10',
+                    beneficios: ['Energia', 'Clareza', 'Vigor']
+                },
+                {
+                    emoji: '😌',
+                    nome: 'Shot Relaxamento Noturno',
+                    categoria: 'Sono',
+                    descricao: 'Indução ao sono e relaxamento emocional',
+                    tempo: '20-30 min',
+                    compat: '9/10',
+                    beneficios: ['Sono', 'Relaxamento', 'Tranquilidade']
+                },
+                {
+                    emoji: '❤️',
+                    nome: 'Shot Libido Vital',
+                    categoria: 'Feminino',
+                    descricao: 'Ativação sensorial, libido e vitalidade emocional',
+                    tempo: '20-30 min',
+                    compat: '8/10',
+                    beneficios: ['Libido', 'Sensorialidade', 'Vitalidade']
+                }
+            ];
+
+            const grid = document.getElementById('shotsRecomendadosGrid');
+            grid.innerHTML = '';
+
+            shotsExemplo.forEach((shot, index) => {
+                const card = document.createElement('div');
+                card.className = 'shot-card';
+                card.innerHTML = `
+                    <span class="shot-emoji">${shot.emoji}</span>
+                    <div class="shot-categoria">${shot.categoria}</div>
+                    <div class="shot-title">${shot.nome}</div>
+                    <div class="shot-descricao">${shot.descricao}</div>
+                    <div class="shot-detalhes">
+                        <span>⏱️ ${shot.tempo}</span>
+                        <span>⭐ ${shot.compat}</span>
+                    </div>
+                    <div class="shot-beneficios">
+                        ${shot.beneficios.map(b => `<span class="shot-badge">${b}</span>`).join('')}
+                    </div>
+                    <button class="btn-usar" onclick="usarShot('${shot.nome}')">Usar este Shot</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function usarShot(nomShot) {
+            const presetPorShot = {
+                'Shot Foco Absoluto': 'energia',
+                'Shot Clarity Boost': 'energia',
+                'Shot Acorde e Viva': 'energia',
+                'Shot Relaxamento Noturno': 'relaxamento',
+                'Shot Libido Vital': 'avemaria'
+            };
+            const preset = presetPorShot[nomShot];
+            if (preset && typeof aplicarPreset === 'function') aplicarPreset(preset);
+            fecharSondagem();
+            if (!state.isPlaying && typeof tocarAudio === 'function') tocarAudio();
+        }
+
+        // Adicionar listeners aos botões de opções
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.survey-option').forEach(opt => {
+                opt.addEventListener('click', function() {
+                    selecionarOpcao(this);
+                });
+            });
+
+            // Botão de shots
+            const btnShots = document.getElementById('btnShots');
+            if (btnShots) {
+                btnShots.addEventListener('click', abrirSondagem);
+            }
+        });
     </script>
 </body>
 </html>
