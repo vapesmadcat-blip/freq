@@ -782,6 +782,7 @@
             .emoji-grid { grid-template-columns: repeat(4, 1fr); }
         }
 
+        .recommendation-note { grid-column: 1 / -1; color: #aaa; font-size: 11px; line-height: 1.5; text-align: center; margin: 0 0 4px; }
     </style>
 </head>
 <body>
@@ -1306,14 +1307,48 @@
         //  SUGESTÕES DE SHOT POR HUMOR
         // ============================================================
         const SUGESTOES_HUMOR = {
-            calmo: { preset: 'relaxamento', nome: 'Relaxamento', freq: '396 Hz', forma: 'Círculo', motivo: 'desacelera e ajuda a manter a calma' },
-            energico: { preset: 'energia', nome: 'Energia Máxima', freq: '741 Hz', forma: 'Estrela', motivo: 'favorece disposição e foco' },
-            triste: { preset: 'sono', nome: 'Sono Profundo', freq: '174 Hz', forma: 'Lua', motivo: 'acolhe o momento e convida ao descanso' },
-            alegre: { preset: 'energia', nome: 'Energia Máxima', freq: '741 Hz', forma: 'Estrela', motivo: 'acompanha sua energia com presença' },
-            apaixonado: { preset: 'amor', nome: 'Amor Universal', freq: '639 Hz', forma: 'Coração', motivo: 'acompanha conexão e abertura emocional' },
-            meditativo: { preset: 'meditacao', nome: 'Meditação Profunda', freq: '432 Hz', forma: 'Círculo', motivo: 'apoia presença e centramento' },
-            misterioso: { preset: 'pineal', nome: 'Ativação Pineal', freq: '963 Hz', forma: 'Círculo', motivo: 'acompanha introspecção e exploração interior' }
+            calmo: { preset: 'relaxamento', nome: 'Relaxamento Noturno', freq: '396 Hz', forma: 'Lua', motivo: 'favorece desaceleração e relaxamento emocional' },
+            energico: { preset: 'energia', nome: 'Acorde e Viva', freq: '440 Hz', forma: 'Hexágono', motivo: 'acompanha disposição, vitalidade e clareza matinal' },
+            triste: { preset: 'relaxamento', nome: 'SOS Ansiedade', freq: '174 Hz', forma: 'Lua', motivo: 'prioriza acolhimento e redução de tensão' },
+            alegre: { preset: 'energia', nome: 'Clarity Boost', freq: '741 Hz', forma: 'Estrela', motivo: 'canaliza energia para clareza, sociabilidade e motivação' },
+            apaixonado: { preset: 'amor', nome: 'Libido Vital', freq: '639 Hz', forma: 'Coração', motivo: 'acompanha conexão, sensorialidade e vitalidade emocional' },
+            meditativo: { preset: 'meditacao', nome: 'Floral Sensorial Noturno', freq: '594 Hz', forma: 'Flor', motivo: 'apoia calma, acolhimento e ritual sensorial' },
+            misterioso: { preset: 'pineal', nome: 'Neurodivergente AM', freq: '963 Hz', forma: 'Espiral', motivo: 'acompanha exploração interior, clareza e atenção' }
         };
+
+        const SHOT_CATALOGO_MANUAL = [
+            { nome: 'SOS Ansiedade', emoji: '🌿', categoria: 'SOS', freq: 174, forma: 'moon', descricao: 'Alívio emergencial para ansiedade e tensão', tags: ['deprimido','ansioso','noite','madrugada','relaxamento'], peso: 1 },
+            { nome: 'Spray Antiestresse Agudo', emoji: '🌿', categoria: 'SOS', freq: 396, forma: 'circle', descricao: 'Redução rápida de estresse e tensão emocional', tags: ['ansioso','irritado','trabalho','relaxamento'], peso: 1 },
+            { nome: 'Shot Anticortisol Emergencial', emoji: '🛟', categoria: 'SOS', freq: 417, forma: 'circle', descricao: 'Apoio em pico de estresse agudo', tags: ['ansioso','irritado','trabalho'], peso: 1 },
+            { nome: 'Spray de Crise Emocional', emoji: '🫧', categoria: 'SOS', freq: 432, forma: 'circle', descricao: 'Sobrecarga nervosa e tensão cognitiva', tags: ['ansioso','irritado','madrugada','relaxamento'], peso: 1 },
+            { nome: 'Pós-Corte de Estresse', emoji: '🌿', categoria: 'Recuperação', freq: 285, forma: 'diamond', descricao: 'Recuperação física, emocional e cognitiva', tags: ['cansado','irritado','treino','relaxamento','noite'], peso: 1 },
+            { nome: 'Acorde e Viva', emoji: '🌅', categoria: 'Energia', freq: 440, forma: 'hexagon', descricao: 'Energia matinal, libido e clareza', tags: ['cansado','feliz','manha','treino','social'], peso: 1 },
+            { nome: 'Clarity Boost', emoji: '💡', categoria: 'Energia', freq: 741, forma: 'star', descricao: 'Clareza emocional, social e motivacional', tags: ['feliz','confuso','trabalho','social','tarde'], peso: 1 },
+            { nome: 'Substitutivo da Cafeína', emoji: '⚡', categoria: 'Energia', freq: 444, forma: 'diamond', descricao: 'Estímulo equilibrado sem foco exclusivo em intensidade', tags: ['cansado','manha','tarde','trabalho'], peso: 1 },
+            { nome: 'Estímulo Cognitivo', emoji: '🧠', categoria: 'Cognitivo', freq: 852, forma: 'star', descricao: 'Ativação cerebral, foco e memória de curto prazo', tags: ['confuso','cansado','trabalho','estudo','manha'], peso: 1 },
+            { nome: 'TestoBalance', emoji: '💪', categoria: 'Vitalidade', freq: 528, forma: 'hexagon', descricao: 'Disposição e suporte à vitalidade masculina', tags: ['energetico','treino','manha'], peso: 1 },
+            { nome: 'Foco Absoluto', emoji: '🎯', categoria: 'Cognitivo', freq: 852, forma: 'star', descricao: 'Atenção sustentada e foco mental', tags: ['confuso','trabalho','estudo','tarde'], peso: 1 },
+            { nome: 'Foco & Memória', emoji: '📚', categoria: 'Cognitivo', freq: 741, forma: 'spiral', descricao: 'Retenção, aprendizado e clareza mental', tags: ['confuso','estudo','trabalho','tarde'], peso: 1 },
+            { nome: 'Neurodivergente AM', emoji: '🧩', categoria: 'Cognitivo', freq: 963, forma: 'spiral', descricao: 'Clareza, foco e equilíbrio para a manhã', tags: ['confuso','cansado','estudo','manha'], peso: 1 },
+            { nome: 'Relaxamento Noturno', emoji: '😌', categoria: 'Noturno', freq: 396, forma: 'moon', descricao: 'Indução ao relaxamento emocional', tags: ['calmo','deprimido','noite','madrugada','dormir','relaxamento'], peso: 1 },
+            { nome: 'Sono Reparador', emoji: '🌙', categoria: 'Noturno', freq: 798, forma: 'moon', descricao: 'Sono profundo e redução de microdespertares', tags: ['cansado','deprimido','noite','madrugada','dormir'], peso: 1 },
+            { nome: 'Floral Sensorial Noturno', emoji: '🌸', categoria: 'Noturno', freq: 594, forma: 'flower', descricao: 'Calma emocional e ritual sensorial noturno', tags: ['calmo','apaixonado','noite','dormir','relaxamento'], peso: 1 },
+            { nome: 'Sensorial Vaporizável (Kanna)', emoji: '🌿', categoria: 'Sensorial', freq: 639, forma: 'ring', descricao: 'Bem-estar leve, sociabilidade e foco sensorial', tags: ['feliz','social','tarde'], peso: 1 },
+            { nome: 'Shot Sensorial com Citral', emoji: '🍋', categoria: 'Sensorial', freq: 555, forma: 'spiral', descricao: 'Sensorialidade fresca e clareza mental', tags: ['feliz','confuso','social','tarde'], peso: 1 },
+            { nome: 'Shot Azul com Mudança de Cor', emoji: '🔵', categoria: 'Sensorial', freq: 417, forma: 'flower', descricao: 'Ritual emocional e ativação criativa', tags: ['feliz','apaixonado','social'], peso: 1 },
+            { nome: 'Encanto Azul', emoji: '💙', categoria: 'Feminino', freq: 639, forma: 'heart', descricao: 'Libido, sensorialidade e brilho emocional feminino', tags: ['apaixonado','feliz','social'], peso: 1 },
+            { nome: 'Libido Vital', emoji: '❤️', categoria: 'Feminino', freq: 639, forma: 'heart', descricao: 'Ativação sensorial, libido e vitalidade emocional', tags: ['apaixonado','feliz','social'], peso: 1 },
+            { nome: 'TPM Balance', emoji: '🌷', categoria: 'Feminino', freq: 594, forma: 'flower', descricao: 'Apoio emocional durante o ciclo menstrual', tags: ['irritado','deprimido','noite','relaxamento'], peso: 1 },
+            { nome: 'Flor da Lua', emoji: '🌙', categoria: 'Feminino', freq: 432, forma: 'flower', descricao: 'Autocuidado sensorial e acolhimento emocional', tags: ['calmo','triste','apaixonado','noite','relaxamento'], peso: 1 },
+            { nome: 'Vitalidade Masculina', emoji: '💪', categoria: 'Vitalidade', freq: 440, forma: 'hexagon', descricao: 'Libido, disposição e desempenho físico', tags: ['energetico','feliz','treino','manha'], peso: 1 },
+            { nome: 'Pré-Treino com Arginina', emoji: '🏋️', categoria: 'Treino', freq: 528, forma: 'triangle', descricao: 'Estímulo físico e foco pré-atividade', tags: ['cansado','energetico','treino','manha','tarde'], peso: 1 },
+            { nome: 'EmagreSer', emoji: '🔥', categoria: 'Termogênese', freq: 384, forma: 'spiral', descricao: 'Apoio a rotina de energia e disciplina', tags: ['cansado','treino','manha'], peso: 1 },
+            { nome: 'Shot Termogênico Clean', emoji: '🔥', categoria: 'Termogênese', freq: 420, forma: 'triangle', descricao: 'Rotina de energia e atividade', tags: ['cansado','treino','manha','tarde'], peso: 1 },
+            { nome: 'Recuperação Total', emoji: '🧘', categoria: 'Recuperação', freq: 285, forma: 'diamond', descricao: 'Recuperação e retorno gradual ao equilíbrio', tags: ['cansado','irritado','treino','relaxamento','noite'], peso: 1 },
+            { nome: 'Anti-inflamatório Articular', emoji: '🦴', categoria: 'Recuperação', freq: 256, forma: 'circle', descricao: 'Apoio à recuperação após esforço físico', tags: ['cansado','treino','noite'], peso: 1 },
+            { nome: 'Chiclete Adaptógeno', emoji: '🍃', categoria: 'Adaptógeno', freq: 480, forma: 'diamond', descricao: 'Rotina de adaptação e equilíbrio', tags: ['confuso','cansado','trabalho','estudo','tarde'], peso: 1 },
+            { nome: 'Chiclete Antivício', emoji: '🫧', categoria: 'Redução de danos', freq: 420, forma: 'spiral', descricao: 'Ritual sensorial para momentos de craving', tags: ['ansioso','irritado','social','madrugada'], peso: 1 }
+        ];
 
         let sugestaoHumorAtual = SUGESTOES_HUMOR.calmo;
 
@@ -2506,95 +2541,41 @@
             const emojiMap = { deprimido: '😢', ansioso: '😰', irritado: '😡', cansado: '😴', confuso: '😶‍🌫️', calmo: '😌', feliz: '😊' };
             const contextoMap = { trabalho: '💼', estudo: '📚', treino: '💪', dormir: '🛏️', social: '🎉', relaxamento: '🌊' };
             const horarioMap = { manha: '🌅', tarde: '☀️', noite: '🌙', madrugada: '🌃' };
-
+            const tags = [sondagemState.emocao, sondagemState.contexto, sondagemState.horario];
             const resumo = `${emojiMap[sondagemState.emocao] || '😐'} ${sondagemState.emocao} | ${contextoMap[sondagemState.contexto] || '❓'} ${sondagemState.contexto} | ${horarioMap[sondagemState.horario] || '❓'} ${sondagemState.horario}`;
             document.getElementById('resumoSondagem').textContent = resumo;
 
-            // Dados de exemplo (sem fórmula)
-            const shotsExemplo = [
-                {
-                    emoji: '🎯',
-                    nome: 'Shot Foco Absoluto',
-                    categoria: 'Cognitivo',
-                    descricao: 'Clareza, atenção sustentada e foco mental',
-                    tempo: '15-20 min',
-                    compat: '9/10',
-                    beneficios: ['Foco', 'Atenção', 'Concentração']
-                },
-                {
-                    emoji: '💡',
-                    nome: 'Shot Clarity Boost',
-                    categoria: 'Energia',
-                    descricao: 'Clareza emocional, social e motivacional',
-                    tempo: '10-15 min',
-                    compat: '8.5/10',
-                    beneficios: ['Clareza', 'Foco', 'Motivação']
-                },
-                {
-                    emoji: '🌅',
-                    nome: 'Shot Acorde e Viva',
-                    categoria: 'Energia',
-                    descricao: 'Energia matinal, libido e clareza mental',
-                    tempo: '15-20 min',
-                    compat: '8/10',
-                    beneficios: ['Energia', 'Clareza', 'Vigor']
-                },
-                {
-                    emoji: '😌',
-                    nome: 'Shot Relaxamento Noturno',
-                    categoria: 'Sono',
-                    descricao: 'Indução ao sono e relaxamento emocional',
-                    tempo: '20-30 min',
-                    compat: '9/10',
-                    beneficios: ['Sono', 'Relaxamento', 'Tranquilidade']
-                },
-                {
-                    emoji: '❤️',
-                    nome: 'Shot Libido Vital',
-                    categoria: 'Feminino',
-                    descricao: 'Ativação sensorial, libido e vitalidade emocional',
-                    tempo: '20-30 min',
-                    compat: '8/10',
-                    beneficios: ['Libido', 'Sensorialidade', 'Vitalidade']
-                }
-            ];
-
+            const recomendacoes = SHOT_CATALOGO_MANUAL
+                .map((shot, index) => ({ ...shot, score: shot.tags.reduce((total, tag) => total + (tags.includes(tag) ? 3 : 0), 0) + (index % 5) * 0.01 }))
+                .filter(shot => shot.score > 0)
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 5);
+            const fallback = SHOT_CATALOGO_MANUAL.slice(0, 5);
+            const shots = recomendacoes.length >= 3 ? recomendacoes : fallback;
             const grid = document.getElementById('shotsRecomendadosGrid');
-            grid.innerHTML = '';
+            grid.innerHTML = '<p class="recommendation-note">Sugestões informativas baseadas no seu humor, contexto e horário. Elas não substituem orientação profissional.</p>';
 
-            shotsExemplo.forEach((shot, index) => {
+            shots.forEach((shot, index) => {
                 const card = document.createElement('div');
                 card.className = 'shot-card';
                 card.innerHTML = `
                     <span class="shot-emoji">${shot.emoji}</span>
-                    <div class="shot-categoria">${shot.categoria}</div>
+                    <div class="shot-categoria">${index === 0 ? 'Mais compatível' : shot.categoria}</div>
                     <div class="shot-title">${shot.nome}</div>
                     <div class="shot-descricao">${shot.descricao}</div>
-                    <div class="shot-detalhes">
-                        <span>⏱️ ${shot.tempo}</span>
-                        <span>⭐ ${shot.compat}</span>
-                    </div>
-                    <div class="shot-beneficios">
-                        ${shot.beneficios.map(b => `<span class="shot-badge">${b}</span>`).join('')}
-                    </div>
-                    <button class="btn-usar" onclick="usarShot('${shot.nome}')">Usar este Shot</button>
+                    <div class="shot-detalhes"><span>🎵 ${shot.freq} Hz</span><span>🔷 ${shot.forma}</span></div>
+                    <div class="shot-beneficios">${shot.tags.filter(tag => tags.includes(tag)).map(tag => `<span class="shot-badge">${tag}</span>`).join('')}</div>
+                    <button class="btn-usar" onclick="usarShot('${shot.nome.replace(/'/g, "\\'")}')">Usar este Shot e ouvir</button>
                 `;
                 grid.appendChild(card);
             });
         }
 
         function usarShot(nomShot) {
-            const presetPorShot = {
-                'Shot Foco Absoluto': 'energia',
-                'Shot Clarity Boost': 'energia',
-                'Shot Acorde e Viva': 'energia',
-                'Shot Relaxamento Noturno': 'relaxamento',
-                'Shot Libido Vital': 'avemaria'
-            };
-            const preset = presetPorShot[nomShot];
-            if (preset && typeof aplicarPreset === 'function') aplicarPreset(preset);
+            const shot = SHOT_CATALOGO_MANUAL.find(item => item.nome === nomShot);
+            if (!shot) return;
+            aplicarShot({ ...shot, nome: shot.nome });
             fecharSondagem();
-            if (!state.isPlaying && typeof tocarAudio === 'function') tocarAudio();
         }
 
         // Adicionar listeners aos botões de opções
