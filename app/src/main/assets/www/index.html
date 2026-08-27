@@ -342,6 +342,16 @@
         }
 
         /* Canvas */
+        .particle-controls {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(108, 99, 255, 0.06);
+            border: 1px solid rgba(108, 99, 255, 0.14);
+        }
+        .particle-controls .control-group { margin: 5px 0; }
+        .particle-controls select { padding: 5px 7px; font-size: 11px; }
+
         canvas {
             background: #000;
             border-radius: 12px;
@@ -955,6 +965,29 @@
                             <label for="efParticulas">Partículas</label>
                         </div>
                     </div>
+                    <div class="particle-controls" aria-label="Controles de partículas">
+                        <div class="control-group">
+                            <label>Raio <span class="val" id="particleRadiusValue">40%</span></label>
+                            <input type="range" id="particleRadius" min="15" max="80" step="1" value="40">
+                        </div>
+                        <div class="control-group">
+                            <label>Quantidade <span class="val" id="particleCountValue">30</span></label>
+                            <input type="range" id="particleCount" min="5" max="100" step="1" value="30">
+                        </div>
+                        <div class="control-group">
+                            <label>Tamanho <span class="val" id="particleSizeValue">1.0×</span></label>
+                            <input type="range" id="particleSize" min="0.3" max="2.5" step="0.1" value="1">
+                        </div>
+                        <div class="control-group">
+                            <label>Comportamento</label>
+                            <select id="particleBehavior">
+                                <option value="orbita">Órbita Mara</option>
+                                <option value="expansao">Expansão no volume</option>
+                                <option value="flutuacao">Flutuação suave</option>
+                                <option value="explosao">Explosão pulsante</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                     </div>
@@ -1219,7 +1252,11 @@
             currentEmotion: 'calmo',
             osc2: null,
             time: 0,
-            particles: []
+            particles: [],
+            particleRadius: 40,
+            particleCount: 30,
+            particleSize: 1,
+            particleBehavior: 'orbita'
         };
 
         // PRESETS
@@ -1987,7 +2024,11 @@
                 rotationSpeed: state.rotationSpeed,
                 pulseAmount: state.pulseAmount,
                 sizeScale: state.sizeScale,
-                glowIntensity: state.glowIntensity
+                glowIntensity: state.glowIntensity,
+                particleRadius: Number($('particleRadius').value),
+                particleCount: Number($('particleCount').value),
+                particleSize: Number($('particleSize').value),
+                particleBehavior: $('particleBehavior').value
             };
             localStorage.setItem('audioVizConfig', JSON.stringify(config));
         }
@@ -2011,6 +2052,14 @@
                 color2Input.value = state.color2;
                 bgInput.value = state.bgColor;
                 $('volume').value = cfg.volume || 50;
+                $('particleRadius').value = cfg.particleRadius ?? state.particleRadius;
+                $('particleCount').value = cfg.particleCount ?? state.particleCount;
+                $('particleSize').value = cfg.particleSize ?? state.particleSize;
+                $('particleBehavior').value = cfg.particleBehavior || state.particleBehavior;
+                state.particleRadius = Number($('particleRadius').value);
+                state.particleCount = Number($('particleCount').value);
+                state.particleSize = Number($('particleSize').value);
+                state.particleBehavior = $('particleBehavior').value;
             }
         }
 
@@ -2020,6 +2069,9 @@
             $('volOscValue').textContent = $('volOscProf').value + '%';
             $('pulseSpeedValue').textContent = $('pulseSpeed').value + ' Hz';
             $('oscilacaoValue').textContent = $('oscilacaoProf').value + ' Hz';
+            $('particleRadiusValue').textContent = $('particleRadius').value + '%';
+            $('particleCountValue').textContent = $('particleCount').value;
+            $('particleSizeValue').textContent = Number($('particleSize').value).toFixed(1) + '×';
             $('colorInfo').innerHTML = `<span style="display:inline-block;width:12px;height:12px;background:${state.color1};border-radius:50%;margin-right:4px;"></span>${state.color1}`;
         }
 
@@ -2427,6 +2479,20 @@
             });
         });
 
+        ['particleRadius', 'particleCount', 'particleSize'].forEach(id => {
+            $(id).addEventListener('input', function() {
+                state[id === 'particleRadius' ? 'particleRadius' : id === 'particleCount' ? 'particleCount' : 'particleSize'] = Number(this.value);
+                atualizarLabels();
+                presetSelect.value = 'personalizado';
+                salvarConfig();
+            });
+        });
+        $('particleBehavior').addEventListener('change', function() {
+            state.particleBehavior = this.value;
+            presetSelect.value = 'personalizado';
+            salvarConfig();
+        });
+
         color1Input.addEventListener('input', function() {
             state.color1 = this.value;
             presetSelect.value = 'personalizado';
@@ -2486,17 +2552,35 @@
             }
         }
 
-        // Quantidade, densidade e resposta ao volume do arquivo perfeito_lindo.html.
+        // Partículas Mara com controles independentes de raio, quantidade, tamanho e comportamento.
         function drawMaraParticles(ctx, cx, cy, raioPart, tempo, pulso, vol, reageVolume, color1, color2) {
-            const quantidade = 30 + Math.floor(Math.max(0, Math.min(1, vol)) * 30);
+            const raioControle = Number($('particleRadius').value) / 40;
+            const quantidadeBase = Number($('particleCount').value) || 30;
+            const tamanhoControle = Number($('particleSize').value) || 1;
+            const comportamento = $('particleBehavior').value || 'orbita';
+            const quantidade = Math.min(160, quantidadeBase + Math.floor(vol * quantidadeBase));
+            const raioConfigurado = raioPart * raioControle;
             for (let i = 0; i < quantidade; i++) {
-                const ang = (i / quantidade) * Math.PI * 2 + tempo * (0.2 + i * 0.01);
-                const oscilacao = Math.sin(tempo * 1.5 + i) * 15 * pulso;
-                const expansaoVolume = reageVolume ? vol * 20 : 0;
-                const distancia = raioPart * (0.7 + pulso * 0.3) + oscilacao + expansaoVolume;
+                let velocidadeAngular = 0.2 + i * 0.01;
+                let oscilacao = Math.sin(tempo * 1.5 + i) * 15 * pulso;
+                let expansaoVolume = reageVolume ? vol * 20 : 0;
+                if (comportamento === 'expansao') {
+                    velocidadeAngular = 0.12 + i * 0.004;
+                    oscilacao = Math.sin(tempo * 1.1 + i) * 8 * pulso;
+                    expansaoVolume += reageVolume ? vol * 40 : 0;
+                } else if (comportamento === 'flutuacao') {
+                    velocidadeAngular = 0.06 + i * 0.002;
+                    oscilacao = Math.sin(tempo * 1.7 + i * 1.7) * 24 * pulso;
+                } else if (comportamento === 'explosao') {
+                    velocidadeAngular = 0.35 + i * 0.014;
+                    oscilacao = Math.sin(tempo * 2.5 + i) * 10 * pulso;
+                    expansaoVolume += vol * 50 + pulso * 18;
+                }
+                const ang = (i / quantidade) * Math.PI * 2 + tempo * velocidadeAngular;
+                const distancia = raioConfigurado * (0.7 + pulso * 0.3) + oscilacao + expansaoVolume;
                 const x = cx + Math.cos(ang) * distancia;
                 const y = cy + Math.sin(ang) * distancia;
-                const tamanho = 2 + pulso * 6 + vol * 4;
+                const tamanho = (2 + pulso * 6 + vol * 4) * tamanhoControle;
                 const corParticula = i % 2 === 0 ? color1 : color2;
 
                 ctx.beginPath();
