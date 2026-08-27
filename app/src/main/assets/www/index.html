@@ -2475,6 +2475,32 @@
             }
         }
 
+        // Quantidade, densidade e resposta ao volume do arquivo perfeito_lindo.html.
+        function drawMaraParticles(ctx, cx, cy, raioPart, tempo, pulso, vol, reageVolume, color1, color2) {
+            const quantidade = 30 + Math.floor(Math.max(0, Math.min(1, vol)) * 30);
+            for (let i = 0; i < quantidade; i++) {
+                const ang = (i / quantidade) * Math.PI * 2 + tempo * (0.2 + i * 0.01);
+                const oscilacao = Math.sin(tempo * 1.5 + i) * 15 * pulso;
+                const expansaoVolume = reageVolume ? vol * 20 : 0;
+                const distancia = raioPart * (0.7 + pulso * 0.3) + oscilacao + expansaoVolume;
+                const x = cx + Math.cos(ang) * distancia;
+                const y = cy + Math.sin(ang) * distancia;
+                const tamanho = 2 + pulso * 6 + vol * 4;
+                const corParticula = i % 2 === 0 ? color1 : color2;
+
+                ctx.beginPath();
+                ctx.arc(x, y, tamanho, 0, Math.PI * 2);
+                ctx.fillStyle = corParticula;
+                ctx.globalAlpha = Math.min(1, 0.4 + pulso * 0.4 + vol * 0.2);
+                ctx.fill();
+                ctx.shadowColor = corParticula;
+                ctx.shadowBlur = 15;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.globalAlpha = 1;
+            }
+        }
+
         function updateParticles() {
             for (let i = state.particles.length - 1; i >= 0; i--) {
                 state.particles[i].update();
@@ -2707,21 +2733,11 @@
                 ctx.shadowBlur = 0;
             }
 
-            // Partículas persistentes: partículas reais com vida, velocidade e brilho.
-            updateParticles();
-            if ($('efParticulas').checked && (state.isPlaying || state.particles.length === 0)) {
-                const count = state.isPlaying ? 4 + Math.floor(vol * 5) : 1;
-                const emissionAngle = tempo * 0.28 * state.rotationSpeed;
-                const emissionRadius = raioBase * (0.82 + Math.random() * 0.32);
-                spawnParticles(
-                    cx + Math.cos(emissionAngle) * emissionRadius,
-                    cy + Math.sin(emissionAngle) * emissionRadius,
-                    count,
-                    Math.random() > 0.5 ? color1 : corComp
-                );
+            // Partículas: 30 na base, até 60 conforme o volume instantâneo.
+            if ($('efParticulas').checked) {
+                drawMaraParticles(ctx, cx, cy, raioBase * 0.4, tempo, pulso, vol, reageVolume, color1, corComp);
             }
-            if (!$('efParticulas').checked) state.particles.length = 0;
-            for (const p of state.particles) p.draw(ctx);
+            state.particles.length = 0;
 
             // Info
             const shapeNames = {
