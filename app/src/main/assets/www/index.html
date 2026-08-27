@@ -978,6 +978,7 @@
                         <label>Modo</label>
                         <select id="melodyMode" style="width: 100%; padding: 6px; background: rgba(255,255,255,0.08); color: #eee; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; font-size: 12px;">
                             <option value="continuous">Tom Contínuo</option>
+                            <option value="drone">Drone (Tom Contínuo)</option>
                             <option value="avemaria">Ave Maria</option>
                             <option value="arpeggio">Arpejo</option>
                         </select>
@@ -1257,10 +1258,10 @@
                 shape: 'heart', label: '💖 Amor Universal'
             },
             pineal: {
-                freq: 963, volume: 45, periodo: 3500, volOscProf: 80,
-                melodyMode: 'continuous', waveform: 'sine',
-                enablePulse: false, pulseSpeed: 1, enableOscilacao: true, oscilacaoProf: 2,
-                enableDual: false, dualFreq: 0, enableVolumeOsc: true,
+                freq: 963, volume: 50, periodo: 3000, volOscProf: 80,
+                melodyMode: 'drone', waveform: 'sine',
+                enablePulse: true, pulseSpeed: 1.5, enableOscilacao: true, oscilacaoProf: 5,
+                enableDual: true, dualFreq: 4, enableVolumeOsc: true,
                 efOnda: true, efMandala: true, ef3D: true, efVolume: true, efBinaural: false, efParticulas: true,
                 color1: '#6C63FF', color2: '#a5b4fc', bgColor: '#0a0a1a',
                 shape: 'circle', label: '🔮 Ativação Pineal'
@@ -1730,7 +1731,7 @@
 
             // Melodia
             const melodyMode = $('melodyMode').value;
-            if (melodyMode !== 'continuous' && state.oscillators[0]) {
+            if (melodyMode !== 'continuous' && melodyMode !== 'drone' && state.oscillators[0]) {
                 const notes = melodyMode === 'avemaria' ? AVE_MARIA_NOTES : ARPEGGIO_NOTES;
                 const noteDur = (notes[state.melodyIndex]?.dur || 200) / 1000;
                 if (now - state.lastNoteChange > noteDur) {
@@ -1967,6 +1968,8 @@
                 melodyInfo.innerHTML = `<span style="color:#6C63FF;">🎵 Ave Maria</span>`;
             } else if (mode === 'arpeggio') {
                 melodyInfo.textContent = '🔶 Arpejo';
+            } else if (mode === 'drone') {
+                melodyInfo.textContent = '🔵 Drone (Tom Contínuo)';
             } else {
                 melodyInfo.textContent = '🔵 Tom contínuo';
             }
