@@ -806,7 +806,19 @@
         }
 
         .recommendation-note { grid-column: 1 / -1; color: #aaa; font-size: 11px; line-height: 1.5; text-align: center; margin: 0 0 4px; }
-    </style>
+
+        .keyboard-panel { margin-top: 14px; padding: 12px; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; background: rgba(255,255,255,.025); }
+        .keyboard-panel .panel-title { margin-bottom: 8px; }
+        #keyboardEffect { width: 100%; margin-bottom: 8px; }
+        .keyboard-keys { display: grid; grid-template-columns: repeat(12, minmax(22px, 1fr)); gap: 4px; }
+        .key-note { min-height: 42px; padding: 6px 2px; border-radius: 7px; border: 1px solid rgba(255,255,255,.12); background: linear-gradient(180deg,#30304b,#17172a); color:#ddd; font-size:10px; cursor:pointer; user-select:none; touch-action:none; }
+        .key-note small { display:block; color:#888; font-size:8px; margin-top:3px; }
+        .key-note.black { background: linear-gradient(180deg,#111,#050505); color:#aaa; }
+        .key-note.active, .key-note:active { background:#6C63FF; color:#fff; box-shadow:0 0 14px rgba(108,99,255,.55); transform:translateY(1px); }
+        .keyboard-hint { color:#777; font-size:10px; text-align:center; margin-top:7px; }
+        @media (max-width: 600px) { .keyboard-keys { grid-template-columns: repeat(6, minmax(30px, 1fr)); } }
+
+</style>
 </head>
 <body>
     <div class="container">
@@ -826,6 +838,7 @@
                             <option value="criatividade">🎨 Criatividade</option>
                             <option value="foco">🎯 Foco Total</option>
                             <option value="relaxamento">😌 Relaxamento</option>
+                            <option value="posrugido">🐾 Pós-Rugido · Pink</option>
                             <option value="sono">😴 Sono Profundo</option>
                             <option value="amor">💖 Amor Universal</option>
                             <option value="pineal">🔮 Ativação Pineal</option>
@@ -1045,6 +1058,20 @@
                     </div>
                 </div>
 
+                <!-- TECLADO E EFEITOS -->
+                <div class="keyboard-panel" aria-label="Teclado virtual com efeitos">
+                    <div class="panel-title">🎹 Teclado de Efeitos</div>
+                    <select id="keyboardEffect" aria-label="Efeito do teclado">
+                        <option value="clean">Som limpo</option>
+                        <option value="echo">Eco</option>
+                        <option value="reverb">Reverb espacial</option>
+                        <option value="tremolo">Tremolo</option>
+                        <option value="chorus">Chorus</option>
+                    </select>
+                    <div class="keyboard-keys" id="keyboardKeys"></div>
+                    <div class="keyboard-hint">Clique e segure uma tecla; também funcionam A W S E D F T G Y H U J.</div>
+                </div>
+
                 <!-- BOTÕES (Play/Stop/Shots) -->
                 <div class="button-group">
                     <button id="btnPlay">▶ PLAY</button>
@@ -1142,7 +1169,9 @@
             137.1: 'Relaxamento muscular profundo\nAlívio de tensões (Freq. de Otto)',
             256: 'Equilíbrio energético\nEnraizamento (Ressonância Schumann)',
             330: 'Expansão da criatividade\nDesbloqueio de traumas',
-            420: 'Conexão com a natureza\nRelaxamento mental'
+            420: 'Conexão com a natureza\nRelaxamento mental',
+            240: 'Grave pulsante\nEntrada pós-rugido\nTextura densa e contínua',
+            890: 'Entrada pós-rugido\nTextura aguda e densa\nPico espectral aproximado de 12,5–15 s'
         };
 
         const NOTAS = {
@@ -1318,6 +1347,67 @@
                 color1: '#0ea5e9',
                 color2: '#38bdf8',
                 bgColor: '#0a0a1a'
+            },
+            posrugido: {
+                label: '🐾 Pós-Rugido · Pink',
+                freq: 890,
+                shape: 'ring',
+                volume: 55,
+                periodo: 1500,
+                volOscProf: 35,
+                melodyMode: 'drone',
+                waveform: 'sine',
+                enablePulse: true,
+                pulseSpeed: 0.8,
+                enableOscilacao: true,
+                oscilacaoProf: 0.6,
+                enableDual: true,
+                dualFreq: 1,
+                efOnda: true,
+                efMandala: false,
+                ef3D: true,
+                efVolume: true,
+                efBinaural: false,
+                efParticulas: true,
+                color1: '#8b5cf6',
+                color2: '#f472b6',
+                bgColor: '#090814'
+            },
+            criatividade: {
+                freq: 528, volume: 45, periodo: 1500, volOscProf: 40,
+                melodyMode: 'avemaria', waveform: 'sine',
+                enablePulse: true, pulseSpeed: 2, enableOscilacao: true, oscilacaoProf: 4,
+                enableDual: false, dualFreq: 4, enableVolumeOsc: true,
+                efOnda: true, efMandala: true, ef3D: false, efVolume: true, efBinaural: false, efParticulas: false,
+                color1: '#ff64c8', color2: '#ffc864', bgColor: '#0a0a1a',
+                shape: 'flower', label: '🎨 Criatividade'
+            },
+            foco: {
+                freq: 852, volume: 60, periodo: 1000, volOscProf: 35,
+                melodyMode: 'continuous', waveform: 'triangle',
+                enablePulse: true, pulseSpeed: 3, enableOscilacao: true, oscilacaoProf: 6,
+                enableDual: false, dualFreq: 7, enableVolumeOsc: true,
+                efOnda: true, efMandala: false, ef3D: true, efVolume: true, efBinaural: false, efParticulas: false,
+                color1: '#6C63FF', color2: '#00d4ff', bgColor: '#0a0a1a',
+                shape: 'hexagon', label: '🎯 Foco Total'
+            },
+            sono: {
+                freq: 174, volume: 20, periodo: 4000, volOscProf: 60,
+                melodyMode: 'continuous', waveform: 'sine',
+                enablePulse: false, pulseSpeed: 0.5, enableOscilacao: true, oscilacaoProf: 1,
+                enableDual: false, dualFreq: 0, enableVolumeOsc: true,
+                efOnda: false, efMandala: false, ef3D: false, efVolume: true, efBinaural: true, efParticulas: false,
+                color1: '#4a90e2', color2: '#1a1a3e', bgColor: '#0a0a1a',
+                shape: 'circle', label: '😴 Sono Profundo'
+            },
+            amor: {
+                freq: 639, volume: 50, periodo: 1800, volOscProf: 55,
+                melodyMode: 'avemaria', waveform: 'sine',
+                enablePulse: true, pulseSpeed: 1.5, enableOscilacao: true, oscilacaoProf: 5,
+                enableDual: false, dualFreq: 4, enableVolumeOsc: true,
+                efOnda: true, efMandala: true, ef3D: false, efVolume: true, efBinaural: false, efParticulas: true,
+                color1: '#ff64c8', color2: '#ff9999', bgColor: '#0a0a1a',
+                shape: 'heart', label: '💖 Amor Universal'
             }
         };
 
@@ -1339,7 +1429,7 @@
         const FREQUENCIAS_LISTA = [
             174, 285, 396, 417, 528, 639, 741, 852, 963, 432,
             440, 444, 111, 222, 333, 384, 480, 555, 594, 666,
-            720, 777, 798, 888, 936, 999, 1000, 137.1, 256, 330, 420
+            720, 777, 798, 888, 890, 936, 999, 1000, 137.1, 240, 256, 330, 420
         ];
 
         // ============================================================
@@ -1762,7 +1852,7 @@
             if (!state.isPlaying) return;
 
             const now = performance.now() / 1000;
-            const periodo = state.periodoMs / 1000;
+            const periodo = Math.max(0.05, state.periodoMs / 1000);
             const fase = (now % periodo) / periodo;
             const vol = Math.sin(fase * Math.PI);
             const profundidade = Number($('volOscProf').value) / 100;
@@ -1810,6 +1900,74 @@
             state.gains = [];
             state.osc2 = null;
         }
+
+        // ============================================================
+        //  TECLADO VIRTUAL E EFEITOS DE ÁUDIO
+        // ============================================================
+        const keyboardNotes = [
+            ['C4',261.63,false,'a'], ['C#4',277.18,true,'w'], ['D4',293.66,false,'s'],
+            ['D#4',311.13,true,'e'], ['E4',329.63,false,'d'], ['F4',349.23,false,'f'],
+            ['F#4',369.99,true,'t'], ['G4',392.00,false,'g'], ['G#4',415.30,true,'y'],
+            ['A4',440.00,false,'h'], ['A#4',466.16,true,'u'], ['B4',493.88,false,'j']
+        ];
+        const keyboardVoices = new Map();
+        const keyboardKeys = $('keyboardKeys');
+        const keyboardEffect = $('keyboardEffect');
+
+        function createKeyboardVoice(freq) {
+            const ac = state.audioContext || new (window.AudioContext || window.webkitAudioContext)();
+            state.audioContext = ac;
+            const osc = ac.createOscillator();
+            const gain = ac.createGain();
+            const nodes = [osc, gain];
+            osc.type = $('waveformSelect').value || 'sine';
+            osc.frequency.value = freq;
+            gain.gain.setValueAtTime(0.0001, ac.currentTime);
+            gain.gain.exponentialRampToValueAtTime(Math.max(0.02, state.volumeBase * 0.35), ac.currentTime + 0.025);
+            osc.connect(gain);
+            const effect = keyboardEffect.value;
+            if (effect === 'echo') {
+                const delay = ac.createDelay(1), feedback = ac.createGain();
+                delay.delayTime.value = 0.24; feedback.gain.value = 0.32;
+                gain.connect(ac.destination); gain.connect(delay); delay.connect(feedback); feedback.connect(delay); delay.connect(ac.destination); nodes.push(delay, feedback);
+            } else if (effect === 'reverb') {
+                const delay = ac.createDelay(1), wet = ac.createGain();
+                delay.delayTime.value = 0.08; wet.gain.value = 0.35;
+                gain.connect(ac.destination); gain.connect(delay); delay.connect(wet); wet.connect(ac.destination); nodes.push(delay, wet);
+            } else if (effect === 'tremolo') {
+                const lfo = ac.createOscillator(), lfoGain = ac.createGain();
+                lfo.frequency.value = 5; lfoGain.gain.value = 0.22;
+                lfo.connect(lfoGain); lfoGain.connect(gain.gain); lfo.start(); gain.connect(ac.destination); nodes.push(lfo, lfoGain);
+            } else if (effect === 'chorus') {
+                const delay = ac.createDelay(1), lfo = ac.createOscillator(), depth = ac.createGain();
+                delay.delayTime.value = 0.025; lfo.frequency.value = 1.6; depth.gain.value = 0.012;
+                lfo.connect(depth); depth.connect(delay.delayTime); lfo.start(); gain.connect(ac.destination); gain.connect(delay); delay.connect(ac.destination); nodes.push(delay, lfo, depth);
+            } else {
+                gain.connect(ac.destination);
+            }
+            osc.start();
+            return { osc, gain, nodes, ac };
+        }
+        function startKeyboardNote(freq, button) {
+            const key = String(freq); if (keyboardVoices.has(key)) return;
+            if (!state.audioContext) state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            state.audioContext.resume?.(); keyboardVoices.set(key, createKeyboardVoice(freq)); button?.classList.add('active');
+        }
+        function stopKeyboardNote(freq, button) {
+            const key = String(freq), voice = keyboardVoices.get(key); if (!voice) return;
+            const now = voice.ac.currentTime; voice.gain.gain.cancelScheduledValues(now); voice.gain.gain.setTargetAtTime(0.0001, now, 0.04);
+            try { voice.osc.stop(now + 0.18); } catch (_) {} keyboardVoices.delete(key); button?.classList.remove('active');
+        }
+        keyboardNotes.forEach(([name, freq, black, keyName]) => {
+            const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'key-note' + (black ? ' black' : '');
+            btn.dataset.key = keyName; btn.dataset.freq = freq; btn.innerHTML = `${name}<small>${keyName.toUpperCase()}</small>`;
+            btn.addEventListener('pointerdown', e => { e.preventDefault(); startKeyboardNote(freq, btn); });
+            ['pointerup','pointercancel','pointerleave'].forEach(ev => btn.addEventListener(ev, () => stopKeyboardNote(freq, btn)));
+            keyboardKeys.appendChild(btn);
+        });
+        const physicalKeys = new Map(keyboardNotes.map(([,freq,,key]) => [key, freq]));
+        document.addEventListener('keydown', e => { const freq = physicalKeys.get(e.key.toLowerCase()); if (freq && !e.repeat) startKeyboardNote(freq, keyboardKeys.querySelector(`[data-key="${e.key.toLowerCase()}"]`)); });
+        document.addEventListener('keyup', e => { const freq = physicalKeys.get(e.key.toLowerCase()); if (freq) stopKeyboardNote(freq, keyboardKeys.querySelector(`[data-key="${e.key.toLowerCase()}"]`)); });
 
         // ============================================================
         //  CONFIGURAÇÃO
@@ -2342,7 +2500,7 @@
             const fase = (agora % periodo) / periodo;
             const vol = Math.sin(fase * Math.PI);
             const profundidade = Number($('volOscProf').value) / 100;
-            const pulso = $('enablePulse').checked ? (1 + vol * 0.5) : 1;
+            const pulso = $('enablePulse').checked ? (1 + vol * 0.5 * state.pulseAmount) : 1;
             tempo = agora;
 
             // Colors
