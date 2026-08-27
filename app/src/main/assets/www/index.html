@@ -342,6 +342,15 @@
         }
 
         /* Canvas */
+        .visual-preset-row {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 6px;
+            align-items: center;
+            margin: 8px 0 5px;
+        }
+        .visual-preset-row label { color: #aaa; font-size: 10px; }
+        .visual-preset-row select { padding: 6px 8px; font-size: 11px; }
         .particle-controls {
             margin-top: 8px;
             padding: 8px;
@@ -980,6 +989,15 @@
                             <label for="efParticulas">Partículas</label>
                         </div>
                     </div>
+                    <div class="visual-preset-row">
+                        <label>Preset visual</label>
+                        <select id="visualPresetSelect">
+                            <option value="custom">Personalizado</option>
+                            <option value="nebulosa">Nebulosa</option>
+                            <option value="galaxia">Galáxia</option>
+                            <option value="ciberespaco">Ciberespaço</option>
+                        </select>
+                    </div>
                     <div class="particle-controls" aria-label="Controles de partículas">
                         <div class="control-group">
                             <label>Raio <span class="val" id="particleRadiusValue">40%</span></label>
@@ -1017,6 +1035,14 @@
                         <div class="control-group">
                             <label>Velocidade <span class="val" id="particleSpeedValue">1.0×</span></label>
                             <input type="range" id="particleSpeed" min="0" max="3" step="0.1" value="1">
+                        </div>
+                        <div class="control-group">
+                            <label>Bloom / Glow <span class="val" id="particleBloomValue">1.0×</span></label>
+                            <input type="range" id="particleBloom" min="0" max="3" step="0.1" value="1">
+                        </div>
+                        <div class="control-group">
+                            <label>Rastros <span class="val" id="particleTrailsValue">25%</span></label>
+                            <input type="range" id="particleTrails" min="0" max="1" step="0.05" value="0.25">
                         </div>
                         <div class="particle-toggles">
                             <label><input type="checkbox" id="particleRotate" checked> Girar</label>
@@ -1289,12 +1315,16 @@
             osc2: null,
             time: 0,
             particles: [],
+            trailPoints: [],
             particleRadius: 40,
             particleCount: 30,
             particleSize: 1,
             particleBehavior: 'orbita',
             particleDirection: 'horario',
             particleSpeed: 1,
+            particleBloom: 1,
+            particleTrails: 0.25,
+            visualPreset: 'custom',
             particleRotate: true,
             particlePulse: true,
             particleExplode: false,
@@ -2054,6 +2084,74 @@
         document.addEventListener('keyup', e => { const freq = physicalKeys.get(e.key.toLowerCase()); if (freq) stopKeyboardNote(freq, keyboardKeys.querySelector(`[data-key="${e.key.toLowerCase()}"]`)); });
 
         // ============================================================
+        //  PRESETS VISUAIS PSICODÉLICOS
+        // ============================================================
+        const VISUAL_PRESETS = {
+            nebulosa: {
+                color1: '#8b5cf6', color2: '#ff4fd8', bgColor: '#070014', shape: 'flower',
+                radius: 58, count: 55, size: 1.35, behavior: 'roseta', direction: 'caotico', speed: 0.85,
+                bloom: 2.5, trails: 0.6, rotate: true, pulse: true, explode: true
+            },
+            galaxia: {
+                color1: '#2463ff', color2: '#ff55c8', bgColor: '#020611', shape: 'spiral',
+                radius: 66, count: 48, size: 1.05, behavior: 'vortice', direction: 'horario', speed: 1.45,
+                bloom: 2.0, trails: 0.8, rotate: true, pulse: true, explode: false
+            },
+            ciberespaco: {
+                color1: '#00f0ff', color2: '#ff2bd6', bgColor: '#020308', shape: 'hexagon',
+                radius: 48, count: 78, size: 0.72, behavior: 'duplo', direction: 'alternado', speed: 2.35,
+                bloom: 1.35, trails: 0.35, rotate: true, pulse: true, explode: true
+            }
+        };
+
+        function aplicarPresetVisual(nome) {
+            const preset = VISUAL_PRESETS[nome];
+            if (!preset) return;
+            state.color1 = preset.color1;
+            state.color2 = preset.color2;
+            state.bgColor = preset.bgColor;
+            state.shape = preset.shape;
+            color1Input.value = preset.color1;
+            color2Input.value = preset.color2;
+            bgInput.value = preset.bgColor;
+            document.body.style.background = preset.bgColor;
+            $('particleRadius').value = preset.radius;
+            $('particleCount').value = preset.count;
+            $('particleSize').value = preset.size;
+            $('particleBehavior').value = preset.behavior;
+            $('particleDirection').value = preset.direction;
+            $('particleSpeed').value = preset.speed;
+            $('particleBloom').value = preset.bloom;
+            $('particleTrails').value = preset.trails;
+            $('particleRotate').checked = preset.rotate;
+            $('particlePulse').checked = preset.pulse;
+            $('particleExplode').checked = preset.explode;
+            $('efParticulas').checked = true;
+            $('efVolume').checked = true;
+            $('efMandala').checked = true;
+            $('visualPresetSelect').value = nome;
+            state.particleRadius = preset.radius;
+            state.particleCount = preset.count;
+            state.particleSize = preset.size;
+            state.particleBehavior = preset.behavior;
+            state.particleDirection = preset.direction;
+            state.particleSpeed = preset.speed;
+            state.particleBloom = preset.bloom;
+            state.particleTrails = preset.trails;
+            state.visualPreset = nome;
+            state.particleRotate = preset.rotate;
+            state.particlePulse = preset.pulse;
+            state.particleExplode = preset.explode;
+            shapeBtns.forEach(b => b.classList.toggle('active', b.dataset.shape === preset.shape));
+            document.querySelectorAll('.efeitos-grid input[type="checkbox"]').forEach(cb => {
+                const lbl = cb.closest('.checkbox-group')?.querySelector('label');
+                if (lbl) lbl.style.color = cb.checked ? '#6C63FF' : '#888';
+            });
+            atualizarLabels();
+            salvarConfig();
+        }
+
+        // ============================================================
         //  CONFIGURAÇÃO
         // ============================================================
         function salvarConfig() {
@@ -2075,6 +2173,9 @@
                 particleBehavior: $('particleBehavior').value,
                 particleDirection: $('particleDirection').value,
                 particleSpeed: Number($('particleSpeed').value),
+                particleBloom: Number($('particleBloom').value),
+                particleTrails: Number($('particleTrails').value),
+                visualPreset: $('visualPresetSelect').value,
                 particleRotate: $('particleRotate').checked,
                 particlePulse: $('particlePulse').checked,
                 particleExplode: $('particleExplode').checked
@@ -2107,6 +2208,9 @@
                 $('particleBehavior').value = cfg.particleBehavior || state.particleBehavior;
                 $('particleDirection').value = cfg.particleDirection || state.particleDirection;
                 $('particleSpeed').value = cfg.particleSpeed ?? state.particleSpeed;
+                $('particleBloom').value = cfg.particleBloom ?? state.particleBloom;
+                $('particleTrails').value = cfg.particleTrails ?? state.particleTrails;
+                $('visualPresetSelect').value = cfg.visualPreset || state.visualPreset;
                 $('particleRotate').checked = cfg.particleRotate ?? state.particleRotate;
                 $('particlePulse').checked = cfg.particlePulse ?? state.particlePulse;
                 $('particleExplode').checked = cfg.particleExplode ?? state.particleExplode;
@@ -2116,6 +2220,9 @@
                 state.particleBehavior = $('particleBehavior').value;
                 state.particleDirection = $('particleDirection').value;
                 state.particleSpeed = Number($('particleSpeed').value);
+                state.particleBloom = Number($('particleBloom').value);
+                state.particleTrails = Number($('particleTrails').value);
+                state.visualPreset = $('visualPresetSelect').value;
                 state.particleRotate = $('particleRotate').checked;
                 state.particlePulse = $('particlePulse').checked;
                 state.particleExplode = $('particleExplode').checked;
@@ -2132,6 +2239,8 @@
             $('particleCountValue').textContent = $('particleCount').value;
             $('particleSizeValue').textContent = Number($('particleSize').value).toFixed(1) + '×';
             $('particleSpeedValue').textContent = Number($('particleSpeed').value).toFixed(1) + '×';
+            $('particleBloomValue').textContent = Number($('particleBloom').value).toFixed(1) + '×';
+            $('particleTrailsValue').textContent = Math.round(Number($('particleTrails').value) * 100) + '%';
             $('colorInfo').innerHTML = `<span style="display:inline-block;width:12px;height:12px;background:${state.color1};border-radius:50%;margin-right:4px;"></span>${state.color1}`;
         }
 
@@ -2560,12 +2669,30 @@
         $('particleSpeed').addEventListener('input', function() {
             state.particleSpeed = Number(this.value);
             atualizarLabels();
+            $('visualPresetSelect').value = 'custom';
+            state.visualPreset = 'custom';
             presetSelect.value = 'personalizado';
             salvarConfig();
+        });
+        ['particleBloom', 'particleTrails'].forEach(id => {
+            $(id).addEventListener('input', function() {
+                state[id] = Number(this.value);
+                atualizarLabels();
+                $('visualPresetSelect').value = 'custom';
+                state.visualPreset = 'custom';
+                presetSelect.value = 'personalizado';
+                salvarConfig();
+            });
+        });
+        $('visualPresetSelect').addEventListener('change', function() {
+            if (this.value !== 'custom') aplicarPresetVisual(this.value);
+            else { state.visualPreset = 'custom'; salvarConfig(); }
         });
         ['particleRotate', 'particlePulse', 'particleExplode'].forEach(id => {
             $(id).addEventListener('change', function() {
                 state[id] = this.checked;
+                $('visualPresetSelect').value = 'custom';
+                state.visualPreset = 'custom';
                 presetSelect.value = 'personalizado';
                 salvarConfig();
             });
@@ -2640,6 +2767,8 @@
             const velocidadeControle = Number($('particleSpeed').value) || 0;
             const girar = $('particleRotate').checked;
             const pulsar = $('particlePulse').checked;
+            const bloom = Number($('particleBloom').value) || 0;
+            const trails = Number($('particleTrails').value) || 0;
             const quantidade = Math.min(160, quantidadeBase + Math.floor(vol * quantidadeBase));
             const raioConfigurado = raioPart * raioControle;
             const pulsoParticula = pulsar ? pulso : 1;
@@ -2682,14 +2811,32 @@
                 const y = cy + Math.sin(ang) * distancia;
                 const tamanho = (2 + pulsoParticula * 6 + volumeParticula * 4) * tamanhoControle;
                 const corParticula = i % 2 === 0 ? color1 : color2;
-
+                const anterior = state.trailPoints[i];
+                if (trails > 0 && anterior) {
+                    ctx.beginPath();
+                    ctx.moveTo(anterior.x, anterior.y);
+                    ctx.lineTo(x, y);
+                    ctx.strokeStyle = corParticula;
+                    ctx.lineWidth = Math.max(0.6, tamanho * (0.3 + trails * 0.7));
+                    ctx.globalAlpha = Math.min(0.75, trails * (0.35 + volumeParticula * 0.65));
+                    ctx.shadowColor = corParticula;
+                    ctx.shadowBlur = 8 + bloom * 10;
+                    ctx.stroke();
+                }
+                state.trailPoints[i] = { x, y };
+                ctx.beginPath();
+                ctx.arc(x, y, tamanho * (1.6 + bloom * 0.65), 0, Math.PI * 2);
+                ctx.fillStyle = corParticula;
+                ctx.globalAlpha = Math.min(0.32, 0.08 + bloom * 0.08);
+                ctx.shadowColor = corParticula;
+                ctx.shadowBlur = 18 + bloom * 28;
+                ctx.fill();
                 ctx.beginPath();
                 ctx.arc(x, y, tamanho, 0, Math.PI * 2);
                 ctx.fillStyle = corParticula;
                 ctx.globalAlpha = Math.min(1, 0.4 + pulsoParticula * 0.4 + volumeParticula * 0.2);
-                ctx.fill();
                 ctx.shadowColor = corParticula;
-                ctx.shadowBlur = 15;
+                ctx.shadowBlur = 8 + bloom * 16;
                 ctx.fill();
                 ctx.shadowBlur = 0;
                 ctx.globalAlpha = 1;
@@ -2703,6 +2850,8 @@
             state.explosionLastFrame = now;
             const quantidadeBase = Number($('particleCount').value) || 30;
             const tamanhoControle = Number($('particleSize').value) || 1;
+            const bloom = Number($('particleBloom').value) || 0;
+            const trails = Number($('particleTrails').value) || 0;
             const pulsoParticula = $('particlePulse').checked ? pulso : 1;
             const volumeParticula = $('efVolume').checked ? vol : 0;
             const intervalo = Math.max(90, 420 - volumeParticula * 260);
@@ -2712,7 +2861,7 @@
                     const ang = Math.random() * Math.PI * 2;
                     const velocidade = (90 + Math.random() * (130 + volumeParticula * 180)) * Math.max(0.15, Number($('particleSpeed').value) || 1);
                     state.explosionParticles.push({
-                        x: cx, y: cy,
+                        x: cx, y: cy, prevX: cx, prevY: cy,
                         vx: Math.cos(ang) * velocidade,
                         vy: Math.sin(ang) * velocidade,
                         size: (1.5 + Math.random() * 4 + pulsoParticula * 2 + volumeParticula * 3) * tamanhoControle,
@@ -2725,6 +2874,8 @@
             }
             for (let i = state.explosionParticles.length - 1; i >= 0; i--) {
                 const p = state.explosionParticles[i];
+                p.prevX = p.x;
+                p.prevY = p.y;
                 p.x += p.vx * delta;
                 p.y += p.vy * delta;
                 p.life -= p.decay * delta;
@@ -2732,12 +2883,30 @@
                     state.explosionParticles.splice(i, 1);
                     continue;
                 }
+                if (trails > 0) {
+                    ctx.beginPath();
+                    ctx.moveTo(p.prevX, p.prevY);
+                    ctx.lineTo(p.x, p.y);
+                    ctx.strokeStyle = p.color;
+                    ctx.lineWidth = Math.max(0.7, p.size * trails);
+                    ctx.globalAlpha = Math.min(0.8, p.life * trails);
+                    ctx.shadowColor = p.color;
+                    ctx.shadowBlur = 10 + bloom * 18;
+                    ctx.stroke();
+                }
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size * (1.5 + bloom * 0.5), 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = Math.min(0.3, p.life * (0.08 + bloom * 0.08));
+                ctx.shadowColor = p.color;
+                ctx.shadowBlur = 18 + bloom * 24;
+                ctx.fill();
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.size * (0.65 + p.life * 0.35), 0, Math.PI * 2);
                 ctx.fillStyle = p.color;
                 ctx.globalAlpha = Math.min(1, p.life * (0.55 + volumeParticula * 0.45));
                 ctx.shadowColor = p.color;
-                ctx.shadowBlur = 14 + volumeParticula * 12;
+                ctx.shadowBlur = 8 + bloom * 14;
                 ctx.fill();
             }
             ctx.shadowBlur = 0;
@@ -3042,6 +3211,7 @@
             } else {
                 state.explosionParticles.length = 0;
             }
+            if (!$('efParticulas').checked || Number($('particleTrails').value) <= 0) state.trailPoints.length = 0;
             state.particles.length = 0;
 
             // Info
