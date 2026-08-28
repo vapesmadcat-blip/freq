@@ -20,22 +20,6 @@
             align-items: center;
             padding: 15px;
         }
-        .version-badge {
-            position: fixed;
-            right: 14px;
-            bottom: 12px;
-            z-index: 50;
-            padding: 4px 8px;
-            border: 1px solid rgba(255,255,255,.12);
-            border-radius: 999px;
-            background: rgba(8, 7, 24, .72);
-            color: rgba(255,255,255,.58);
-            box-shadow: 0 0 12px rgba(108,99,255,.16);
-            font-size: 10px;
-            letter-spacing: .7px;
-            pointer-events: none;
-            user-select: none;
-        }
         .container {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 25px;
@@ -64,8 +48,9 @@
         }
         .main-grid {
             display: grid;
-            grid-template-columns: 1fr 2.2fr;
+            grid-template-columns: minmax(340px, 0.88fr) minmax(0, 1.72fr);
             gap: 18px;
+            align-items: start;
         }
         @media (max-width: 920px) {
             .main-grid {
@@ -95,6 +80,24 @@
                 grid-template-columns: 1fr;
             }
         }
+        .audio-config {
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .audio-config > .panel-title {
+            margin-top: 0 !important;
+            color: #a9a3ff;
+        }
+        .audio-config .keyboard-panel {
+            margin-top: 14px;
+        }
+        .visual-control-card .animation-controls {
+            margin-top: 0;
+            padding-top: 0;
+            border-top: 0;
+        }
+
         .panel {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 16px;
@@ -871,7 +874,6 @@
 </style>
 </head>
 <body>
-    <div class="version-badge" aria-label="Versão 2.0">Versão 2.0</div>
     <div class="container">
         <h1>🎵 VOLUME <span>OSCILANTE</span> + FORMAS</h1>
         <p class="sub">Gerador de Frequências Bioenergéticas</p>
@@ -927,153 +929,8 @@
                 <div class="display-desc" id="freqDesc">Cura e Harmonia</div>
                 <div class="freq-list" id="freqList"></div>
 
-            </div>
-
-            <!-- PAINEL DIREITO -->
-            <div class="panel">
-                <!-- Canvas -->
-                <canvas id="canvas"></canvas>
-
-                <div class="visual-controls" aria-label="Controles visuais da imagem">
-                    <div class="visual-control-card">
-                <!-- FORMAS -->
-                <div class="panel-title" style="margin-top: 16px;">🔷 Forma Visual</div>
-                <div class="shape-grid" id="shapeGrid"></div>
-
-                <!-- CORES -->
-                <div class="panel-title" style="margin-top: 16px;">🎨 Cores</div>
-                <div class="color-group">
-                    <label>Primária</label>
-                    <input type="color" id="color1Input" value="#6C63FF">
-                </div>
-                <div class="color-group">
-                    <label>Secundária</label>
-                    <input type="color" id="color2Input" value="#ff64c8">
-                </div>
-                <div class="color-group">
-                    <label>Fundo</label>
-                    <input type="color" id="bgInput" value="#0a0a1a">
-                </div>
-
-                <!-- ANIMATION CONTROLS (ADDED) -->
-                <div class="animation-controls">
-                    <div class="panel-title">✨ Animação</div>
-                    <div class="control-group">
-                        <label>Rotação <span class="val" id="rotationVal">1.0</span></label>
-                        <input type="range" id="rotationSpeed" min="0" max="5" step="0.1" value="1">
-                    </div>
-                    <div class="control-group">
-                        <label>Pulsação <span class="val" id="pulseAmountVal">1.00</span></label>
-                        <input type="range" id="pulseAmount" min="0" max="2" step="0.1" value="1">
-                    </div>
-                    <div class="control-group">
-                        <label>Tamanho <span class="val" id="sizeVal">1.00</span></label>
-                        <input type="range" id="sizeScale" min="0.5" max="2" step="0.1" value="1">
-                    </div>
-                    <div class="control-group">
-                        <label>Brilho <span class="val" id="glowVal">1.00</span></label>
-                        <input type="range" id="glowIntensity" min="0.5" max="2" step="0.1" value="1">
-                    </div>
-                </div>
-                    </div>
-                    <div class="visual-control-card">
-                <!-- EFEITOS VISUAIS -->
-                <div style="margin-top: 12px;">
-                    <div class="panel-title">✨ Efeitos Visuais</div>
-                    <div class="efeitos-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="efOnda" checked>
-                            <label for="efOnda">Onda</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="efMandala" checked>
-                            <label for="efMandala">Mandala</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="ef3D" checked>
-                            <label for="ef3D">3D</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="efVolume" checked>
-                            <label for="efVolume">Volume</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="efBinaural">
-                            <label for="efBinaural">Binaural</label>
-                        </div>
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="efParticulas">
-                            <label for="efParticulas">Partículas</label>
-                        </div>
-                    </div>
-                    <div class="visual-preset-row">
-                        <label>Preset visual</label>
-                        <select id="visualPresetSelect">
-                            <option value="custom">Personalizado</option>
-                            <option value="nebulosa">Nebulosa</option>
-                            <option value="galaxia">Galáxia</option>
-                            <option value="ciberespaco">Ciberespaço</option>
-                        </select>
-                    </div>
-                    <div class="particle-controls" aria-label="Controles de partículas">
-                        <div class="control-group">
-                            <label>Raio <span class="val" id="particleRadiusValue">40%</span></label>
-                            <input type="range" id="particleRadius" min="15" max="80" step="1" value="40">
-                        </div>
-                        <div class="control-group">
-                            <label>Quantidade <span class="val" id="particleCountValue">30</span></label>
-                            <input type="range" id="particleCount" min="5" max="100" step="1" value="30">
-                        </div>
-                        <div class="control-group">
-                            <label>Tamanho <span class="val" id="particleSizeValue">1.0×</span></label>
-                            <input type="range" id="particleSize" min="0.3" max="2.5" step="0.1" value="1">
-                        </div>
-                        <div class="control-group">
-                            <label>Comportamento</label>
-                            <select id="particleBehavior">
-                                <option value="orbita">Órbita Mara</option>
-                                <option value="expansao">Expansão no volume</option>
-                                <option value="flutuacao">Flutuação suave</option>
-                                <option value="explosao">Explosão pulsante</option>
-                                <option value="roseta">Roseta viva</option>
-                                <option value="vortice">Vórtice</option>
-                                <option value="duplo">Duplo fluxo</option>
-                            </select>
-                        </div>
-                        <div class="control-group">
-                            <label>Sentido</label>
-                            <select id="particleDirection">
-                                <option value="horario">Horário</option>
-                                <option value="antihorario">Anti-horário</option>
-                                <option value="alternado">Alternado</option>
-                                <option value="caotico">Caótico</option>
-                            </select>
-                        </div>
-                        <div class="control-group">
-                            <label>Velocidade <span class="val" id="particleSpeedValue">1.0×</span></label>
-                            <input type="range" id="particleSpeed" min="0" max="3" step="0.1" value="1">
-                        </div>
-                        <div class="control-group">
-                            <label>Bloom / Glow <span class="val" id="particleBloomValue">1.0×</span></label>
-                            <input type="range" id="particleBloom" min="0" max="3" step="0.1" value="1">
-                        </div>
-                        <div class="control-group">
-                            <label>Rastros <span class="val" id="particleTrailsValue">25%</span></label>
-                            <input type="range" id="particleTrails" min="0" max="1" step="0.05" value="0.25">
-                        </div>
-                        <div class="particle-toggles">
-                            <label><input type="checkbox" id="particleRotate" checked> Girar</label>
-                            <label><input type="checkbox" id="particlePulse" checked> Pulsar</label>
-                            <label><input type="checkbox" id="particleExplode"> Explodir</label>
-                        </div>
-                    </div>
-                </div>
-
-                    </div>
-                </div>
-
-
-
+                <div class="audio-config" aria-label="Configuração de áudio">
+                    <div class="panel-title">🎚️ CFG de Áudio</div>
                 <!-- CONTROLES DE VOLUME E AUDIO -->
                 <div style="margin-top: 12px;">
                     <div class="panel-title">🎚️ Volume</div>
@@ -1190,6 +1047,157 @@
                     <button id="btnStop">⏹ STOP</button>
                     <button id="btnShots">📸 SHOTS</button>
                 </div>
+
+                </div>
+
+            </div>
+
+            <!-- PAINEL DIREITO -->
+            <div class="panel">
+                <!-- Canvas -->
+                <canvas id="canvas"></canvas>
+
+                <div class="visual-controls" aria-label="Controles visuais da imagem">
+                    <div class="visual-control-card">
+                <!-- FORMAS -->
+                <div class="panel-title" style="margin-top: 16px;">🔷 Forma Visual</div>
+                <div class="shape-grid" id="shapeGrid"></div>
+
+                <!-- CORES -->
+                <div class="panel-title" style="margin-top: 16px;">🎨 Cores</div>
+                <div class="color-group">
+                    <label>Primária</label>
+                    <input type="color" id="color1Input" value="#6C63FF">
+                </div>
+                <div class="color-group">
+                    <label>Secundária</label>
+                    <input type="color" id="color2Input" value="#ff64c8">
+                </div>
+                <div class="color-group">
+                    <label>Fundo</label>
+                    <input type="color" id="bgInput" value="#0a0a1a">
+                </div>
+
+
+                    </div>
+                    <div class="visual-control-card">
+                <!-- ANIMATION CONTROLS (ADDED) -->
+                <div class="animation-controls">
+                    <div class="panel-title">✨ Animação</div>
+                    <div class="control-group">
+                        <label>Rotação <span class="val" id="rotationVal">1.0</span></label>
+                        <input type="range" id="rotationSpeed" min="0" max="5" step="0.1" value="1">
+                    </div>
+                    <div class="control-group">
+                        <label>Pulsação <span class="val" id="pulseAmountVal">1.00</span></label>
+                        <input type="range" id="pulseAmount" min="0" max="2" step="0.1" value="1">
+                    </div>
+                    <div class="control-group">
+                        <label>Tamanho <span class="val" id="sizeVal">1.00</span></label>
+                        <input type="range" id="sizeScale" min="0.5" max="2" step="0.1" value="1">
+                    </div>
+                    <div class="control-group">
+                        <label>Brilho <span class="val" id="glowVal">1.00</span></label>
+                        <input type="range" id="glowIntensity" min="0.5" max="2" step="0.1" value="1">
+                    </div>
+                </div>
+
+                <!-- EFEITOS VISUAIS -->
+                <div style="margin-top: 12px;">
+                    <div class="panel-title">✨ Efeitos Visuais</div>
+                    <div class="efeitos-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="efOnda" checked>
+                            <label for="efOnda">Onda</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="efMandala" checked>
+                            <label for="efMandala">Mandala</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="ef3D" checked>
+                            <label for="ef3D">3D</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="efVolume" checked>
+                            <label for="efVolume">Volume</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="efBinaural">
+                            <label for="efBinaural">Binaural</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="efParticulas">
+                            <label for="efParticulas">Partículas</label>
+                        </div>
+                    </div>
+                    <div class="visual-preset-row">
+                        <label>Preset visual</label>
+                        <select id="visualPresetSelect">
+                            <option value="custom">Personalizado</option>
+                            <option value="nebulosa">Nebulosa</option>
+                            <option value="galaxia">Galáxia</option>
+                            <option value="ciberespaco">Ciberespaço</option>
+                        </select>
+                    </div>
+                    <div class="particle-controls" aria-label="Controles de partículas">
+                        <div class="control-group">
+                            <label>Raio <span class="val" id="particleRadiusValue">40%</span></label>
+                            <input type="range" id="particleRadius" min="15" max="80" step="1" value="40">
+                        </div>
+                        <div class="control-group">
+                            <label>Quantidade <span class="val" id="particleCountValue">30</span></label>
+                            <input type="range" id="particleCount" min="5" max="100" step="1" value="30">
+                        </div>
+                        <div class="control-group">
+                            <label>Tamanho <span class="val" id="particleSizeValue">1.0×</span></label>
+                            <input type="range" id="particleSize" min="0.3" max="2.5" step="0.1" value="1">
+                        </div>
+                        <div class="control-group">
+                            <label>Comportamento</label>
+                            <select id="particleBehavior">
+                                <option value="orbita">Órbita Mara</option>
+                                <option value="expansao">Expansão no volume</option>
+                                <option value="flutuacao">Flutuação suave</option>
+                                <option value="explosao">Explosão pulsante</option>
+                                <option value="roseta">Roseta viva</option>
+                                <option value="vortice">Vórtice</option>
+                                <option value="duplo">Duplo fluxo</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label>Sentido</label>
+                            <select id="particleDirection">
+                                <option value="horario">Horário</option>
+                                <option value="antihorario">Anti-horário</option>
+                                <option value="alternado">Alternado</option>
+                                <option value="caotico">Caótico</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label>Velocidade <span class="val" id="particleSpeedValue">1.0×</span></label>
+                            <input type="range" id="particleSpeed" min="0" max="3" step="0.1" value="1">
+                        </div>
+                        <div class="control-group">
+                            <label>Bloom / Glow <span class="val" id="particleBloomValue">1.0×</span></label>
+                            <input type="range" id="particleBloom" min="0" max="3" step="0.1" value="1">
+                        </div>
+                        <div class="control-group">
+                            <label>Rastros <span class="val" id="particleTrailsValue">25%</span></label>
+                            <input type="range" id="particleTrails" min="0" max="1" step="0.05" value="0.25">
+                        </div>
+                        <div class="particle-toggles">
+                            <label><input type="checkbox" id="particleRotate" checked> Girar</label>
+                            <label><input type="checkbox" id="particlePulse" checked> Pulsar</label>
+                            <label><input type="checkbox" id="particleExplode"> Explodir</label>
+                        </div>
+                    </div>
+                </div>
+
+                    </div>
+                </div>
+
+
 
                 <!-- INFO BADGES -->
                 <div class="info-row">
@@ -2210,10 +2218,15 @@
                 state.bgColor = cfg.bgColor || '#0a0a1a';
                 state.shape = cfg.shape || 'circle';
                 state.currentEmotion = cfg.emotion || 'calmo';
-                state.rotationSpeed = cfg.rotationSpeed || 1;
-                state.pulseAmount = cfg.pulseAmount || 1;
-                state.sizeScale = cfg.sizeScale || 1;
-                state.glowIntensity = cfg.glowIntensity || 1;
+                state.rotationSpeed = cfg.rotationSpeed ?? state.rotationSpeed;
+                state.pulseAmount = cfg.pulseAmount ?? state.pulseAmount;
+                state.sizeScale = cfg.sizeScale ?? state.sizeScale;
+                state.glowIntensity = cfg.glowIntensity ?? state.glowIntensity;
+
+                $('rotationSpeed').value = state.rotationSpeed;
+                $('pulseAmount').value = state.pulseAmount;
+                $('sizeScale').value = state.sizeScale;
+                $('glowIntensity').value = state.glowIntensity;
 
                 color1Input.value = state.color1;
                 color2Input.value = state.color2;
@@ -2675,11 +2688,15 @@
         });
         $('particleBehavior').addEventListener('change', function() {
             state.particleBehavior = this.value;
+            $('visualPresetSelect').value = 'custom';
+            state.visualPreset = 'custom';
             presetSelect.value = 'personalizado';
             salvarConfig();
         });
         $('particleDirection').addEventListener('change', function() {
             state.particleDirection = this.value;
+            $('visualPresetSelect').value = 'custom';
+            state.visualPreset = 'custom';
             presetSelect.value = 'personalizado';
             salvarConfig();
         });
@@ -2779,17 +2796,17 @@
             const raioControle = Number($('particleRadius').value) / 40;
             const quantidadeBase = Number($('particleCount').value) || 30;
             const tamanhoControle = Number($('particleSize').value) || 1;
-            const comportamento = $('particleBehavior').value || 'orbita';
-            const direcao = $('particleDirection').value || 'horario';
-            const velocidadeControle = Number($('particleSpeed').value) || 0;
-            const girar = $('particleRotate').checked;
-            const pulsar = $('particlePulse').checked;
-            const bloom = Number($('particleBloom').value) || 0;
+            const comportamento = state.particleBehavior || $('particleBehavior').value || 'orbita';
+            const direcao = state.particleDirection || $('particleDirection').value || 'horario';
+            const velocidadeControle = Number(state.particleSpeed ?? $('particleSpeed').value) || 0;
+            const girar = state.particleRotate;
+            const pulsar = state.particlePulse;
+            const bloom = Number(state.particleBloom ?? $('particleBloom').value) || 0;
             const trails = Number($('particleTrails').value) || 0;
-            const quantidade = Math.min(160, quantidadeBase + Math.floor(vol * quantidadeBase));
+            const quantidade = Math.min(160, quantidadeBase + (pulsar ? Math.floor(vol * quantidadeBase) : 0));
             const raioConfigurado = raioPart * raioControle;
             const pulsoParticula = pulsar ? pulso : 1;
-            const volumeParticula = reageVolume ? vol : 0;
+            const volumeParticula = reageVolume && pulsar ? vol : 0;
             for (let i = 0; i < quantidade; i++) {
                 let velocidadeAngular = 0.2 + i * 0.01;
                 let oscilacao = pulsar ? Math.sin(tempo * 1.5 + i) * 15 * pulsoParticula : 0;
@@ -2797,13 +2814,14 @@
                 let sentido = direcao === 'antihorario' ? -1 : 1;
                 if (direcao === 'alternado') sentido = i % 2 === 0 ? 1 : -1;
                 if (direcao === 'caotico') sentido = Math.sin(i * 12.9898) >= 0 ? 1 : -1;
+                const sentidoGlobal = direcao === 'antihorario' ? -1 : 1;
                 if (comportamento === 'expansao') {
                     velocidadeAngular = 0.12 + i * 0.004;
                     oscilacao = pulsar ? Math.sin(tempo * 1.1 + i) * 8 * pulsoParticula : 0;
                     expansaoVolume += volumeParticula * 40;
                 } else if (comportamento === 'flutuacao') {
                     velocidadeAngular = 0.06 + i * 0.002;
-                    oscilacao = Math.sin(tempo * 1.7 + i * 1.7) * 24 * pulsoParticula;
+                    oscilacao = pulsar ? Math.sin(tempo * 1.7 + i * 1.7) * 24 * pulsoParticula : 0;
                 } else if (comportamento === 'explosao') {
                     velocidadeAngular = 0.35 + i * 0.014;
                     oscilacao = pulsar ? Math.sin(tempo * 2.5 + i) * 10 * pulsoParticula : 0;
@@ -2811,18 +2829,18 @@
                 } else if (comportamento === 'roseta') {
                     velocidadeAngular = 0.16 + i * 0.003;
                     oscilacao = pulsar ? Math.sin(tempo * 0.9 + i * 0.7) * 22 * pulsoParticula : 0;
-                    expansaoVolume += Math.sin(tempo * 0.55 + i * 0.45) * 10;
+                    expansaoVolume += pulsar ? Math.sin(tempo * 0.55 + i * 0.45) * 10 : 0;
                 } else if (comportamento === 'vortice') {
                     velocidadeAngular = 0.5 + i * 0.018;
                     oscilacao = pulsar ? Math.sin(tempo * 1.3 + i) * 7 * pulsoParticula : 0;
                     expansaoVolume += (i / quantidade) * 32 + (pulsar ? Math.sin(tempo * 0.7) * 8 : 0);
                 } else if (comportamento === 'duplo') {
                     velocidadeAngular = 0.24 + i * 0.008;
-                    sentido = i % 2 === 0 ? 1 : -1;
+                    sentido = (i % 2 === 0 ? 1 : -1) * sentidoGlobal;
                     oscilacao = pulsar ? Math.sin(tempo * 1.2 + i) * 13 * pulsoParticula : 0;
                 }
                 const rotacao = girar ? tempo * velocidadeAngular * velocidadeControle * sentido : 0;
-                const ang = (i / quantidade) * Math.PI * 2 + rotacao + (comportamento === 'roseta' ? Math.sin(tempo * 0.8 + i) * 0.08 : 0);
+                const ang = (i / quantidade) * Math.PI * 2 + rotacao + (comportamento === 'roseta' && pulsar ? Math.sin(tempo * 0.8 + i) * 0.08 : 0);
                 const distancia = raioConfigurado * (0.7 + (pulsar ? pulso * 0.3 : 0.15)) + oscilacao + expansaoVolume;
                 const x = cx + Math.cos(ang) * distancia;
                 const y = cy + Math.sin(ang) * distancia;
@@ -2870,7 +2888,7 @@
             const bloom = Number($('particleBloom').value) || 0;
             const trails = Number($('particleTrails').value) || 0;
             const pulsoParticula = $('particlePulse').checked ? pulso : 1;
-            const volumeParticula = $('efVolume').checked ? vol : 0;
+            const volumeParticula = $('efVolume').checked && $('particlePulse').checked ? vol : 0;
             const intervalo = Math.max(90, 420 - volumeParticula * 260);
             if (now - state.explosionLastTime >= intervalo) {
                 const rajada = Math.max(3, Math.floor(quantidadeBase * (0.12 + volumeParticula * 0.12)));
@@ -3046,13 +3064,14 @@
             const vol = Math.max(0, Math.min(1, 0.5 + 0.5 * volOsc));
             const reageVolume = $('efVolume').checked;
             const profundidade = Number($('volOscProf').value) / 100;
-            const pulso = $('enablePulse').checked ? (1 + vol * 0.5 * state.pulseAmount) : 1;
+            const pulsoAtivo = $('enablePulse').checked && state.pulseAmount > 0;
+            const pulso = pulsoAtivo ? (1 + vol * 0.5 * state.pulseAmount) : 1;
             tempo = agora;
 
             // Colors
             const color1 = state.color1;
             const corComp = state.color2;
-            const corClara = estado => {
+            const corClara = () => {
                 const h = parseInt(color1.slice(1), 16);
                 const r = (h >> 16) & 0xFF;
                 const g = (h >> 8) & 0xFF;
@@ -3095,7 +3114,7 @@
                 }
             }
 
-            const maraPulse = Math.max(0, vol) * state.pulseAmount;
+            const maraPulse = pulsoAtivo ? Math.max(0, vol) * state.pulseAmount : 0;
             const maraSize = raioBase * (0.90 + maraPulse * 0.08);
             drawMaraContour(ctx, cx, cy, maraSize * 1.28, tempo, maraPulse, color1, corComp, state.glowIntensity);
             drawMaraLayers(ctx, shape, cx, cy, maraSize, tempo * state.rotationSpeed, maraPulse, state.glowIntensity, color1, corComp);
