@@ -1,0 +1,70 @@
+name: Build Desbloqueio Estudos APK
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "desbloqueio-estudos/**"
+      - ".github/workflows/build-desbloqueio-estudos.yml"
+    tags:
+      - "desbloqueio-v*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Compilar APK do Desbloqueio Estudos
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: desbloqueio-estudos
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.12.0
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: desbloqueio-estudos/pnpm-lock.yaml
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Configurar Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Instalar dependências
+        run: pnpm install --frozen-lockfile
+
+      - name: Gerar projeto Android nativo
+        run: npx expo prebuild --platform android --no-install --non-interactive
+
+      - name: Compilar APK release
+        working-directory: desbloqueio-estudos/android
+        run: ./gradlew assembleRelease --no-daemon --stacktrace
+
+      - name: Publicar APK como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: desbloqueio-estudos-apk
+          path: desbloqueio-estudos/android/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Criar Release para tags do app
+        if: startsWith(github.ref, 'refs/tags/desbloqueio-v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: desbloqueio-estudos/android/app/build/outputs/apk/release/*.apk
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

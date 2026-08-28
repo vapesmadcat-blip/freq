@@ -20,7 +20,9 @@ pnpm test
 
 ## Gerar o APK
 
-No ambiente Manus, use o botão **Publish** do painel WebDev para iniciar a geração do APK. O app está configurado em portrait, com identidade visual própria e assets de launcher em `assets/images/`.
+O workflow `.github/workflows/build-desbloqueio-estudos.yml` prepara o projeto Expo, gera o Android nativo e publica o APK release como artefato. Para iniciar manualmente, abra a aba **Actions**, selecione **Build Desbloqueio Estudos APK** e clique em **Run workflow**. Para criar uma Release automaticamente, envie uma tag no formato `desbloqueio-v1.0.0`; o APK será anexado à Release. O app está configurado em portrait, com identidade visual própria e assets de launcher em `assets/images/`.
+
+No ambiente Manus, o botão **Publish** também pode iniciar a geração do APK a partir do checkpoint do projeto.
 
 ## Estrutura
 
